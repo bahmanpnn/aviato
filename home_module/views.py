@@ -12,3 +12,6 @@ def header_component(request):
 
 def slider_component(request):
     return render(request,'home_module/slider_component.html')
+
+def footer_component(request):
+    return render(request,'footer_component.html')
