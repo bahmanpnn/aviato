@@ -13,6 +13,9 @@
 <body id="body">
     {% render_partial 'home_module.views.header_component'%}
     {% render_partial 'home_module.views.navbar_component'%}
+
+    {% include "includes/messages.html" %}
+    
     {% block content %}
     
     {% endblock content %}

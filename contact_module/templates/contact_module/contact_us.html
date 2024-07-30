@@ -1,5 +1,11 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block title %}contact us{% endblock title %}
+{% comment %} {% block header_references %}
+    <link rel="stylesheet" href="/static/contact_us.css">
+{% endblock header_references %} {% endcomment %}
+
 
 {% block content %}
     <section class="page-wrapper">
@@ -8,23 +14,16 @@
                 <div class="row">
                     <!-- Contact Form -->
                     <div class="contact-form col-md-6 " >
-                        <form id="contact-form" method="post" action="" role="form">
-                        
-                            <div class="form-group">
-                                <input type="text" placeholder="Your Name" class="form-control" name="name" id="name">
-                            </div>
-                            
-                            <div class="form-group">
-                                <input type="email" placeholder="Your Email" class="form-control" name="email" id="email">
-                            </div>
-                            
-                            <div class="form-group">
-                                <input type="text" placeholder="Subject" class="form-control" name="subject" id="subject">
-                            </div>
-                            
-                            <div class="form-group">
-                                <textarea rows="6" placeholder="Message" class="form-control" name="message" id="message"></textarea>	
-                            </div>
+                        <form id="contact-form" method="post" action="" role="form" novalidate>
+                            {% csrf_token %}
+
+                            {% for field in form %}
+                                <div class="form-group">
+                                    {% comment %} {{field.label_tag}} {% endcomment %}
+                                    {{field}}
+                                    {{field.errors}}
+                                </div>
+                            {% endfor %}
                             
                             <div id="mail-success" class="success">
                                 Thank you. The Mailman is on His Way :)
@@ -35,7 +34,8 @@
                             </div>
                             
                             <div id="cf-submit">
-                                <input type="submit" id="contact-submit" class="btn btn-transparent" value="Submit">
+                                <button type="submit" id="contact-submit" class="btn btn-transparent">SUBMIT</button>
+                                {% comment %} <input type="submit" id="contact-submit" class="btn btn-transparent" value="Submit"> {% endcomment %}
                             </div>						
                             
                         </form>
@@ -50,11 +50,11 @@
                         <ul class="contact-short-info" >
                             <li>
                                 <i class="tf-ion-ios-home"></i>
-                                <span>Khaja Road, Bayzid, Chittagong, Bangladesh</span>
+                                <span>Mashhad, Khorasan Razavi, Iran</span>
                             </li>
                             <li>
                                 <i class="tf-ion-android-phone-portrait"></i>
-                                <span>Phone: +880-31-000-000</span>
+                                <span>Phone: +98 930 383 1775</span>
                             </li>
                             <li>
                                 <i class="tf-ion-android-globe"></i>
@@ -62,7 +62,7 @@
                             </li>
                             <li>
                                 <i class="tf-ion-android-mail"></i>
-                                <span>Email: hello@example.com</span>
+                                <span>Email: bahmanpn@gmail.com</span>
                             </li>
                         </ul>
                         <!-- Footer Social Links -->
