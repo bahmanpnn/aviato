@@ -120,6 +120,13 @@ STATICFILES_DIRS=[
     BASE_DIR / 'static'
 ]
 
+#media url is for load and server medias in site and templates
+MEDIA_URL='/media/'
+
+#media root is for uploading medias from user and site.it needs to add urls in base urls project
+MEDIA_ROOT= BASE_DIR / 'medias'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

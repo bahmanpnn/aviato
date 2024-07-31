@@ -7,7 +7,9 @@ class Slider(models.Model):
     text=models.TextField()
     created_date=models.DateTimeField(auto_now_add=True)
     is_active=models.BooleanField(default=False)
-    # image=models.ImageField(upload_to='sliders/')
+    image=models.ImageField(upload_to='sliders/',null=True)
+    link_url=models.URLField(null=True,blank=True)
+    btn_text=models.CharField(max_length=100,null=True,blank=True)
 
     def get_absolute_url(self):
         return reverse("product-detail", kwargs={"pk": self.pk})
