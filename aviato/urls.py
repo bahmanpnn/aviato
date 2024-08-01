@@ -10,6 +10,7 @@ urlpatterns = [
     path('contact-us/',include('contact_module.urls')),
     path('products/',include('product_module.urls')),
     path('about_us/',include('about_us_module.urls')),
+    path('accounts/',include('account_module.urls')),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
