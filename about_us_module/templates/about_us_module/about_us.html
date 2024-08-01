@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% load static %}
+
+
 {% block title %}about us{% endblock title %}
 
 {% block content %}
@@ -13,7 +16,15 @@
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius enim, accusantium repellat ex autem numquam iure officiis facere vitae itaque.</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam qui vel cupiditate exercitationem, ea fuga est velit nulla culpa modi quis iste tempora non, suscipit repellendus labore voluptatem dicta amet?</p>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam qui vel cupiditate exercitationem, ea fuga est velit nulla culpa modi quis iste tempora non, suscipit repellendus labore voluptatem dicta amet?</p>
-                    <a href="contact.html" class="btn btn-main mt-20">Download Company Profile</a>
+                    {% comment %} <a href="" class="btn btn-main mt-20">download</a>
+                        <object data="show_pdf.pdf" type="application/pdf" title="SamplePdf" width="500" height="720">
+                            <embed src="{% static 'show_pdf.pdf' %}" >
+                        </object> {% endcomment %}
+                    
+                    <a href="{% url "download-shop-pdf" %}" class="btn btn-main mt-20">Download
+                        {% comment %} <embed src="{% static 'show_pdf.pdf' %}" width="500" height="375" type="application/pdf"> {% endcomment %}
+                    </a>
+
                 </div>
             </div>
             <div class="row mt-40">

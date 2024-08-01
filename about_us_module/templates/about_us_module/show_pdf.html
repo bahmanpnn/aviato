@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block header_references %}
+    <style type="text/css">
+        body {
+            font-family: "Helvetica", "sans-serif";
+            color: #333333;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div id="content">
+        <div class="main">
+            <h1>Hi there!</h1>
+            {% comment %} <img src="{% static "images/avater.jpg" %}" /> {% endcomment %}
+        </div>
+    </div>
+{% endblock %}

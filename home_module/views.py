@@ -22,8 +22,3 @@ def footer_component(request):
     return render(request,'footer_component.html')
 
 
-# about us
-class AboutUsView(View):
-    template_name='home_module/about_us.html'
-    def get(self,request):
-        return render(request,self.template_name)

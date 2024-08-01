@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'home_module.apps.HomeModuleConfig',
     'contact_module.apps.ContactModuleConfig',
     'product_module.apps.ProductModuleConfig',
+    'about_us_module.apps.AboutUsModuleConfig',
     
     #third party apps
     'django_render_partial',
