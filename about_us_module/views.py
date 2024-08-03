@@ -2,12 +2,12 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 # --2
-import io
-from django.http import FileResponse, HttpResponse
-from reportlab.pdfgen import canvas
+# import io
+# from django.http import FileResponse
+# from reportlab.pdfgen import canvas
 
-# --3
-from django.conf import settings
+# # --3
+# from django.conf import settings
 # from easy_pdf.views import PDFTemplateView
 
 class AboutUsView(View):
