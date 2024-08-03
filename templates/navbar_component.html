@@ -43,6 +43,33 @@
                     </li>
                     <!-- / Shop-->
 
+
+                    <!-- Login -->
+                    <li class="dropdown ">
+                        <a href="{% url "login-page" %}">Login</a>
+                    </li>
+                    <!-- / Login-->
+
+                    {% if request.user.is_authenticated %}
+                        <!-- Logout -->
+                        <li class="dropdown ">
+                            <a href="{% url "logout" %}">Logout</a>
+                        </li>
+                        <!-- / Logout-->
+                    {% endif %}
+
+                    <!-- Sign In -->
+                    <li class="dropdown ">
+                        <a href="{% url "sign-in-page" %}">Sign In</a>
+                    </li>
+                    <!-- / Sign In-->
+
+                    <!-- Forget Password -->
+                    <li class="dropdown ">
+                        <a href="{% url "forget-password-page" %}">Forget Password</a>
+                    </li>
+                    <!-- / Forget Password-->
+
                     {% if request.user.is_superuser %}
                     <!-- Admin -->
                     <li class="dropdown ">
@@ -51,7 +78,7 @@
                     <!-- / Admin-->
                     {% endif %}
 
-                    <!-- Pages -->
+                    {% comment %} <!-- Pages -->
                     <li class="dropdown full-width dropdown-slide">
                         <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
                             role="button" aria-haspopup="true" aria-expanded="false">Pages <span
@@ -103,7 +130,7 @@
                                 </div>
                             </div><!-- / .row -->
                         </div><!-- / .dropdown-menu -->
-                    </li><!-- / Pages -->
+                    </li><!-- / Pages --> {% endcomment %}
 
                 </ul><!-- / .nav .navbar-nav -->
 

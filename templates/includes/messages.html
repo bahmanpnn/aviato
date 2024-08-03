@@ -1,7 +1,21 @@
 {% if messages %}
     {% for msg in messages  %}
+        <div class="alert alert-{{msg.tags}} alert-common alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="tf-ion-close-circled"></i>{{msg.message}}
+        </div>
+    {% endfor %}
+{% endif %}
+{% comment %} {% if messages %}
+    {% for msg in messages  %}
         <div class="alert alert-{{msg.tags}}" role='alert'>
             {{msg.message}}
         </div>
     {% endfor %}
-{% endif %}
+{% endif %} {% endcomment %}
+
+
+{% comment %} <div class="alert alert-warning alert-common" role="alert"><i class="tf-ion-alert-circled"></i><span>Warning!</span> Better check yourself.You are not looking too good</div> {% endcomment %}
+		            
+{% comment %} <div class="alert alert-warning alert-common alert-solid" role="alert"><i class="tf-ion-alert-circled"></i><span>Warning!</span> Better check yourself.You are not looking too good</div> {% endcomment %}
+		            
