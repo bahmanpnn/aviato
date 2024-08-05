@@ -67,8 +67,33 @@ class LoginView(View):
     def post(self,request):
         form=self.form_class(request.POST)
         if form.is_valid():
-            pass
-    
+            cd=form.cleaned_data
+
+            check_user_email=User.objects.filter(email__iexact=cd['email_or_phone_number']).first()
+            check_user_phone_number=User.objects.filter(phone_number__iexact=cd['email_or_phone_number']).first()
+            if check_user_email:
+                if check_user_email.check_password(cd['password']) and check_user_email.is_active:
+                    login(request,check_user_email)
+                    messages.success(request,'you logged in successfully')
+                    return redirect('home-page')
+            
+            elif check_user_phone_number:
+                if check_user_phone_number.check_password(cd['password']) and check_user_phone_number.is_active:
+                    login(request,check_user_phone_number)
+                    messages.success(request,'you logged in successfully')
+                    return redirect('home-page')
+            
+            # else:
+            #     messages.warning(request,'your username or password is wrong!! try again please')
+
+                
+        
+        messages.warning(request,'your username/phone number or password is wrong!! try again please')
+        return render(request,self.template_name,{
+            'form':form
+        })
+
+
 # class LoginView(View):
 #     template_name="account_module/login.html"
 #     form_class=LoginViewForm

@@ -86,7 +86,7 @@ class LoginViewForm(forms.Form):
         if check_email:
             return email_or_phone_number
         else:
-            check_phone_number=User.objects.filter(phon_number__iexact=email_or_phone_number).exists()
+            check_phone_number=User.objects.filter(phone_number__iexact=email_or_phone_number).exists()
             if check_phone_number:
                 return email_or_phone_number
             else:
