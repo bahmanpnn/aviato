@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}sign in page{% endblock title %}
+{% block title %}register page{% endblock title %}
 
 {% block header_references %}
 <!-- Basic Page Needs
@@ -46,28 +46,30 @@
               <img src="images/logo.png" alt="">
             </a>
             <h2 class="text-center">Create Your Account</h2>
-            <form class="text-left clearfix" action="index.html">
+            <form class="text-left clearfix" action=""  method="post" novalidate>
+              {% csrf_token %}
+              
               <div class="form-group">
-                <input type="text" class="form-control"  placeholder="First Name">
+                {{form.username}}
+                {{form.username.erros}}
               </div>
               <div class="form-group">
-                <input type="text" class="form-control"  placeholder="Last Name">
+                {{form.email}}
+                {{form.email.errors}}
               </div>
               <div class="form-group">
-                <input type="text" class="form-control"  placeholder="Username">
+                {{form.password}}
+                {{form.password.errors}}
               </div>
               <div class="form-group">
-                <input type="email" class="form-control"  placeholder="Email">
-              </div>
-              <div class="form-group">
-                <input type="password" class="form-control"  placeholder="Password">
+                {{form.confirm_password}}
+                {{form.confirm_password.errors}}
               </div>
               <div class="text-center">
                 <button type="submit" class="btn btn-main text-center">Sign In</button>
               </div>
             </form>
-            <p class="mt-20">Already hava an account ?<a href="login.html"> Login</a></p>
-            <p><a href="forget-password.html"> Forgot your password?</a></p>
+            <p class="mt-20">Already hava an account ?<a href="{% url "login-page" %}"> Login</a></p>
           </div>
         </div>
       </div>
