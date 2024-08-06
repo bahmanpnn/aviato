@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import View
 from django.contrib import messages
 from django.utils.crypto import get_random_string
-from .forms import LoginViewForm,registerform
+from .forms import LoginViewForm,registerform,ForgetPasswordForm
 from .models import User
 
 #done
@@ -36,6 +36,7 @@ class RegisterView(View):
         })       
 
 
+#done
 class EmailActiveCode(View):
     def get(self,request,email_active_code):
         # check_user:User=User.objects.filter(email_active_code__iexact=email_active_code).first() ***
@@ -53,8 +54,9 @@ class EmailActiveCode(View):
 
         messages.warning(request,'your email active code is expired or wrong!!')
         return redirect('home-page')
-            
 
+
+#done
 class LoginView(View):
     template_name="account_module/login.html"
     form_class=LoginViewForm
@@ -134,21 +136,41 @@ class LoginView(View):
 #         return render(request,self.template_name,{
 #             'form':form
 #         })
-    
 
+
+#done
 class LogoutView(View,LoginRequiredMixin):
     def get(self,request):
         logout(request)
         messages.success(request,'you logged out successfully',extra_tags='success')
         return redirect(reverse('home-page'))
 
-
+#done
 class ForgetPasswordView(View):
     template_name="account_module/forget_password.html"
+    from_class=ForgetPasswordForm
+
     def get(self,request):
-        return render(request,self.template_name)
+        return render(request,self.template_name,{
+            'form':self.from_class()
+        })
 
     def post(self,request):
-        pass
+        form=self.from_class(request.POST)
+
+        if form.is_valid():
+            check_email=User.objects.filter(email__iexact=form.cleaned_data['email']).exists()
+
+
+            if check_email:
+                # todo:send email to user email
+                messages.success(request,'email sent successfully!! check your messages to reset your password')
+                return redirect(reverse('login-page'))
+            else:
+                form.add_error('email','this email does not exists in our site!!')
+
+        return render(request,self.template_name,{
+            'form':form
+        })
 
 

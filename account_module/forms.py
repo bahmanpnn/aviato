@@ -63,7 +63,6 @@ class registerform(forms.Form):
         return confirm_password
         
 
-
 class LoginViewForm(forms.Form):
 
     email_or_phone_number=forms.CharField(widget=forms.TextInput(attrs={
@@ -94,17 +93,42 @@ class LoginViewForm(forms.Form):
 
 
 # class LoginViewForm(forms.ModelForm):
-    # class Meta:
-    #     model=User
-    #     fields=['username','password']
+    class Meta:
+        model=User
+        fields=['username','password']
 
-    #     widgets={
-    #         'username':forms.TextInput(attrs={
-    #             'class':'form-control',
-    #             'placeholder':'Username'
-    #         }),
-    #         'password':forms.PasswordInput(attrs={
-    #             'class':'form-control',
-    #             'placeholder':'Password'
-    #         })
-    #     }
+        widgets={
+            'username':forms.TextInput(attrs={
+                'class':'form-control',
+                'placeholder':'Username'
+            }),
+            'password':forms.PasswordInput(attrs={
+                'class':'form-control',
+                'placeholder':'Password'
+            })
+        }
+
+
+class ForgetPasswordForm(forms.Form):
+    email=forms.EmailField(widget=forms.EmailInput(attrs={
+        'class':'form-control text-center',
+        'placeholder':'Enter Your Email'
+    }),
+    error_messages={
+        'required':'this field is required'
+    })
+
+    # def clean_email(self):
+    #     email=self.cleaned_data.get('email')
+    #     check_email=User.objects.filter(email__iexact=email).exists()
+        
+    #     if check_email:
+    #         return email
+        
+    #     else:
+    #         return ValidationError('this email does not exists!!')
+
+
+
+
+
