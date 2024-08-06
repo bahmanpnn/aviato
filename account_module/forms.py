@@ -129,6 +129,30 @@ class ForgetPasswordForm(forms.Form):
     #         return ValidationError('this email does not exists!!')
 
 
+class ResetPasswordForm(forms.Form):
+    password=forms.CharField(widget=forms.PasswordInput(attrs={
+        'class':'form-control text-center',
+        'placeholder':'Password'
+    }),
+    error_messages={
+        'required':'this field is required'
+    })
 
+    confirm_password=forms.CharField(widget=forms.PasswordInput(attrs={
+        'class':'form-control text-center',
+        'placeholder':'Confirm Password'
+    }),
+    error_messages={
+        'required':'this field is required'
+    })
+    
+    def clean_confirm_password(self):
+        password=self.cleaned_data.get('password')
+        confirm_password=self.cleaned_data.get('confirm_password')
+        if password != confirm_password:
+            raise ValidationError('password and confirm password does not match')
+        
+        return confirm_password
+  
 
 

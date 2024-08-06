@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -5,7 +6,7 @@ from django.urls import reverse
 from django.views import View
 from django.contrib import messages
 from django.utils.crypto import get_random_string
-from .forms import LoginViewForm,registerform,ForgetPasswordForm
+from .forms import LoginViewForm,registerform,ForgetPasswordForm,ResetPasswordForm
 from .models import User
 
 #done
@@ -173,4 +174,41 @@ class ForgetPasswordView(View):
             'form':form
         })
 
+#done
+class ResetPasswordView(View):
+    template_name='account_module/reset_password.html'
+    form_class=ResetPasswordForm
 
+    def get(self,request,email_reset_password_code):
+        # check_code=get_object_or_404(User,email_active_code__iexact=email_reset_password_code)
+        # check_code=User.objects.get(email_active_code__iexact=email_reset_password_code)
+        
+        # if not check_code:
+        #     messages.warning(request,'this code is expired or not exists!')
+        #     return redirect(reverse('login-page'))
+        
+        check_code=User.objects.filter(email_active_code__iexact=email_reset_password_code).first()
+        
+        if check_code is None:
+            messages.warning(request,'this code is expired or not exists!')
+            # return redirect(reverse('login-page'))
+            raise Http404()
+        
+        return render(request,self.template_name,{
+            'form':self.form_class()
+        })
+    
+    def post(self,request,email_reset_password_code):
+        form=self.form_class(request.POST)
+
+        if form.is_valid():
+            user=User.objects.get(email_active_code__iexact=email_reset_password_code)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            messages.success(request,'your password changed successfully!! now you can login :))')
+            return redirect(reverse('login-page'))
+        
+        return render(request,self.template_name,{
+            'form':form
+        })
+    
