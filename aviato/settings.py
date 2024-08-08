@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'product_module.apps.ProductModuleConfig',
     'about_us_module.apps.AboutUsModuleConfig',
     'account_module.apps.AccountModuleConfig',
+    'site_setting_module.apps.SiteSettingModuleConfig',
+
     
     #third party apps
     'django_render_partial',

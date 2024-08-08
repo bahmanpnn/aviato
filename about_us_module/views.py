@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
+from site_setting_module.models import SiteSetting
+
 # --2
 # import io
 # from django.http import FileResponse
@@ -14,8 +16,13 @@ class AboutUsView(View):
     template_name='about_us_module/about_us.html'
     
     def get(self,request):
-        return render(request,self.template_name)
+        site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
+
+        return render(request,self.template_name,{
+            'site_settings':site_settings
+        })
     
+
 def download_shop_pdf(request):
     pdf_url='/static/show_pdf.pdf'
     content=f'<embed src="{pdf_url}" width="500" height="375" type="application/pdf">'

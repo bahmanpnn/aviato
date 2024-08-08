@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
+{% block header_references %}
+
+<style>
+    .error-list li{
+        color:red;
+    }
+</style>
+
+{% endblock header_references %}
 
 {% block title %}contact us{% endblock title %}
 {% comment %} {% block header_references %}
@@ -18,20 +27,22 @@
                             {% csrf_token %}
 
                             {% for field in form %}
-                                <div class="form-group">
+                                <div class="form-group error-list">
                                     {% comment %} {{field.label_tag}} {% endcomment %}
                                     {{field}}
-                                    {{field.errors}}
+                                    {% if field.errors %}
+                                        {{field.errors}}
+                                   {% endif %}
                                 </div>
                             {% endfor %}
-                            
+{% comment %}                             
                             <div id="mail-success" class="success">
                                 Thank you. The Mailman is on His Way :)
                             </div>
                             
                             <div id="mail-fail" class="error">
                                 Sorry, don't know what happened. Try later :(
-                            </div>
+                            </div> {% endcomment %}
                             
                             <div id="cf-submit">
                                 <button type="submit" id="contact-submit" class="btn btn-transparent">SUBMIT</button>
@@ -48,22 +59,34 @@
                             <div id="map"></div>
                         </div>
                         <ul class="contact-short-info" >
-                            <li>
-                                <i class="tf-ion-ios-home"></i>
-                                <span>Mashhad, Khorasan Razavi, Iran</span>
-                            </li>
+                            {% if site_settings.address %}
+                                <li>
+                                    <i class="tf-ion-ios-home"></i>
+                                    <span>{{site_settings.address}}</span>
+                                </li>
+                            {% endif %}
+                            {% if site_settings.phone %}
                             <li>
                                 <i class="tf-ion-android-phone-portrait"></i>
-                                <span>Phone: +98 930 383 1775</span>
+                                <span>Phone: {{site_settings.phone}}</span>
                             </li>
+                            {% endif %}
+                            
+                            {% if site_settings.fax %}
                             <li>
                                 <i class="tf-ion-android-globe"></i>
-                                <span>Fax: +880-31-000-000</span>
+                                <span>Fax: {{site_settings.fax}}</span>
                             </li>
+                            {% endif %}
+                            
+                            {% if site_settings.email %}
                             <li>
                                 <i class="tf-ion-android-mail"></i>
-                                <span>Email: bahmanpn@gmail.com</span>
+                                <span>Email: {{site_settings.email}}</span>
                             </li>
+                            {% endif %}
+
+
                         </ul>
                         <!-- Footer Social Links -->
                         <div class="social-icon">

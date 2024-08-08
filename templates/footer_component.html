@@ -25,20 +25,14 @@
                     </li>
                 </ul>
                 <ul class="footer-menu text-uppercase">
+                    {% for footer_link_item in footer_link_items %}
                     <li>
-                        <a href="contact.html">CONTACT</a>
+                        <a href="{{footer_link_item.url_title}}">{{footer_link_item.title}}</a>
                     </li>
-                    <li>
-                        <a href="shop.html">SHOP</a>
-                    </li>
-                    <li>
-                        <a href="pricing.html">Pricing</a>
-                    </li>
-                    <li>
-                        <a href="contact.html">PRIVACY POLICY</a>
-                    </li>
+                    {% endfor %}
+
                 </ul>
-                <p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
+               <p>{{site_settings.copy_right | safe}}</p>
             </div>
         </div>
     </div>
