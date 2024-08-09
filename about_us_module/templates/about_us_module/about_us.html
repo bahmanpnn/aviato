@@ -14,17 +14,16 @@
                 <div class="col-md-6">
                     <h2 class="mt-40">About Our Shop</h2>
                     <p>{{site_settings.about_us}}</p>
-                    {% comment %} <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius enim, accusantium repellat ex autem numquam iure officiis facere vitae itaque.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam qui vel cupiditate exercitationem, ea fuga est velit nulla culpa modi quis iste tempora non, suscipit repellendus labore voluptatem dicta amet?</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam qui vel cupiditate exercitationem, ea fuga est velit nulla culpa modi quis iste tempora non, suscipit repellendus labore voluptatem dicta amet?</p> {% endcomment %}
-                    {% comment %} <a href="" class="btn btn-main mt-20">download</a>
-                        <object data="show_pdf.pdf" type="application/pdf" title="SamplePdf" width="500" height="720">
-                            <embed src="{% static 'show_pdf.pdf' %}" >
-                        </object> {% endcomment %}
+   
+                    {% comment %} <object data="show_pdf.pdf" type="application/pdf" title="SamplePdf" width="500" height="720">
+                        <embed src="{% static 'show_pdf.pdf' %}" >
+                    </object> {% endcomment %}
                     
-                    <a href="{% url "download-shop-pdf" %}" class="btn btn-main mt-20">Download
-                        {% comment %} <embed src="{% static 'show_pdf.pdf' %}" width="500" height="375" type="application/pdf"> {% endcomment %}
-                    </a>
+                    {% comment %} <a href="" class="btn btn-main mt-20">Download
+                        <embed src="{% static 'show_pdf.pdf' %}" width="500" height="375" type="application/pdf"> 
+                    </a> {% endcomment %}
+                    
+                    <a href="{% static "show_pdf.pdf" %}" class="btn btn-main mt-20" download> Download </a>
 
                 </div>
             </div>

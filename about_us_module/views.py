@@ -22,11 +22,6 @@ class AboutUsView(View):
             'site_settings':site_settings
         })
     
-
-def download_shop_pdf(request):
-    pdf_url='/static/show_pdf.pdf'
-    content=f'<embed src="{pdf_url}" width="500" height="375" type="application/pdf">'
-    return HttpResponse(content)
     
 
 # def some_view(request):
