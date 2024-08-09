@@ -137,3 +137,12 @@ MEDIA_ROOT= BASE_DIR / 'medias'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL='account_module.User'
+
+# email config
+EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS=True
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER="hamidbagheri042@gmail.com" #this is my test gmail please dont use it for yourself
+EMAIL_HOST_PASSWORD='jqepansykjkurupk'
+EMAIL_PORT=587
+DEFAULT_FROM_EMAIL="Aviato group"

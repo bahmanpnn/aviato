@@ -1,6 +1,6 @@
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth import login,logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 from django.views import View
@@ -8,6 +8,9 @@ from django.contrib import messages
 from django.utils.crypto import get_random_string
 from .forms import LoginViewForm,registerform,ForgetPasswordForm,ResetPasswordForm
 from .models import User
+from utils.email_service import email_service
+from site_setting_module.models import SiteSetting
+
 
 #done
 class RegisterView(View):
@@ -28,7 +31,12 @@ class RegisterView(View):
             new_user=User(username=cd['username'],email=cd['email'],is_active=False,email_active_code=get_random_string(63))
             new_user.set_password(cd['password'])
             new_user.save()
-            
+
+            # send email
+            site_setting=SiteSetting.objects.filter(is_main_setting=True).first()
+            email_template='account_module/email/register_email.html'
+            email_service('activing account',new_user.email,{'user':new_user,'site_setting':site_setting},email_template)
+
             messages.success(request,'your account created successfully! now check your email to active your account')
             return redirect('home-page')
         
@@ -44,8 +52,9 @@ class EmailActiveCode(View):
         check_user=User.objects.filter(email_active_code__iexact=email_active_code).first()
         
         #todo:add time for email active code or ban ip if try more to active account or banned(is_ban=True?) before
-        # if check_user and not check_user.is_active and check_user.is_active =='False' :
+        # if check_user and not check_user.is_active and check_user.is_ban =='False' :
         
+        # if check_user is not None and not check_user.is_active:
         if check_user is not None:
             print(check_user)
             check_user.is_active=True
@@ -164,7 +173,11 @@ class ForgetPasswordView(View):
 
 
             if check_email:
-                # todo:send email to user email
+                # send email
+                site_setting=SiteSetting.objects.filter(is_main_setting=True).first()
+                email_template='account_module/email/reset_password_email.html'
+                email_service('reset your password',form.cleaned_data['email'],{'user':check_email,'site_setting':site_setting},email_template)
+
                 messages.success(request,'email sent successfully!! check your messages to reset your password')
                 return redirect(reverse('login-page'))
             else:

@@ -44,31 +44,32 @@
                     <!-- / Shop-->
 
 
-                    <!-- Login -->
-                    <li class="dropdown ">
-                        <a href="{% url "login-page" %}">Login</a>
-                    </li>
-                    <!-- / Login-->
-
                     {% if request.user.is_authenticated %}
                         <!-- Logout -->
                         <li class="dropdown ">
                             <a href="{% url "logout" %}">Logout</a>
                         </li>
                         <!-- / Logout-->
+                    {% else %}
+                        <!-- Login -->
+                        <li class="dropdown ">
+                            <a href="{% url "login-page" %}">Login</a>
+                        </li>
+                        <!-- / Login-->
+    
+                        <!-- Sign In -->
+                        <li class="dropdown ">
+                            <a href="{% url "register-page" %}">Register</a>
+                        </li>
+                        <!-- / Sign In-->
+    
+                        <!-- Forget Password -->
+                        <li class="dropdown ">
+                            <a href="{% url "forget-password-page" %}">Forget Password</a>
+                        </li>
+                        <!-- / Forget Password-->
                     {% endif %}
 
-                    <!-- Sign In -->
-                    <li class="dropdown ">
-                        <a href="{% url "register-page" %}">Register</a>
-                    </li>
-                    <!-- / Sign In-->
-
-                    <!-- Forget Password -->
-                    <li class="dropdown ">
-                        <a href="{% url "forget-password-page" %}">Forget Password</a>
-                    </li>
-                    <!-- / Forget Password-->
 
                     {% if request.user.is_superuser %}
                     <!-- Admin -->
