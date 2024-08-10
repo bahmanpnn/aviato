@@ -43,6 +43,12 @@
                     </li>
                     <!-- / Shop-->
 
+                    <!-- Blog -->
+                    <li class="dropdown ">
+                        <a href="{% url "articles" %}">Blog</a>
+                    </li>
+                    <!-- / Blog-->
+
 
                     {% if request.user.is_authenticated %}
                         <!-- Logout -->

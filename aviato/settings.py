@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'about_us_module.apps.AboutUsModuleConfig',
     'account_module.apps.AccountModuleConfig',
     'site_setting_module.apps.SiteSettingModuleConfig',
+    'blog_module.apps.BlogModuleConfig',
 
     
     #third party apps
