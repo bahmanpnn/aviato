@@ -4,7 +4,6 @@ from account_module.models import User
 from django.utils.text import slugify
 
 class ArticleCategory(models.Model):
-    parent=models.ForeignKey('ArticleCategory',on_delete=models.CASCADE,blank=True,null=True)
     title=models.CharField(max_length=127)
     url_title=models.CharField(max_length=127,unique=True)
     is_active=models.BooleanField(default=True)

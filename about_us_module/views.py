@@ -3,14 +3,6 @@ from django.views import View
 from django.http import HttpResponse
 from site_setting_module.models import SiteSetting
 
-# --2
-# import io
-# from django.http import FileResponse
-# from reportlab.pdfgen import canvas
-
-# # --3
-# from django.conf import settings
-# from easy_pdf.views import PDFTemplateView
 
 class AboutUsView(View):
     template_name='about_us_module/about_us.html'
@@ -22,7 +14,13 @@ class AboutUsView(View):
             'site_settings':site_settings
         })
     
-    
+
+
+
+# --2
+# import io
+# from django.http import FileResponse
+# from reportlab.pdfgen import canvas
 
 # def some_view(request):
 #     # Create a file-like buffer to receive PDF data.
@@ -44,6 +42,10 @@ class AboutUsView(View):
 #     buffer.seek(0)
 #     return FileResponse(buffer, as_attachment=True, filename="hello.pdf")
 
+
+# # --3
+# from django.conf import settings
+# from easy_pdf.views import PDFTemplateView
 # pip install django-easy-pdf WeasyPrint
 # class ShowPDFView(PDFTemplateView):
 #     template_name = 'about_us_module/show_pdf.html'
@@ -59,3 +61,17 @@ class AboutUsView(View):
 #         )
     
     
+
+''' way4
+    from django.http import FileResponse
+    import os
+
+    def pdf_view(request):
+        pdf_path=os.path.join('static','show_pdf.pdf')
+        
+        return FileResponse(open(pdf_path,'rb'),content_type='application/pdf')
+
+
+    def show_pdf_view(request):
+        return render(request,'about_us_module/pdf_template.html')
+'''

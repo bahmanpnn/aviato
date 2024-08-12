@@ -24,6 +24,11 @@
                     </a> {% endcomment %}
                     
                     <a href="{% static "show_pdf.pdf" %}" class="btn btn-main mt-20" download> Download </a>
+                    
+                    {% comment %}
+                    # way 4
+                    <a href="{% url "show-pdf-view" %}" class="btn btn-main mt-20" > Observe Our Pdf </a> 
+                    {% endcomment %}
 
                 </div>
             </div>
