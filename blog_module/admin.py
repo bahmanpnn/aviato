@@ -1,6 +1,6 @@
 from typing import Any
 from django.contrib import admin
-from .models import Article,ArticleCategory,ArticleTag
+from .models import Article,ArticleCategory,ArticleTag,ArticleComment
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -15,3 +15,4 @@ class ArticleAdmin(admin.ModelAdmin):
 admin.site.register(Article,ArticleAdmin)
 admin.site.register(ArticleCategory)
 admin.site.register(ArticleTag)
+admin.site.register(ArticleComment)

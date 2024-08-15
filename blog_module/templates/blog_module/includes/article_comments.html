@@ -1,0 +1,77 @@
+{% load thumbnail %}
+
+<div class="post-comments" id='comments_area'>
+    <h3 class="post-sub-heading">{{comments_count}} Comments</h3>
+    <ul class="media-list comments-list m-bot-50 clearlist">
+
+        {% for comment in comments %}
+            <!-- Comment Item start-->
+            <li class="media" id='single_comment_{{comment.id}}'>
+
+                <a class="pull-left" href="#!">
+                    {% if comment.author.image %}
+                        {% thumbnail comment.author.image "50x50" crop='center' quality=75 as im%}
+                            <img class="media-object comment-avatar" src="{{im.url}}" alt="{{comment.author}}" >
+                        {% endthumbnail%}	
+                        {% else %}
+                            <img class="media-object comment-avatar" src="/static/images/blog/avater-1.jpg" alt="" width="50" height="50">
+                    {% endif %}
+                </a>
+
+                <div class="media-body">
+                    <div class="comment-info">
+                        <h4 class="comment-author">
+                            <a href="#!">{{comment.author}}</a>
+                            
+                        </h4>
+                        <time>{{comment.created_date |date:"Y-d-m"}}</time>
+                        <a class="comment-button" href="#!" onclick="fillParentId({{comment.id}})"><i class="tf-ion-chatbubbles"></i>Reply</a>
+                    </div>
+
+                    <p>{{comment.text}}</p>
+
+                    {% if comment.articlecomment_set %}
+                        {% for sub_comment in comment.articlecomment_set.all %}
+                            
+                        <!--  second level Comment start-->
+                                <div class="media" id='single_comment_{{comment.id}}'>
+
+                                    <a class="pull-left" href="#!">
+                                        {% if sub_comment.author.image %}
+                                            {% thumbnail sub_comment.author.image "50x50" crop='center' quality=75 as im%}
+                                                <img class="media-object comment-avatar" src="{{im.url}}" alt="{{comment.author}}" >
+                                            {% endthumbnail%}	
+                                            {% else %}
+                                                <img class="media-object comment-avatar" src="/static/images/blog/avater-1.jpg" alt="" width="50" height="50">
+                                        {% endif %}
+                                    </a>
+
+                                    <div class="media-body">
+
+                                        <div class="comment-info">
+                                            <div class="comment-author">
+                                                <a href="#!">{{sub_comment.author}}</a>
+                                            </div>
+                                            <time>{{sub_comment.created_date|date:'Y-m-d'}}</time>
+                                        </div>
+
+                                        <p>
+                                            {{sub_comment.text}}
+                                        </p>
+
+
+                                    </div>
+
+                                </div>
+                            <!-- second level Comment end -->
+                        {% endfor %}
+                    {% endif %}
+
+                </div>
+
+            </li>
+            <!-- End Comment Item -->
+        {% endfor %}
+
+    </ul>
+</div>

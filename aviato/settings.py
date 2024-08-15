@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     
     #third party apps
     'django_render_partial',
+    'sorl.thumbnail'
 
 ]
 
