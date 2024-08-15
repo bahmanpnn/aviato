@@ -154,20 +154,19 @@
 
 				<div class="text-center">
 					<ul class="pagination post-pagination">
-						<li><a href="#!">Prev</a>
-						</li>
-						<li class="active"><a href="#!">1</a>
-						</li>
-						<li><a href="#!">2</a>
-						</li>
-						<li><a href="#!">3</a>
-						</li>
-						<li><a href="#!">4</a>
-						</li>
-						<li><a href="#!">5</a>
-						</li>
-						<li><a href="#!">Next</a>
-						</li>
+
+
+					{% if page_obj.has_previous %}
+					<li><a href="?page={{page_obj.previous_page_number}}">Prev</a></li>
+					{% endif %}
+
+					{% for page in paginator.page_range %}
+						<li {% if page_obj.number == page %}class='active'{% endif %}><a href="?page={{page}}">{{page}}</a></li>
+					{% endfor %}
+
+					{% if page_obj.has_next %}
+						<li><a href="?page={{page_obj.next_page_number}}">Next</a></li>
+					{% endif %}
 					</ul>
 				</div>
       		</div>

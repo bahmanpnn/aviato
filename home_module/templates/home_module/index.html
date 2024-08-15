@@ -345,10 +345,21 @@
                     </div>
                     <div class="col-lg-6 col-md-offset-3">
                         <div class="input-group subscription-form">
-                          <input type="text" class="form-control" placeholder="Enter Your Email Address">
-                          <span class="input-group-btn">
-                            <button class="btn btn-main" type="button">Subscribe Now!</button>
-                          </span>
+                            <div class="error-list">
+                                {{form.email.errors}}
+                            </div>
+                            <form method="post" action="" style="display: -webkit-inline-box;"  novalidate>
+                                {% csrf_token %}
+
+                                
+                                {{form.email}}
+                                <button class="btn btn-main" type="submit">Subscribe Now!</button>
+                                
+                            </form>
+                            {% comment %} <span class="input-group-btn">
+                                <button class="btn btn-main" type="submit">Subscribe Now!</button>
+                            </span> {% endcomment %}
+
                         </div><!-- /input-group -->
                   </div><!-- /.col-lg-6 -->
     

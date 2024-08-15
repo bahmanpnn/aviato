@@ -1,10 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views import View
-from .models import Slider
 from site_setting_module.models import SiteSetting,FooterLinkItem
+from .models import Slider,UserEmailSubscribe
+from .forms import GetUserEmailForSubscribeForm
+from django.contrib import messages
 
 def index(request):
-    return render(request,'home_module/index.html')
+    form=GetUserEmailForSubscribeForm()
+
+    if request.method=="POST":
+        form=GetUserEmailForSubscribeForm(request.POST)
+        if form.is_valid():
+            new_email=UserEmailSubscribe(email=form.cleaned_data.get('email'))
+            new_email.save()
+            messages.success(request,'thank you for sending your email to fallowing us')
+            return redirect(reverse('home-page'))
+        
+    return render(request,'home_module/index.html',{
+        'form':form
+    })
 
 def navbar_component(request):
     return render(request,'navbar_component.html')
