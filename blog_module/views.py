@@ -1,9 +1,12 @@
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView
 from .models import Article,ArticleCategory,ArticleComment
-
+from .forms import UserEmailSubscribeForm
+from home_module.models import UserEmailSubscribe
+from django.contrib import messages
 
 class ArticleView(ListView):
     template_name='blog_module/articles.html'
@@ -11,6 +14,7 @@ class ArticleView(ListView):
     context_object_name='articles'
     ordering=['-created_date']
     paginate_by=1
+
 
     def get_queryset(self):        
         query=super().get_queryset().filter(is_active=True)
@@ -22,15 +26,32 @@ class ArticleView(ListView):
 
         return query
     
+    # def get_context_data(self, **kwargs):
+    #     '''
+    #         if need to pass new data in product template and
+    #         this is not product model must send with this method and override this
+    #     '''
+    #     context=super().get_context_data(**kwargs)  
+    #     return context
+
     def get_context_data(self, **kwargs):
-        '''
-            if need to pass new data in product template and
-            this is not product model must send with this method and override this
-        '''
-        context=super().get_context_data(**kwargs)      
-
+        context = super(ArticleView, self).get_context_data(**kwargs)
+        context['form'] = UserEmailSubscribeForm()
         return context
-
+    
+    def post(self, request):
+        form = UserEmailSubscribeForm(request.POST)
+        if form.is_valid():
+            new_email=UserEmailSubscribe(email=form.cleaned_data.get('email'))
+            new_email.save()
+            messages.success(request,'Thank You,We received your email successfully')
+            return redirect(reverse('articles'))
+        
+        messages.warning(request,'please enter a valid email address!!')
+        return redirect(reverse('articles'))
+        
+        
+        
 
 class ArticleDetailView(View):
     template_name='blog_module/article_detail.html'
@@ -79,3 +100,34 @@ def add_article_comment(request):
         })
 
     return HttpResponse('got response succussfully')
+
+
+
+
+
+'''
+    combine form view with list view cbv ***
+'''
+# from django.http import Http404
+# from django.views.generic import ListView
+# from django.views.generic.edit import FormMixin
+# from django.utils.translation import ugettext as _
+
+# class FormListView(FormMixin, ListView):
+#     def get(self, request, *args, **kwargs):
+#         # From FormMixin
+#         form_class = self.get_form_class()
+#         self.form = self.get_form(form_class)
+
+#         # From ListView
+#         self.object_list = self.get_queryset()
+#         allow_empty = self.get_allow_empty()
+#         if not allow_empty and len(self.object_list) == 0:
+#             raise Http404(_(u"Empty list and '%(class_name)s.allow_empty' is False.")
+#                           % {'class_name': self.__class__.__name__})
+
+#         context = self.get_context_data(object_list=self.object_list, form=self.form)
+#         return self.render_to_response(context)
+
+#     def post(self, request, *args, **kwargs):
+#         return self.get(request, *args, **kwargs)

@@ -31,11 +31,13 @@
 					<br>
 					<div class="widget widget-subscription">
 						<h4 class="widget-title text-center">Get notified updates</h4>
-						<form>
-						<div class="form-group">
-							<input type="email" class="form-control" placeholder="Your Email Address">
-						</div>
-						<button type="submit" class="btn btn-main">I am in</button>
+						<form method="post" action="" novalidate>
+							{% csrf_token %}
+							<div class="form-group">
+								{{form.email}}
+								{{form.email.errors}}
+							</div>
+							<button type="submit" class="btn btn-main">I am in</button>
 						</form>
 					</div>
 
