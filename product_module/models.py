@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator,MinValueValidator
 from django.urls import reverse
 from django.utils.text import slugify
+from account_module.models import User
 
 class ProductBrand(models.Model):
     title=models.CharField(max_length=300,db_index=True)
@@ -16,6 +17,7 @@ class ProductBrand(models.Model):
 
 
 class ProductCategory(models.Model):
+    parent=models.ForeignKey('ProductCategory',on_delete=models.CASCADE,null=True,blank=True)
     title=models.CharField(max_length=300,db_index=True)
     url_title=models.CharField(max_length=300)
     is_active=models.BooleanField(default=True)
@@ -30,18 +32,20 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
+    image=models.ImageField(upload_to='images/products',null=True,blank=True)
     title=models.CharField(max_length=300,db_index=True)
     price=models.PositiveIntegerField()
+    discount_price=models.PositiveIntegerField(null=True,blank=True)
     is_active=models.BooleanField(default=True)
     is_delete=models.BooleanField(default=False)
     added_date=models.DateTimeField(auto_now_add=True)
     updated_date=models.DateTimeField(auto_now=True)
-    slug=models.SlugField(db_index=True)
-    content=models.TextField()
-    short_description=models.CharField(max_length=320,db_index=True)
+    slug=models.SlugField(blank=True,null=True,db_index=True)
+    content=models.TextField(null=True,blank=True)
+    short_description=models.CharField(max_length=320,db_index=True,null=True,blank=True)
     brand=models.ForeignKey(ProductBrand,on_delete=models.SET_NULL,blank=True,null=True)
     category=models.ForeignKey(ProductCategory,on_delete=models.SET_NULL,null=True,blank=True)
-    rating=models.PositiveIntegerField(default=0,validators=[MaxValueValidator(5),MinValueValidator(1)],blank=True,null=True)
+    rating=models.PositiveIntegerField(default=0,validators=[MaxValueValidator(5),MinValueValidator(0)],blank=True,null=True)
 
     def save(self,*args, **kwargs):
         self.slug=slugify(self.title)
@@ -59,3 +63,11 @@ class Product(models.Model):
         return self.title
     
 
+class ProductVisit(models.Model):
+    ip=models.CharField(max_length=32)
+    user=models.ForeignKey(User,on_delete=models.PROTECT,null=True,blank=True)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.product} - {self.ip}'
+    
