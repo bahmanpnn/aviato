@@ -44,7 +44,7 @@ class Product(models.Model):
     content=models.TextField(null=True,blank=True)
     short_description=models.CharField(max_length=320,db_index=True,null=True,blank=True)
     brand=models.ForeignKey(ProductBrand,on_delete=models.SET_NULL,blank=True,null=True)
-    category=models.ForeignKey(ProductCategory,on_delete=models.SET_NULL,null=True,blank=True)
+    category=models.ManyToManyField(ProductCategory)
     rating=models.PositiveIntegerField(default=0,validators=[MaxValueValidator(5),MinValueValidator(0)],blank=True,null=True)
 
     def save(self,*args, **kwargs):
