@@ -1,24 +1,33 @@
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.views.generic import DetailView
-from .models import ProductCategory,Product
+from .models import ProductCategory,Product,ProductSorting
+from .forms import ProductSortingForm
+
 
 
 class ProductView(View):
     template_name='product_module/products.html'
+    form_class=ProductSortingForm
     
-    def get(self,request,*args, **kwargs):
+    def get(self,request,*args,**kwargs):
         categories=ProductCategory.objects.filter(is_active=True,is_delete=False,parent_id=None)
         products=Product.objects.filter(is_active=True,is_delete=False).order_by('-added_date')
+        
+        sorting=request.GET.get('sorting')
+        if sorting is not None:
+            products.filter(sorting__url_title__iexact=sorting) 
+            print(products)  
         
         category=kwargs.get('category')
         if category is not None:
             products=products.filter(category__url_title__iexact=category,is_active=True)
-        
-
+    
+    
         return render(request,self.template_name,{
             'categories':categories,
-            'products':products
+            'products':products,
+            'form':self.form_class()
         })
     
     def post(self,request):

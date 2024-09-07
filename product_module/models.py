@@ -31,7 +31,23 @@ class ProductCategory(models.Model):
         verbose_name_plural='categories'
 
 
+class ProductSorting(models.Model):
+    parent=models.CharField(max_length=127,default='all')
+    title=models.CharField(max_length=300,db_index=True)
+    url_title=models.CharField(max_length=300)
+    is_active=models.BooleanField(default=True)
+    is_delete=models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.url_title
+    
+    class Meta:
+        verbose_name='sorting'
+        verbose_name_plural='sortings'
+
+
 class Product(models.Model):
+
     image=models.ImageField(upload_to='images/products',null=True,blank=True)
     title=models.CharField(max_length=300,db_index=True)
     price=models.PositiveIntegerField()
@@ -46,7 +62,8 @@ class Product(models.Model):
     brand=models.ForeignKey(ProductBrand,on_delete=models.SET_NULL,blank=True,null=True)
     category=models.ManyToManyField(ProductCategory)
     rating=models.PositiveIntegerField(default=0,validators=[MaxValueValidator(5),MinValueValidator(0)],blank=True,null=True)
-
+    sorting=models.ForeignKey(ProductSorting,on_delete=models.PROTECT,null=True,blank=True)
+    
     def save(self,*args, **kwargs):
         self.slug=slugify(self.title)
         return super().save(*args, **kwargs)

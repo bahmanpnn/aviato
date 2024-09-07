@@ -1,0 +1,66 @@
+{% if basket.order_detail.all %}
+      
+<div class="page-wrapper">
+<div class="cart shopping">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+        <div class="block">
+            <div class="product-list">
+            <form method="post">
+                <table class="table">
+                <thead>
+                    <tr>
+                    <th class="">Item Name</th>
+                    <th class="">Item Price</th>
+                    <th class="">Count</th>
+                    <th class="">Total Price</th>
+                    <th class="">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for detail in basket.order_detail.all %}
+                        <tr class="">
+                            <td class="">
+                                <div class="product-info">
+                                <img width="80" src="images/shop/cart/cart-1.jpg" alt="" />
+                                <a href="{% url "product-detail" slug=detail.product.slug %}">{{detail.product.title}}</a>
+                                </div>
+                            </td>
+                            <td class="">${{detail.product.price}}</td>
+                            <td class="">{{detail.count}}</td>
+                            <td class="">{{detail.get_total_price}}</td>
+                            <td class="">
+                                {% comment %} <a class="product-remove" href="{% url "remove-product-from-basket" detail_id=detail.id %}">Remove</a> {% endcomment %}
+                                <a class="product-remove btn btn-light" onclick="removeOrderDetail({{detail.id}})">Remove</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    
+                </tbody>
+                </table>
+                <a href="#" class="btn btn-main pull-right col-md-3 ">Checkout</a>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+
+{% else %}
+<section class="empty-cart page-wrapper">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+        <div class="block text-center">
+            <i class="tf-ion-ios-cart-outline"></i>
+                <h2 class="text-center">Your cart is currently empty.</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, sed.</p>
+                <a href="{% url "products" %}" class="btn btn-main mt-20">Return to shop</a>
+        </div>
+    </div>
+    </div>
+</section>
+{% endif %}

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'account_module.apps.AccountModuleConfig',
     'site_setting_module.apps.SiteSettingModuleConfig',
     'blog_module.apps.BlogModuleConfig',
+    'order_module.apps.OrderModuleConfig',
 
     
     #third party apps

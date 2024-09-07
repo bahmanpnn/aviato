@@ -6,6 +6,7 @@ from .models import Slider,UserEmailSubscribe
 from .forms import GetUserEmailForSubscribeForm
 from django.contrib import messages
 
+
 def index(request):
     form=GetUserEmailForSubscribeForm()
 

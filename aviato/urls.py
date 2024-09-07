@@ -12,6 +12,7 @@ urlpatterns = [
     path('about_us/',include('about_us_module.urls')),
     path('accounts/',include('account_module.urls')),
     path('blog/',include('blog_module.urls')),
+    path('orders/',include('order_module.urls')),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

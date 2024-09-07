@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+{% block header_references %}
+{% endblock header_references %}
+
+{% block title %}basket page{% endblock title %}
+
+
+{% block content %}
+    <div id='basket-content'>
+        {% include "order_module/includes/basket_orders.html" %}
+    </div>
+{% endblock content %}
