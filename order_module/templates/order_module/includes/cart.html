@@ -1,3 +1,5 @@
+{% load poll_extras %}
+
 <!-- Cart Item -->
     <div class="media">
         <a class="pull-left" href="#!">
@@ -7,10 +9,10 @@
             <h4 class="media-heading"><a href="#!">{{detail.product.title|truncatechars:15}}</a></h4>
             <div class="cart-price">
                 <span>{{detail.count}}</span>
-                <span>x {{detail.product.price}}$</span>
+                <span>x {{detail.product.price|three_digits}}$</span>
             </div>
-            <h5><strong>{{detail.get_total_price}}</strong></h5>
+            <h5><strong>{{detail.get_total_price|three_digits}}</strong></h5>
         </div>
-        <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
+        <a href="{% url "remove-basket-cart" detail_id=detail.id %}" class="remove"><i class="tf-ion-close"></i></a>
     </div>
 <!-- / Cart Item -->

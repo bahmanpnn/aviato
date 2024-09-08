@@ -1,3 +1,4 @@
+{% load poll_extras %}    
     <!-- Start Top Header Bar -->
     <section class="top-header">
         <div class="container">
@@ -30,26 +31,36 @@
                 <div class="col-md-4 col-xs-12 col-sm-4">
                     <!-- Cart -->
                     <ul class="top-menu text-right list-inline">
-                        <li class="dropdown cart-nav dropdown-slide">
-                            <a href="{% url "order-basket" %}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-                                <i class="tf-ion-android-cart"></i>Cart
-                            </a>
-                            <div class="dropdown-menu cart-dropdown">
-                                {% for detail in user_basket.order_detail.all %}
-                                    {% include "order_module/includes/cart.html" %}
-                                {% endfor %}
-
-                                <div class="cart-summary">
-                                    <span>Total</span>
-                                    <span class="total-price">{{user_basket.get_total_amount}}$</span>
+                        {% if request.user.is_authenticated %}
+                            <li class="dropdown cart-nav dropdown-slide">
+                                <a href="{% url "order-basket" %}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                                    <i class="tf-ion-android-cart"></i>Cart
+                                </a>
+                                <div class="dropdown-menu cart-dropdown">
+                                    {% if user_basket.order_detail.all %}
+                                        {% for detail in user_basket.order_detail.all %}
+                                            {% include "order_module/includes/cart.html" %}
+                                        {% endfor %}
+                                        <div class="cart-summary">
+                                            <span>Total</span>
+                                            <span class="total-price">{{user_basket.get_total_amount|three_digits}}$</span>
+                                        </div>
+                                        <ul class="text-center cart-buttons">
+                                            <li><a href="{% url "order-basket" %}" class="btn btn-small">View Cart</a></li>
+                                            <li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
+                                        </ul>
+                                    {% else %}
+                                            
+                                        <div class="block text-center">
+                                            <i class="tf-ion-ios-cart-outline"></i>
+                                                <h2 class="text-center">Your basket is currently empty.</h2>
+                                                <a href="{% url "products" %}" class="btn btn-main mt-20">Return to shop</a>
+                                        </div>
+                                    {% endif %}
                                 </div>
-                                <ul class="text-center cart-buttons">
-                                    <li><a href="{% url "order-basket" %}" class="btn btn-small">View Cart</a></li>
-                                    <li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
-                                </ul>
-                            </div>
-    
-                        </li><!-- / Cart -->
+                            </li>
+                        <!-- / Cart -->
+                        {% endif %}
     
                         <!-- Search -->
                         <li class="dropdown search dropdown-slide">

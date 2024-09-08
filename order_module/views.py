@@ -130,6 +130,19 @@ def remove_product_from_basket_ajax(request):
             'body':data
         })
 
+# todo:switch all redirects with next method to redirect user last page and url after actions!
+def remove_basket_cart(request,detail_id):
+    if detail_id is not None:   
+        target_order_detail=OrderDetail.objects.filter(id=detail_id,order_basket__user_id=request.user.id,order_basket__is_paid=False).first()
+        if target_order_detail is not None:
+            target_order_detail.delete()
+            messages.success(request,'product removed successfully form your basket!!')
+            return redirect(reverse('home-page'))
+        else:
+            messages.error(request,'product did not exist in your basket!!')
+            redirect(reverse('home-page'))
+    else:
+        return redirect('home-page')
 
 
 def remove_product_from_basket(request,detail_id):
