@@ -1,0 +1,16 @@
+<!-- Cart Item -->
+    <div class="media">
+        <a class="pull-left" href="#!">
+            <img class="media-object" style="width:65px;height:65px;" src="{{detail.product.image.url}}" alt="image" />
+        </a>
+        <div class="media-body">
+            <h4 class="media-heading"><a href="#!">{{detail.product.title|truncatechars:15}}</a></h4>
+            <div class="cart-price">
+                <span>{{detail.count}}</span>
+                <span>x {{detail.product.price}}$</span>
+            </div>
+            <h5><strong>{{detail.get_total_price}}</strong></h5>
+        </div>
+        <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
+    </div>
+<!-- / Cart Item -->

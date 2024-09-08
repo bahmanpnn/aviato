@@ -35,42 +35,13 @@
                                 <i class="tf-ion-android-cart"></i>Cart
                             </a>
                             <div class="dropdown-menu cart-dropdown">
-                                <!-- Cart Item -->
-                                <div class="media">
-                                    <a class="pull-left" href="#!">
-                                        <img class="media-object" src="{{site_settings.site_logo.url}}" alt="image" />
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                        <div class="cart-price">
-                                            <span>1 x</span>
-                                            <span>1250.00</span>
-                                        </div>
-                                        <h5><strong>$1200</strong></h5>
-                                    </div>
-                                    <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                </div>
-                                <!-- / Cart Item -->
-                                <!-- Cart Item -->
-                                <div class="media">
-                                    <a class="pull-left" href="#!">
-                                        <img class="media-object" src="/static/images/shop/cart/cart-2.jpg" alt="image" />
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading"><a href="#!">Ladies Bag</a></h4>
-                                        <div class="cart-price">
-                                            <span>1 x</span>
-                                            <span>1250.00</span>
-                                        </div>
-                                        <h5><strong>$1200</strong></h5>
-                                    </div>
-                                    <a href="#!" class="remove"><i class="tf-ion-close"></i></a>
-                                </div>
-                                <!-- / Cart Item -->
-    
+                                {% for detail in user_basket.order_detail.all %}
+                                    {% include "order_module/includes/cart.html" %}
+                                {% endfor %}
+
                                 <div class="cart-summary">
                                     <span>Total</span>
-                                    <span class="total-price">$1799.00</span>
+                                    <span class="total-price">{{user_basket.get_total_amount}}$</span>
                                 </div>
                                 <ul class="text-center cart-buttons">
                                     <li><a href="{% url "order-basket" %}" class="btn btn-small">View Cart</a></li>
