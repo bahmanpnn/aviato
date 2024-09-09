@@ -1,10 +1,12 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
+from django.contrib import messages
+from django.db.models import Count
 from site_setting_module.models import SiteSetting,FooterLinkItem
+from product_module.models import Product
 from .models import Slider,UserEmailSubscribe
 from .forms import GetUserEmailForSubscribeForm
-from django.contrib import messages
 
 
 def index(request):
@@ -17,9 +19,11 @@ def index(request):
             new_email.save()
             messages.success(request,'thank you for sending your email to fallowing us')
             return redirect(reverse('home-page'))
-        
+    
+    trend_products=Product.objects.filter(is_active=True,is_delete=False).annotate(visit_count=Count('productvisit')).order_by('-visit_count')[:9]
     return render(request,'home_module/index.html',{
-        'form':form
+        'form':form,
+        'trend_products':trend_products
     })
 
 def navbar_component(request):

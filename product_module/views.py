@@ -1,10 +1,9 @@
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.views.generic import DetailView
-from .models import ProductCategory,Product,ProductSorting
+from .models import ProductCategory,Product,ProductSorting,ProductVisit
 from .forms import ProductSortingForm
-
-
+from utils.http_service import get_client_ip
 
 class ProductView(View):
     template_name='product_module/products.html'
@@ -49,16 +48,16 @@ class ProductDetailView(DetailView):
         context['categories']=ProductCategory.objects.filter(product=loaded_product)
         
         # product visit adding and get user ip
-        # user_ip=get_client_ip(self.request)
-        # if self.request.user.is_authenticated:
-        #     user_id=self.request.user.id
-        # else:
-        #     user_id=None
-        
-        # has_been_visited=ProductVisit.objects.filter(ip__exact=user_ip,product_id=loaded_product.id).exists()
-        # if not has_been_visited:
-        #     new_visit=ProductVisit(ip=user_ip,product_id=loaded_product.id,user_id=user_id)
-        #     new_visit.save()
+        user_ip=get_client_ip(self.request)        
+        has_been_visited=ProductVisit.objects.filter(ip__exact=user_ip,product_id=loaded_product.id).exists()
+
+        if self.request.user.is_authenticated:
+            user_id=self.request.user.id
+        else:
+            user_id=None
+        if not has_been_visited:
+            new_visit=ProductVisit(ip=user_ip,product_id=loaded_product.id,user_id=user_id)
+            new_visit.save()
 
         # product_images=list(ProductImages.objects.filter(product_id=loaded_product.id).all())
         # product_images.insert(0,loaded_product)
