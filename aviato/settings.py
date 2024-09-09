@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'site_setting_module.apps.SiteSettingModuleConfig',
     'blog_module.apps.BlogModuleConfig',
     'order_module.apps.OrderModuleConfig',
+    'user_profile_module.apps.UserProfileModuleConfig',
     'polls.apps.PollsConfig',
 
     

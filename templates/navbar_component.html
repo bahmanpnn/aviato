@@ -56,6 +56,12 @@
                             <a href="{% url "logout" %}">Logout</a>
                         </li>
                         <!-- / Logout-->
+
+                        <!-- User Profile -->
+                        <li class="dropdown ">
+                            <a href="{% url "user-profile" %}">User Profile</a>
+                        </li>
+                        <!-- / User Profile-->
                     {% else %}
                         <!-- Login -->
                         <li class="dropdown ">
