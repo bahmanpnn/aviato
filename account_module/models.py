@@ -6,6 +6,7 @@ class User(AbstractUser):
     phone_number=models.CharField(max_length=11,unique=True,null=True,blank=True)
     image=models.ImageField(upload_to='images/profiles',null=True,blank=True)
     email_active_code=models.CharField(max_length=100,null=True)
+    about_user=models.TextField(null=True,blank=True)
     
     
     USERNAME_FIELD='phone_number' 

@@ -16,10 +16,10 @@ class OrderBasket(models.Model):
             total_amount=0
             for order_detail in self.order_detail.all():
                 total_amount+=order_detail.final_price *order_detail.count
-        
-        total_amount=0
-        for order_detail in self.order_detail.all():
-            total_amount+=order_detail.product.price *order_detail.count
+        else:
+            total_amount=0
+            for order_detail in self.order_detail.all():
+                total_amount+=order_detail.product.price *order_detail.count
         
         return total_amount
     

@@ -12,16 +12,25 @@
 					<div class="dashboard-wrapper user-dashboard">
 						<div class="media">
 							<div class="pull-left">
-								<img class="media-object user-img" src="images/avater.jpg" alt="Image">
+								{% if request.user.image %}
+									<img class="media-object user-img" src="{{request.user.image.url}}" alt="Image">
+								{% else %}
+									<img class="media-object user-img" src="/static/images/avater.jpg" alt="Image">
+								{% endif %}
 							</div>
 							<div class="media-body">
-								<h2 class="media-heading">Welcome Adam Smith</h2>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde, iure, est. Sit mollitia est maxime! Eos
-									cupiditate tempore, tempora omnis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, nihil. </p>
+								{% if request.user.first_name and request.user.last_name %}
+								<h2 class="media-heading">Welcome {{request.user.first_name|capfirst}} {{request.user.last_name|capfirst}}</h2>
+								{% else %}
+									<h2 class="media-heading">Welcome {{request.user.username}}</h2>
+								{% endif %}
+								<p>{{request.user.about_user}}</p>
 							</div>
 						</div>
 						<div class="total-order mt-20">
-							<h4>Total Orders</h4>
+							<h4 class="text-center">Total Orders</h4>
+							<hr>
+							{% if user_orders %}
 							<div class="table-responsive">
 								<table class="table">
 									<thead>
@@ -34,27 +43,20 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td><a href="#!">#252125</a></td>
-											<td>Mar 25, 2016</td>
-											<td>2</td>
-											<td>$ 99.00</td>
-										</tr>
-										<tr>
-											<td><a href="#!">#252125</a></td>
-											<td>Mar 25, 2016</td>
-											<td>2</td>
-											<td>$ 99.00</td>
-										</tr>
-										<tr>
-											<td><a href="#!">#252125</a></td>
-											<td>Mar 25, 2016</td>
-											<td>2</td>
-											<td>$ 99.00</td>
-										</tr>
+										{% for user_order in user_orders %}
+											<tr>
+												<td><a>#{{user_order.id}}</a></td>
+												<td>{{user_order.payment_date|date:'Y-m-d | H'}}</td>
+												<td>{{user_order.items}}</td>
+												<td>$ {{user_order.get_total_amount}}</td>
+											</tr>
+										{% endfor %}
 									</tbody>
 								</table>
 							</div>
+							{% else %}
+								<p class="text-center">You Dont Have Any Orders Yet!!</p>
+							{% endif %}
 						</div>
 					</div>
 				</div>
