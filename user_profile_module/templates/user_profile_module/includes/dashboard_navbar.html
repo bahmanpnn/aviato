@@ -1,6 +1,5 @@
 <ul class="list-inline dashboard-menu text-center">
     <li><a href="{% url "user-profile" %}" {% if request.resolver_match.url_name == 'user-profile' %} class="active"{% endif %}>Dashboard</a></li>
-    <li><a href="{% url "orders" %}" {% if request.resolver_match.url_name == 'orders' %} class="active"{% endif %}>Orders</a></li>
     <li><a href="{% url "profile-details" %}" {% if request.resolver_match.url_name == 'profile-details' %} class="active"{% endif %}>Profile Details</a></li>
     <li><a href="{% url "address" %}" {% if request.resolver_match.url_name == 'address' %} class="active"{% endif %}>Address</a></li>
 </ul>

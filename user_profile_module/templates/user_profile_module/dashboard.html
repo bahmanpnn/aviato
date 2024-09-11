@@ -28,27 +28,29 @@
 							</div>
 						</div>
 						<div class="total-order mt-20">
-							<h4 class="text-center">Total Orders</h4>
+							<h2 class="text-center">Total Orders</h2>
 							<hr>
 							{% if user_orders %}
 							<div class="table-responsive">
 								<table class="table">
 									<thead>
 										<tr>
-											<th>Order ID</th>
-											<th>Date</th>
-											<th>Items</th>
-											<th>Total Price</th>
-											<th></th>
+											<th class="text-center">Order ID</th>
+											<th class="text-center">Date</th>
+											<th class="text-center">Items</th>
+											<th class="text-center">Total Price</th>
+											<th class="text-center">Details</th>
 										</tr>
 									</thead>
 									<tbody>
 										{% for user_order in user_orders %}
 											<tr>
-												<td><a>#{{user_order.id}}</a></td>
-												<td>{{user_order.payment_date|date:'Y-m-d | H'}}</td>
-												<td>{{user_order.items}}</td>
-												<td>$ {{user_order.get_total_amount}}</td>
+												<td class="text-center"><a>#{{user_order.id}}</a></td>
+												<td class="text-center">{{user_order.payment_date|date:'Y-m-d | H'}}</td>
+												<td class="text-center">{{user_order.items}}</td>
+												<td class="text-center">$ {{user_order.get_total_amount}}</td>
+												<td class="text-center"><a href="{% url "order-list" order_id=user_order.id %}" class="btn btn-default">click</a></td>
+												{% comment %} <td class="text-center"><a href="{% url "order-list" order_id=user_order.id %}" style="background-color:black;color:white;" class="btn">click</a></td> {% endcomment %}
 											</tr>
 										{% endfor %}
 									</tbody>

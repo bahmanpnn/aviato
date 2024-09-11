@@ -11,58 +11,25 @@
 					{% include "user_profile_module/includes/dashboard_navbar.html" %}
 					<div class="dashboard-wrapper user-dashboard">
 						<div class="table-responsive">
+							<h2>Order Details</h2>
 							<table class="table">
 								<thead>
 									<tr>
-										<th>Order ID</th>
-										<th>Date</th>
-										<th>Items</th>
-										<th>Total Price</th>
-										<th>Status</th>
-										<th></th>
+										<th class="text-center">Product Name</th>
+										<th class="text-center">Count</th>
+										<th class="text-center">Price</th>
+										<th class="text-center">Final Price</th>
 									</tr>
 								</thead>
 								<tbody>
+									{% for detail in target_basket_details.order_detail.all %}
 									<tr>
-										<td>#451231</td>
-										<td>Mar 25, 2016</td>
-										<td>2</td>
-										<td>$99.00</td>
-										<td><span class="label label-primary">Processing</span></td>
-										<td><a href="order.html" class="btn btn-default">View</a></td>
+										<td class="text-center">{{detail.product.title}}</td>
+										<td class="text-center">{{detail.count}}</td>
+										<td class="text-center">{{detail.product.price}}</td>
+										<td class="text-center">{{detail.final_price}}</td>
 									</tr>
-									<tr>
-										<td>#451231</td>
-										<td>Mar 25, 2016</td>
-										<td>3</td>
-										<td>$150.00</td>
-										<td><span class="label label-success">Completed</span></td>
-										<td><a href="order.html" class="btn btn-default">View</a></td>
-									</tr>
-									<tr>
-										<td>#451231</td>
-										<td>Mar 25, 2016</td>
-										<td>3</td>
-										<td>$150.00</td>
-										<td><span class="label label-danger">Canceled</span></td>
-										<td><a href="order.html" class="btn btn-default">View</a></td>
-									</tr>
-									<tr>
-										<td>#451231</td>
-										<td>Mar 25, 2016</td>
-										<td>2</td>
-										<td>$99.00</td>
-										<td><span class="label label-info">On Hold</span></td>
-										<td><a href="order.html" class="btn btn-default">View</a></td>
-									</tr>
-									<tr>
-										<td>#451231</td>
-										<td>Mar 25, 2016</td>
-										<td>3</td>
-										<td>$150.00</td>
-										<td><span class="label label-warning">Pending</span></td>
-										<td><a href="order.html" class="btn btn-default">View</a></td>
-									</tr>
+									{% endfor %}
 								</tbody>
 							</table>
 						</div>
