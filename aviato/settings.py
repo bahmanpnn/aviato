@@ -41,9 +41,17 @@ INSTALLED_APPS = [
     
     #third party apps
     'django_render_partial',
-    'sorl.thumbnail'
+    'sorl.thumbnail',
+    "crispy_forms",
+    "crispy_bootstrap4",
 
 ]
+
+# crispy forms config
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "uni_form"
+# CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+# CRISPY_TEMPLATE_PACK = 'uni_form'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -152,3 +160,4 @@ EMAIL_HOST_USER="hamidbagheri042@gmail.com" #this is my test gmail please dont u
 EMAIL_HOST_PASSWORD='jqepansykjkurupk'
 EMAIL_PORT=587
 DEFAULT_FROM_EMAIL="Aviato group"
+

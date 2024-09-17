@@ -1,10 +1,11 @@
-
-
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 
 {% block title %}user{% endblock title %}
-{% block header_references %}{% endblock header_references %}
+{% comment %} {% block header_references %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+{% endblock header_references %} {% endcomment %}
 
 {% block content %}
   <section class="user-dashboard page-wrapper">
@@ -15,16 +16,31 @@
           <div class="dashboard-wrapper dashboard-user-profile">
             <div class="media">
               <div class="pull-left text-center" href="#!">
-                <img class="media-object user-img" src="images/avater.jpg" alt="Image">
-                <a href="#x" class="btn btn-transparent mt-20">Change Image</a>
+                {% if request.user.image %}
+                  <img class="media-object user-img" src="{{request.user.image.url}}" alt="Image">
+                  {% else %}
+                  <img class="media-object user-img" src="/static/images/avater.jpg" alt="Image">
+                {% endif %}
+                {% comment %} <a href="" class="btn btn-transparent mt-20">Edit Profile</a> {% endcomment %}
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-transparent mt-20" data-toggle="modal" data-target="#exampleModal">
+                  Edit Profile
+                </button>
+                <!-- End Button trigger modal -->
               </div>
               <div class="media-body">
                 <ul class="user-profile-list">
-                  <li><span>Full Name:</span>Johanna Doe</li>
-                  <li><span>Country:</span>USA</li>
-                  <li><span>Email:</span>mail@gmail.com</li>
-                  <li><span>Phone:</span>+880123123</li>
-                  <li><span>Date of Birth:</span>Dec , 22 ,1991</li>
+                  {% if request.user.get_full_name %}
+                  {% comment %} {% if request.user.first_name and  request.user.last_name %} {% endcomment %}
+                    <li><span>Full Name:</span>{{request.user.first_name|capfirst}} {{request.user.last_name|capfirst}}</li>
+                  {% endif %}
+                  {% if request.user.email %}
+                    <li><span>Email:</span>{{request.user.email}}</li>
+                  {% endif %}
+                  {% if request.user.phone_number %}
+                    <li><span>Phone:</span>{{request.user.phone_number}}</li>
+                  {% endif %}
+                  <li><span>Date Of Join:</span>{{request.user.date_joined|date:'Y-m-d'}}</li>
                 </ul>
               </div>
             </div>
@@ -33,6 +49,31 @@
       </div>
     </div>
   </section>
-{% endblock content %}
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="post-form" action="" novalidate>
+          {% csrf_token %}
+          {{ form | crispy}}
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
+            <button type="submit" class="btn btn-dark">update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End-Modal-->
+{% endblock content %}
 {% block footer_references %}{% endblock footer_references %}

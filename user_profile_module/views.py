@@ -3,6 +3,9 @@ from django.shortcuts import render
 from django.views import View
 from django.db.models import Count
 from order_module.models import OrderBasket
+from .forms import EditUserForm
+from account_module.models import User
+from django.contrib import messages
 
 
 class UserProfileView(View):
@@ -29,15 +32,27 @@ class UserCompletedOrders(View):
             'target_basket_details':target_basket_details
         })
 
-
+    
 class UserProfileDetail(View):
     template_name='user_profile_module/profile_details.html'
-    
+    form_class = EditUserForm
+
     def get(self,request):
-        return render(request,self.template_name)
+        return render(request,self.template_name,{
+            'form': self.form_class(instance=request.user)
+        })
 
     def post(self,request):
-        pass
+        target_user=User.objects.get(id=request.user.id)
+        form=self.form_class(request.POST,request.FILES,instance=target_user)
+
+        if form.is_valid():
+            form.save(commit=True)
+
+        messages.success(request,'your profile updated successfully')    
+        return render(request,self.template_name,{
+            'form': form
+        })
 
 
 class UserAddress(View):

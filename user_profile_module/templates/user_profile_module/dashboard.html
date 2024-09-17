@@ -24,7 +24,9 @@
 								{% else %}
 									<h2 class="media-heading">Welcome {{request.user.username}}</h2>
 								{% endif %}
-								<p>{{request.user.about_user}}</p>
+								{% if request.user.about_user %}
+									<p>{{request.user.about_user}}</p>
+								{% endif %}
 							</div>
 						</div>
 						<div class="total-order mt-20">
