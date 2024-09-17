@@ -62,7 +62,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="post" id="post-form" action="" novalidate>
+        <form method="post" id="post-form" action="" enctype="multipart/form-data" novalidate>
           {% csrf_token %}
           {{ form | crispy}}
           <div class="modal-footer">

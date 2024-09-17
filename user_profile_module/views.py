@@ -37,21 +37,27 @@ class UserProfileDetail(View):
     template_name='user_profile_module/profile_details.html'
     form_class = EditUserForm
 
+    def dispatch(self, request, *args, **kwargs):
+        self.target_user=User.objects.get(id=request.user.id)
+        return super().dispatch(request, *args, **kwargs)
+    
+
     def get(self,request):
         return render(request,self.template_name,{
-            'form': self.form_class(instance=request.user)
+            'form': self.form_class(instance=request.user),
+            'current_user':self.target_user
         })
 
     def post(self,request):
-        target_user=User.objects.get(id=request.user.id)
-        form=self.form_class(request.POST,request.FILES,instance=target_user)
+        form=self.form_class(request.POST,files=request.FILES,instance=self.target_user)
 
         if form.is_valid():
-            form.save(commit=True)
+            form.save()
 
         messages.success(request,'your profile updated successfully')    
         return render(request,self.template_name,{
-            'form': form
+            'form': form,
+            'current_user':self.target_user
         })
 
 
