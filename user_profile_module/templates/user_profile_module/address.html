@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 
 {% block title %}user addresses{% endblock title %}
 {% block header_references %}{% endblock header_references %}
@@ -12,71 +12,78 @@
           <div class="col-md-12">
             {% include "user_profile_module/includes/dashboard_navbar.html" %}
             <div class="dashboard-wrapper user-dashboard">
+              {% if user_addresses %}
               <div class="table-responsive">
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Company</th>
-                      <th>Name</th>
-                      <th>Address</th>
-                      <th>Country</th>
-                      <th class="col-md-2 col-sm-3">Phone</th>
-                      <th></th>
+                      <th class="text-center">Name</th>
+                      <th class="text-center">Country</th>
+                      <th class="text-center">Address</th>
+                      <th class="col-md-2 col-sm-3 text-center">Phone</th>
                     </tr>
                   </thead>
                   <tbody>
+                    {% for user_address in user_addresses %}
                     <tr>
-                      <td>Nokia</td>
-                      <td>Adam Smith</td>
-                      <td>9/4 C Babor Road, Mohammad Pur, Dhaka</td>
-                      <td>Bangladesh</td>
-                      <td>+884 5452 6452</td>
-                      <td>
-                        <div class="btn-group" role="group">
-                          <button type="button" class="btn btn-default"><i class="tf-pencil2" aria-hidden="true"></i></button>
-                          <button type="button" class="btn btn-default"><i class="tf-ion-close" aria-hidden="true"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Samsung</td>
-                      <td>Adam Smith</td>
-                      <td>9/4 C Babor Road, Mohammad Pur, Dhaka</td>
-                      <td>Bangladesh</td>
-                      <td>+884 5452 6452</td>
-                      <td>
-                        <div class="btn-group" role="group">
-                          <button type="button" class="btn btn-default"><i class="tf-pencil2" aria-hidden="true"></i></button>
-                          <button type="button" class="btn btn-default"><i class="tf-ion-close" aria-hidden="true"></i></button>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Motorola</td>
-                      <td>Adam Smith</td>
-                      <td>9/4 C Babor Road, Mohammad Pur, Dhaka</td>
-                      <td>Bangladesh</td>
-                      <td>+884 5452 6452</td>
-                      <td>
-                        <div class="btn-group" role="group">
-                          <button type="button" class="btn btn-default"><i class="tf-pencil2" aria-hidden="true"></i></button>
-                          <button type="button" class="btn btn-default"><i class="tf-ion-close" aria-hidden="true"></i></button>
-                        </div>
-                      </td>
-                    </tr>
+                        
+                        <td class="text-center">{{user_address.user}}</td>
+                        <td class="text-center">{{user_address.country}}</td>
+                        <td class="text-center">{{user_address.address|truncatechars:70}}</td>
+                        <td class="text-center">{{user_address.phone}}</td>
+                        <td class="text-center">
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal_{{forloop.counter}}"><i class="tf-pencil2"  aria-hidden="true"></i></button>
+                            <a class="btn btn-default" href="{% url "address-remove" user_address_id=user_address.id %}"><i class="tf-ion-close" aria-hidden="true"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+
+                    {% endfor %}
                   </tbody>
                 </table>
               </div>
+              {% else %}
+              <p class="text-center">there is no address,do you want add first one?</p>
+              {% comment %} <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal_new_address">add address</button> {% endcomment %}
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
     </section>
 
+<!--forms-->
+    {% for form in forms %}
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal_{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel_{{forloop.counter}}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title text-center" id="exampleModalLabel_{{forloop.counter}}">Edit Address</h3>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="post" id="post-form" action="" novalidate>
+                {% csrf_token %}
+                {{ form | crispy}}
+                <input type="hidden" name="id_address_counter" value="{{forloop.counter}}">
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
+                  <button type="submit" class="btn btn-dark">update</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- End-Modal-->
+    {% endfor %}
+<!--end forms-->
+
 {% endblock content %}
 
 {% block footer_references %}{% endblock footer_references %}
 
-{% comment %} @login_required
-def profile_navbar_component(request):
-    return render(request,'user_profile_module/components/profile_navbar.html') {% endcomment %}

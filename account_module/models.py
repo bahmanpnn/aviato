@@ -21,3 +21,11 @@ class User(AbstractUser):
             return self.username
         
         return self.email
+    
+
+class UserAddressInformation(models.Model):
+    address=models.TextField()
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    receiver_full_name=models.CharField(max_length=255,blank=True,null=True) # can i use it in user model and set default self.user.get_full_name() ?
+    country=models.CharField(max_length=255,default='Iran')
+    phone=models.CharField(max_length=15)

@@ -1,10 +1,11 @@
-from django.http import Http404
-from django.shortcuts import render
+from django.http import Http404, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views import View
 from django.db.models import Count
 from order_module.models import OrderBasket
-from .forms import EditUserForm
-from account_module.models import User
+from .forms import EditUserForm,EditUserAddressForm
+from account_module.models import User,UserAddressInformation
 from django.contrib import messages
 
 
@@ -63,9 +64,48 @@ class UserProfileDetail(View):
 
 class UserAddress(View):
     template_name='user_profile_module/address.html'
+    form_class=EditUserAddressForm
     
+    def dispatch(self, request, *args, **kwargs):
+        self.user_addresses=UserAddressInformation.objects.filter(user_id=request.user.id)
+        return super().dispatch(request, *args, **kwargs)
+    
+
     def get(self,request):
-        return render(request,self.template_name)
+        
+        forms=[]
+        for user_address in self.user_addresses:
+            forms.append(self.form_class(instance=user_address))
+        return render(request,self.template_name,{
+            'user_addresses':self.user_addresses,
+            'forms':forms
+        })
 
     def post(self,request):
-        pass
+        counter=int(request.POST['id_address_counter'])-1
+        
+        if counter<=len(self.user_addresses):
+            target_address_form=self.user_addresses[counter]
+            # print(target_address_form)
+            
+        form=self.form_class(request.POST,instance=target_address_form)
+        if form.is_valid():
+            form.save()
+        
+        forms=[]
+        for user_address in self.user_addresses:
+            forms.append(self.form_class(instance=user_address))
+
+        messages.success(request,'your address updated successfully')    
+        return render(request,self.template_name,{
+            'user_addresses':self.user_addresses,
+            'forms':forms
+        })
+    
+
+def user_address_remove(request,user_address_id):
+    target_user_address=get_object_or_404(UserAddressInformation,user_id=request.user.id,id=user_address_id)
+    if target_user_address is not None:
+        target_user_address.delete()
+        messages.success(request,'address removed successfully')
+        return redirect(reverse('address'))

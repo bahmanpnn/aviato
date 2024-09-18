@@ -1,5 +1,5 @@
 from django import forms
-from account_module.models import User
+from account_module.models import User,UserAddressInformation
 
 
 class EditUserForm(forms.ModelForm):
@@ -8,6 +8,19 @@ class EditUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username','first_name','last_name', 'email','phone_number','about_user','image')
+
+
+class EditUserAddressForm(forms.ModelForm):
+    class Meta:
+        model=UserAddressInformation
+        fields='__all__'
+
+
+
+
+
+
+
 
 
 # class AddPostForm(forms.ModelForm):
