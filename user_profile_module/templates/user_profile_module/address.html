@@ -43,9 +43,10 @@
                   </tbody>
                 </table>
               </div>
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalNewAddress">Add New Address</button>
               {% else %}
               <p class="text-center">there is no address,do you want add first one?</p>
-              {% comment %} <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModal_new_address">add address</button> {% endcomment %}
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalNewAddress">Add New Address</button>
               {% endif %}
             </div>
           </div>
@@ -53,6 +54,7 @@
       </div>
     </section>
 
+<!--Modal-Forms-->
 <!--forms-->
     {% for form in forms %}
       <!-- Modal -->
@@ -83,6 +85,32 @@
     {% endfor %}
 <!--end forms-->
 
+<!-- New-Address-Modal -->
+<div class="modal fade" id="exampleModalNewAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalNewAddress" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center" id="exampleModalNewAddress">Add New Address</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post" id="post-form" action="" novalidate>
+          {% csrf_token %}
+          {{ new_address_form | crispy}}
+          <input type="hidden" name="id_add_new_address" value="1">
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
+            <button type="submit" class="btn btn-dark">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End-New-Address-Modal-->
+<!--End-Modal-Forms-->
 {% endblock content %}
 
 {% block footer_references %}{% endblock footer_references %}

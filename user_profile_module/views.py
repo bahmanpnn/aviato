@@ -78,29 +78,34 @@ class UserAddress(View):
             forms.append(self.form_class(instance=user_address))
         return render(request,self.template_name,{
             'user_addresses':self.user_addresses,
-            'forms':forms
+            'forms':forms,
+            'new_address_form':EditUserAddressForm()
         })
 
     def post(self,request):
-        counter=int(request.POST['id_address_counter'])-1
-        
-        if counter<=len(self.user_addresses):
-            target_address_form=self.user_addresses[counter]
-            # print(target_address_form)
-            
-        form=self.form_class(request.POST,instance=target_address_form)
-        if form.is_valid():
-            form.save()
-        
-        forms=[]
-        for user_address in self.user_addresses:
-            forms.append(self.form_class(instance=user_address))
 
-        messages.success(request,'your address updated successfully')    
-        return render(request,self.template_name,{
-            'user_addresses':self.user_addresses,
-            'forms':forms
-        })
+        print(request.POST)
+        if 'id_address_counter' in request.POST:
+            counter=int(request.POST['id_address_counter'])-1
+            
+            if counter<=len(self.user_addresses):
+                target_address_form=self.user_addresses[counter]
+                # print(target_address_form)
+                
+            form=self.form_class(request.POST,instance=target_address_form)
+            if form.is_valid():
+                form.save()
+            messages.success(request,'your address updated successfully')    
+        else:
+            print(request.POST['id_add_new_address'])
+            new_address_form=EditUserAddressForm(request.POST)
+            if new_address_form.is_valid():
+                cd=new_address_form.cleaned_data
+                new_address=UserAddressInformation(address=cd['address'],user_id=request.user.id,receiver_full_name=cd['receiver_full_name'],country=cd['country'],phone=cd['phone'])
+                new_address.save()
+            messages.success(request,'new address added successfully')
+                
+        return redirect(reverse('address'))
     
 
 def user_address_remove(request,user_address_id):

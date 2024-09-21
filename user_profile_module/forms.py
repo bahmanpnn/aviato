@@ -13,7 +13,8 @@ class EditUserForm(forms.ModelForm):
 class EditUserAddressForm(forms.ModelForm):
     class Meta:
         model=UserAddressInformation
-        fields='__all__'
+        # fields='__all__'
+        exclude=['user']
 
 
 
