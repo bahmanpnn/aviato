@@ -10,6 +10,23 @@ class EditUserForm(forms.ModelForm):
         fields = ('username','first_name','last_name', 'email','phone_number','about_user','image')
 
 
+class ChangePasswordForm(forms.Form):
+    last_password=forms.CharField(widget=forms.PasswordInput())
+    new_password=forms.CharField(widget=forms.PasswordInput())
+    confirm_password=forms.CharField(widget=forms.PasswordInput())
+    
+    def clean_confirm_password(self):
+
+        new_password=self.cleaned_data.get('new_password')
+        confirm_password=self.cleaned_data.get('confirm_password')
+
+        if new_password==confirm_password:
+            return new_password
+        
+        raise forms.ValidationError('password does not match with confirm password please try again')
+        # return ValidationError('confirm_password','password does not match with confirm password please try again')
+        
+
 class EditUserAddressForm(forms.ModelForm):
     class Meta:
         model=UserAddressInformation

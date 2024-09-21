@@ -4,9 +4,10 @@ from django.urls import reverse
 from django.views import View
 from django.db.models import Count
 from order_module.models import OrderBasket
-from .forms import EditUserForm,EditUserAddressForm
+from .forms import EditUserForm,EditUserAddressForm,ChangePasswordForm
 from account_module.models import User,UserAddressInformation
 from django.contrib import messages
+from django.contrib.auth import logout
 
 
 class UserProfileView(View):
@@ -37,6 +38,7 @@ class UserCompletedOrders(View):
 class UserProfileDetail(View):
     template_name='user_profile_module/profile_details.html'
     form_class = EditUserForm
+    second_form_class=ChangePasswordForm
 
     def dispatch(self, request, *args, **kwargs):
         self.target_user=User.objects.get(id=request.user.id)
@@ -46,18 +48,31 @@ class UserProfileDetail(View):
     def get(self,request):
         return render(request,self.template_name,{
             'form': self.form_class(instance=request.user),
+            'change_password_form':ChangePasswordForm(),
             'current_user':self.target_user
         })
 
     def post(self,request):
-        form=self.form_class(request.POST,files=request.FILES,instance=self.target_user)
+        
+        change_password_form=self.second_form_class(request.POST)
+        if change_password_form.is_valid():
+            cd=change_password_form.cleaned_data
+            check_last_password=self.target_user.check_password(cd['last_password'])
+            if check_last_password:
+                self.target_user.set_password(cd['new_password'])
+                self.target_user.save()
+                messages.success(request,'your password changed successfully')
+                logout(request)
+                return redirect(reverse('login-page'))
 
+        form=self.form_class(request.POST,files=request.FILES,instance=self.target_user)
         if form.is_valid():
             form.save()
-
-        messages.success(request,'your profile updated successfully')    
+            messages.success(request,'your profile updated successfully')
+        
         return render(request,self.template_name,{
             'form': form,
+            'change_password_form':ChangePasswordForm(),
             'current_user':self.target_user
         })
 

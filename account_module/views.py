@@ -174,9 +174,10 @@ class ForgetPasswordView(View):
 
             if check_email:
                 # send email
+                target_user=User.objects.get(email__iexact=form.cleaned_data['email'])
                 site_setting=SiteSetting.objects.filter(is_main_setting=True).first()
                 email_template='account_module/email/reset_password_email.html'
-                email_service('reset your password',form.cleaned_data['email'],{'user':check_email,'site_setting':site_setting},email_template)
+                email_service('reset password',form.cleaned_data['email'],{'user':target_user,'site_setting':site_setting},email_template)
 
                 messages.success(request,'email sent successfully!! check your messages to reset your password')
                 return redirect(reverse('login-page'))

@@ -1,7 +1,10 @@
 from django.contrib import admin
 from .models import User,UserAddressInformation
 
-admin.site.register(User)
+class UserInfoAdmin(admin.ModelAdmin):
+    list_display=['username','is_superuser','phone_number','email']
+
+admin.site.register(User,UserInfoAdmin)
 
 class UserAddressInfoAdmin(admin.ModelAdmin):
     list_display=['user','receiver_full_name','phone']
