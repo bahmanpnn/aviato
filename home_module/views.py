@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.db.models import Count
 from site_setting_module.models import SiteSetting,FooterLinkItem
 from product_module.models import Product
+from product_module.models import ProductCategory
 from .models import Slider,UserEmailSubscribe
 from .forms import GetUserEmailForSubscribeForm
 
@@ -19,12 +20,20 @@ def index(request):
             new_email.save()
             messages.success(request,'thank you for sending your email to fallowing us')
             return redirect(reverse('home-page'))
-    
+        
+    product_category_banner_right=ProductCategory.objects.filter(is_delete=False,is_banner=True,position__exact=ProductCategory.ProductCategoryPosition.right).first()
+    product_category_banner_top_left=ProductCategory.objects.filter(is_delete=False,is_banner=True,position__exact=ProductCategory.ProductCategoryPosition.top_left).first()
+    product_category_banner_bottom_left=ProductCategory.objects.filter(is_delete=False,is_banner=True,position__exact=ProductCategory.ProductCategoryPosition.bottom_left).first()
     trend_products=Product.objects.filter(is_active=True,is_delete=False).annotate(visit_count=Count('productvisit')).order_by('-visit_count')[:9]
+    
     return render(request,'home_module/index.html',{
         'form':form,
-        'trend_products':trend_products
+        'trend_products':trend_products,
+        'product_category_banner_right':product_category_banner_right,
+        'product_category_banner_top_left':product_category_banner_top_left,
+        'product_category_banner_bottom_left':product_category_banner_bottom_left,
     })
+
 
 def navbar_component(request):
     return render(request,'navbar_component.html')

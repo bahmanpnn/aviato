@@ -17,11 +17,21 @@ class ProductBrand(models.Model):
 
 
 class ProductCategory(models.Model):
+    class ProductCategoryPosition(models.TextChoices):
+        right='right','position of this banner is enitre of right'
+        top_left='top_left','position of this banner is top of left side'
+        bottom_left='bottom_left','position of this banner is bottom of left side'
+
     parent=models.ForeignKey('ProductCategory',on_delete=models.CASCADE,null=True,blank=True)
     title=models.CharField(max_length=300,db_index=True)
     url_title=models.CharField(max_length=300)
     is_active=models.BooleanField(default=True)
     is_delete=models.BooleanField(default=False)
+    is_banner=models.BooleanField(default=False)
+    image=models.ImageField(upload_to='images/product-category-banners',blank=True,null=True)
+    position=models.CharField(max_length=150,choices=ProductCategoryPosition.choices,blank=True,null=True)
+    short_description_banner=models.CharField(max_length=511,null=True,blank=True)
+    
 
     def __str__(self):
         return self.url_title
