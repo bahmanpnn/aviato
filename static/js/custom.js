@@ -15,7 +15,7 @@ function SendArticleComment(ArticleId){
 
     }).then(res=>{
         $('#comments_area').html(res)
-        $('#commentText').val('');
+        $('#text').val('');
         $('#parentId').val('');
         
         //after adding comment must scroll to that 
