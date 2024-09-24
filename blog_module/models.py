@@ -50,10 +50,20 @@ class Article(models.Model):
     
     def get_absolute_url(self):
         return reverse("article-detail", kwargs={"slug": self.slug})
-    
+
+
 class ArticleComment(models.Model):
     parent=models.ForeignKey('ArticleComment',on_delete=models.CASCADE,blank=True,null=True)
     author=models.ForeignKey(User,on_delete=models.CASCADE)
     created_date=models.DateTimeField(auto_now_add=True)
     text=models.TextField()
     article=models.ForeignKey(Article,on_delete=models.CASCADE)
+
+
+class ArticleVisit(models.Model):
+    ip=models.CharField(max_length=32)
+    user=models.ForeignKey(User,on_delete=models.PROTECT,null=True,blank=True)
+    article=models.ForeignKey(Article,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.article} - {self.ip}'

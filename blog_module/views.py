@@ -3,10 +3,13 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
 from django.views.generic import ListView
-from .models import Article,ArticleCategory,ArticleComment
-from .forms import UserEmailSubscribeForm
-from home_module.models import UserEmailSubscribe
 from django.contrib import messages
+from django.db.models import Count
+from home_module.models import UserEmailSubscribe
+from utils.http_service import get_client_ip
+from .models import Article,ArticleCategory,ArticleComment,ArticleVisit
+from .forms import UserEmailSubscribeForm
+
 
 class ArticleView(ListView):
     template_name='blog_module/articles.html'
@@ -26,17 +29,16 @@ class ArticleView(ListView):
 
         return query
     
-    # def get_context_data(self, **kwargs):
-    #     '''
-    #         if need to pass new data in product template and
-    #         this is not product model must send with this method and override this
-    #     '''
-    #     context=super().get_context_data(**kwargs)  
-    #     return context
-
     def get_context_data(self, **kwargs):
+        '''
+            if need to pass new data in product template and
+            this is not product model must send with this method and override this
+        '''
+        most_viewed_articles=Article.objects.filter(is_active=True).annotate(visit_count=Count('articlevisit')).order_by('-visit_count')[:5]
+        # context=super().get_context_data(**kwargs) 
         context = super(ArticleView, self).get_context_data(**kwargs)
-        context['form'] = UserEmailSubscribeForm()
+        context['form'] = UserEmailSubscribeForm() 
+        context['most_viewed_articles']=most_viewed_articles
         return context
     
     def post(self, request):
@@ -51,8 +53,6 @@ class ArticleView(ListView):
         return redirect(reverse('articles'))
         
         
-        
-
 class ArticleDetailView(View):
     template_name='blog_module/article_detail.html'
 
@@ -61,14 +61,23 @@ class ArticleDetailView(View):
         comments=ArticleComment.objects.filter(parent_id=None,article_id=article.id).order_by('-created_date').prefetch_related('articlecomment_set')
         comments_count=ArticleComment.objects.filter(article_id=article.id).count()
         
+        # product visit adding and get user ip
+        user_ip=get_client_ip(request)        
+        has_been_visited=ArticleVisit.objects.filter(ip__exact=user_ip,article=article).exists()
+
+        if not has_been_visited:
+            if request.user.is_authenticated:
+                user_id=request.user.id
+            else:
+                user_id=None
+            new_visit=ArticleVisit(ip=user_ip,article=article,user_id=user_id)
+            new_visit.save()
+
         return render(request,self.template_name,{
             'article':article,
             'comments':comments,
             'comments_count':comments_count
         })
-
-    def post(self,request):
-        pass
 
 
 def categories(request):
