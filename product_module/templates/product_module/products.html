@@ -84,39 +84,7 @@
 						<br>
 						{% if products %}
 							{% for product in products %}
-								<div class="col-md-4">
-									<div class="product-item">
-										<div class="product-thumb">
-											{% if product.discount %}
-												<span class="bage">Sale</span>
-											{% endif %}
-											{% thumbnail product.image "260x315" crop='center' quality=95 as im%}
-												<img class="img-responsive" src="{{im.url}}" alt="product-img" />
-											{% endthumbnail %}
-											<div class="preview-meta">
-												<ul>
-													<a href="{% url "product-detail" slug=product.slug %}">
-														<li>
-															<span  data-toggle="modal" data-target="#product-modal">
-																<i class="tf-ion-ios-search-strong"></i>
-															</span>
-														</li>
-													</a>
-													<li>
-														<a href="#!" ><i class="tf-ion-ios-heart"></i></a>
-													</li>
-													<li>
-														<a href="#!"><i class="tf-ion-android-cart"></i></a>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="product-content">
-											<h4><a href="product-single.html">{{product.title}}</a></h4>
-											<p class="price">${{product.price|three_digits}}</p>
-										</div>
-									</div>
-								</div>
+								{% include "product_module/includes/product_item.html" with product=product col_size=4 %}
 							{% endfor %}
 					
 							<!-- Modal -->

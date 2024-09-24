@@ -86,40 +86,7 @@
             <div class="row">
                 
                 {% for trend_product in trend_products %}
-                    <div class="col-md-4">
-                        <div class="product-item">
-                            <div class="product-thumb">
-                                {% if trend_product.discount %} 
-                                    <span class="bage">Sale</span>
-                                {% endif %}
-                                {% thumbnail trend_product.image "360x432" crop='center' as im%}
-                                    <img class="img-responsive" src="{{im.url}}" alt="product-img" />
-                                {% endthumbnail %}
-                                {% comment %} <img class="img-responsive" src="{{trend_product.image.url}}" alt="product-img" /> {% endcomment %}
-                                <div class="preview-meta">
-                                    <ul>
-                                        <a href="{% url "product-detail" slug=trend_product.slug %}">
-                                            <li>
-                                                <span  data-toggle="modal" data-target="#product-modal">
-                                                    <i class="tf-ion-ios-search-strong"></i>
-                                                </span>
-                                            </li>
-                                        </a>
-                                        <li>
-                                            <a href="#!" ><i class="tf-ion-ios-heart"></i></a>
-                                        </li>
-                                        <li>
-                                            <a href="#!"><i class="tf-ion-android-cart"></i></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <h4><a href="product-single.html">{{trend_product.title|truncatechars:25}}</a></h4>
-                                <p class="price">{{trend_product.price|three_digits}} $</p>
-                            </div>
-                        </div>
-                    </div>
+                    {% include "product_module/includes/product_item.html" with product=trend_product col_size=4 %}
                 {% endfor %}
             
             <!-- Modal -->

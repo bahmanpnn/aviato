@@ -3,11 +3,12 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
 from django.db.models import Count
-from order_module.models import OrderBasket
-from .forms import EditUserForm,EditUserAddressForm,ChangePasswordForm
-from account_module.models import User,UserAddressInformation
 from django.contrib import messages
 from django.contrib.auth import logout
+from order_module.models import OrderBasket
+from account_module.models import User,UserAddressInformation
+from .forms import EditUserForm,EditUserAddressForm,ChangePasswordForm
+from .models import UserFavoriteProduct
 
 
 class UserProfileView(View):
@@ -129,3 +130,11 @@ def user_address_remove(request,user_address_id):
         target_user_address.delete()
         messages.success(request,'address removed successfully')
         return redirect(reverse('address'))
+    
+
+def user_favorite_products(request):
+    user_favorite_products=UserFavoriteProduct.objects.filter(user_id=request.user.id).order_by('product__added_date')
+
+    return render(request,'user_profile_module/user_favorites.html',{
+        'user_favorite_products':user_favorite_products
+    })

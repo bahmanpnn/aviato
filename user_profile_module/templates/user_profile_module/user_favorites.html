@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load poll_extras %}
+
+{% block title %}user favorites{% endblock title %}
+
+{% block content %}
+<section class="user-dashboard page-wrapper">
+	<div class="container">
+	  <div class="row">
+		<div class="col-md-12">
+		  	{% include "user_profile_module/includes/dashboard_navbar.html" %}
+		  	<div class="dashboard-wrapper user-dashboard col-md-12">
+							
+				{% for user_favorite_product in user_favorite_products %}
+					{% include "product_module/includes/product_item.html" with product=user_favorite_product.product col_size=3 %}
+				{% endfor %}
+				
+		  	</div>
+		</div>
+	  </div>
+	</div>
+  </section>
+{% endblock content %}
+{% block footer_references %}{% endblock footer_references %}

@@ -130,6 +130,7 @@ def remove_product_from_basket_ajax(request):
             'body':data
         })
 
+
 # todo:switch all redirects with next method to redirect user last page and url after actions!
 def remove_basket_cart(request,detail_id):
     if detail_id is not None:   

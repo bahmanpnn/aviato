@@ -7,4 +7,5 @@ urlpatterns = [
     path('profile-details/',views.UserProfileDetail.as_view(),name='profile-details'),
     path('address/',views.UserAddress.as_view(),name='address'),
     path('address-remove/<int:user_address_id>',views.user_address_remove,name='address-remove'),
+    path('my-favorites/',views.user_favorite_products,name='user-favorite-products'),
 ]

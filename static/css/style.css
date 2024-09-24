@@ -1000,10 +1000,17 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
   transition: 0.2s all;
   width: 50px;
 }
+
 .product-item .product-thumb .preview-meta li a:hover, .product-item .product-thumb .preview-meta li span:hover {
   background: #000;
   color: #fff;
 }
+/* added by myself */
+/* .product-item .product-thumb .preview-meta li a, .product-item .product-thumb .preview-meta li favorite-product span {
+  background: #ffffff !important; 
+  color: #000000 !important;
+} */
+/* end added */
 .product-item:hover .product-thumb:before {
   opacity: 1;
 }

@@ -73,6 +73,7 @@ function addProductToBasket(productId){
     })
 }
 
+
 function removeOrderDetail(detailId) {
     $.get('/orders/remove_product_from_basket_ajax/?detail_id='+detailId,{
     }).then(res=>{
@@ -81,6 +82,43 @@ function removeOrderDetail(detailId) {
         };
     })    
 }
+
+
+function addProductToFavoriteList(productId) {
+
+    $.get('/products/add-to-user-favorite-list/?product_id=' + productId ,{
+    }).then(res=>{
+        if(res.status=='not-authenticated'){
+            Swal.fire({
+                title: res.title,
+                text:res.text,
+                icon: res.icon,
+                showCancelButton: true,
+                showConfirmButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText:'OK',
+                confirmButtonText:res.confirm_button_text,
+              }).then((result) => {
+                if (result.isConfirmed && res.status === 'not-authenticated') {
+                    window.location.href= '/accounts/login/'
+                }
+              });
+        }else{
+            Swal.fire({
+                title: res.title,
+                text:res.text,
+                icon: res.icon,
+                showConfirmButton: false,
+                showCancelButton: true,
+                cancelButtonColor: "#d33",
+                cancelButtonText:'OK',
+            });
+        };
+
+    })
+}
+
 
 // $("#sortingFiltering").change(function testFunc(){
 //     $('#sorted-option').onclick(function testFunc(srt) {
