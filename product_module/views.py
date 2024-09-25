@@ -4,6 +4,7 @@ from django.views.generic import DetailView
 from django.http import JsonResponse,HttpResponse
 from utils.http_service import get_client_ip
 from user_profile_module.models import UserFavoriteProduct
+from order_module.models import OrderBasket,OrderDetail
 from .models import ProductCategory,Product,ProductSorting,ProductVisit
 from .forms import ProductSortingForm
 
@@ -62,6 +63,50 @@ def add_remove_product_to_favorite_list(request):
                         'icon':'success',
                         'confirm_button_text':'OK'
                     })
+        
+        else:
+            return JsonResponse({
+                'status':'invalid-product-id',
+                'title':'alert',
+                'text':'invalid product id',
+                'icon':'error',
+                'confirm_button_text':'OK'
+            })
+    else:
+        return JsonResponse({
+            'status':'not-authenticated',
+            'title':'alert',
+            'text':'if you want to add this product to your favorite,first must login or register',
+            'icon':'error',
+            'confirm_button_text':'OK'
+            })
+    
+
+def add_one_product_to_basket(request):
+    if request.user.is_authenticated:
+        product_id=int(request.GET.get('product_id'))
+        count=1
+        target_product=get_object_or_404(Product,id=product_id,is_active=True,is_delete=False)
+
+        if target_product is not None:
+            current_order,is_created=OrderBasket.objects.get_or_create(is_paid=False,user_id=request.user.id)
+            current_order_detail=current_order.order_detail.filter(product_id=product_id).first()
+
+            if current_order_detail is not None:
+                current_order_detail.count+=count
+                current_order_detail.save()
+            else:
+                new_order_detail=OrderDetail(product_id=product_id,count=count,order_basket_id=current_order.id)
+                new_order_detail.save()
+
+
+            return JsonResponse({
+                    'status':'success',
+                    'title':'alert',
+                    'text':'product added to basket successfully',
+                    'icon':'success',
+                    'confirm_button_text':'OK'
+                })
         
         else:
             return JsonResponse({
