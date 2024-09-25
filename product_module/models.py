@@ -56,6 +56,11 @@ class ProductSorting(models.Model):
         verbose_name_plural='sortings'
 
 
+class ProductImages(models.Model):
+    image=models.ImageField(upload_to='images/product-extra-images')
+    product=models.ForeignKey('Product',on_delete=models.CASCADE)
+
+
 class Product(models.Model):
 
     image=models.ImageField(upload_to='images/products',null=True,blank=True)

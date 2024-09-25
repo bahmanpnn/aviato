@@ -5,7 +5,8 @@ from django.http import JsonResponse,HttpResponse
 from utils.http_service import get_client_ip
 from user_profile_module.models import UserFavoriteProduct
 from order_module.models import OrderBasket,OrderDetail
-from .models import ProductCategory,Product,ProductSorting,ProductVisit
+from utils.convertors import grouped_list
+from .models import ProductCategory,Product,ProductSorting,ProductVisit,ProductImages
 from .forms import ProductSortingForm
 
 
@@ -152,9 +153,11 @@ class ProductDetailView(DetailView):
             new_visit=ProductVisit(ip=user_ip,product_id=loaded_product.id,user_id=user_id)
             new_visit.save()
 
-        # product_images=list(ProductImages.objects.filter(product_id=loaded_product.id).all())
-        # product_images.insert(0,loaded_product)
-        # context['product_images']=grouped_list(product_images,3)
+        product_images=list(ProductImages.objects.filter(product_id=loaded_product.id).all())
+        print(product_images)
+        product_images.insert(0,loaded_product)
+        context['product_all_images']=product_images
+        context['product_images']=grouped_list(product_images,6)
 
 
         # # related products
