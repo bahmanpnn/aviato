@@ -90,7 +90,6 @@ def categories(request):
 
 
 def add_article_comment(request):
-    print(request.GET)
 
     if request.user.is_authenticated:
         article_id=request.GET.get('article_id')

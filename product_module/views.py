@@ -6,8 +6,9 @@ from utils.http_service import get_client_ip
 from user_profile_module.models import UserFavoriteProduct
 from order_module.models import OrderBasket,OrderDetail
 from utils.convertors import grouped_list
-from .models import ProductCategory,Product,ProductSorting,ProductVisit,ProductImages
+from .models import ProductCategory,Product,ProductSorting,ProductVisit,ProductImages,ProductComment
 from .forms import ProductSortingForm
+from django.template.loader import render_to_string
 
 
 class ProductView(View):
@@ -154,11 +155,15 @@ class ProductDetailView(DetailView):
             new_visit.save()
 
         product_images=list(ProductImages.objects.filter(product_id=loaded_product.id).all())
-        print(product_images)
         product_images.insert(0,loaded_product)
         context['product_all_images']=product_images
         context['product_images']=grouped_list(product_images,6)
 
+        # product comments
+        comments=ProductComment.objects.filter(product_id=loaded_product.id,parent_id=None).order_by('-created_date').prefetch_related('productcomment_set')
+        context['comments']=comments
+        # context['comments_count']=ProductComment.objects.filter(product_id=loaded_product.id).count()
+        
 
         # # related products
         # related_products=list(Product.objects.filter(brand_id=loaded_product.brand_id).exclude(id=loaded_product.id).all()[:12])
@@ -166,6 +171,46 @@ class ProductDetailView(DetailView):
 
         return context
 
+
+def add_product_comment(request):
+    if request.user.is_authenticated:
+        product_id=int(request.GET.get('product_id'))
+        check_product=get_object_or_404(Product,id=product_id,is_active=True,is_delete=False)
+        
+        if check_product is not None:
+            comment=request.GET.get('comment')
+            new_comment=ProductComment(author_id=request.user.id,product_id=product_id,
+                                    parent_id=request.GET.get('parent_id'),comment_text=comment)
+            new_comment.save()
+            
+            comments=ProductComment.objects.filter(product_id=product_id,parent_id=None).order_by('-created_date').prefetch_related('productcomment_set')
+            # comments_count=ProductComment.objects.filter(product_id=product_id).count()
+            
+            data=render_to_string('product_module/includes/product_comments.html',{
+                'comments':comments,
+            })
+
+            return JsonResponse({
+                    'status':'success',
+                    'body':data
+                })
+            # return render(request,'product_module/includes/product_comments.html',{
+            # 'comments':comments
+            # })
+
+        else:
+            return JsonResponse({
+                'status':'invalid-product-id'
+            })
+
+    return JsonResponse({
+        'status':'not-authenticated',
+        'title':'alert',
+        'text':'if you want to comment must login first',
+        'icon':'error',
+        'confirm_button_text':'OK'
+        })
+        
 
 
 # class ProductDetailView(View):

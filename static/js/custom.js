@@ -4,10 +4,6 @@ function SendArticleComment(ArticleId){
     var comment=$('#text').val();
     var parentId=$('#parentId').val();
 
-    console.log(comment);
-    console.log(ArticleId);
-    console.log(parentId);
-
     $.get('/blog/add-comment/article_comment/',{
         comment:comment,
         article_id:ArticleId,
@@ -33,6 +29,33 @@ function fillParentId(parentId) {
     document.getElementById('comment_form').scrollIntoView({behavior:'smooth'})
 }
 
+// product comment
+function SendProductComment(productId){
+    var comment=$('#text').val();
+    var parentId=$('#parentId').val();
+
+    $.get('/products/add-product-comment/comment/',{
+        comment: comment,
+        product_id: productId,
+        parent_id: parentId
+
+    }).then(res=>{
+        $('#comments_area').html(res.body)
+        $('#text').val('');
+        $('#parentId').val('');
+
+        
+        //after adding comment must scroll to that 
+        if(parentId !== null && parentId !== ''){
+            document.getElementById('single_comment_'+parentId).scrollIntoView({behavior:'smooth'})
+        }else{
+            document.getElementById('comments_area').scrollIntoView({behavior:'smooth'})
+        }
+
+    })
+}
+
+// end of product comment
 
 function addProductToBasket(productId){
     const count=$('#product-quantity').val();

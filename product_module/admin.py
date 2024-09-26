@@ -1,8 +1,10 @@
 from django.contrib import admin
-from .models import Product,ProductBrand,ProductCategory,ProductSorting,ProductVisit,ProductImages
+from .models import Product,ProductBrand,ProductCategory,\
+                            ProductSorting,ProductVisit,ProductImages,ProductComment
 
 
 admin.site.register(Product)
+admin.site.register(ProductComment)
 
 class ProductImagesAdmin(admin.ModelAdmin):
     list_display=['product_id','product']
