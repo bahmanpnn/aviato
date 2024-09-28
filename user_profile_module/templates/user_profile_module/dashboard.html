@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load poll_extras %}
 
 {% block title %}user dashboard{% endblock title %}
 {% block header_references %}{% endblock header_references %}
@@ -50,8 +51,8 @@
 												<td class="text-center"><a>#{{user_order.id}}</a></td>
 												<td class="text-center">{{user_order.payment_date|date:"DATE_FORMAT"}} | {{user_order.payment_date|time:"TIME_FORMAT"}}</td>
 												<td class="text-center">{{user_order.items}}</td>
-												<td class="text-center">$ {{user_order.get_total_amount}}</td>
-												<td class="text-center"><a href="{% url "order-list" order_id=user_order.id %}" class="btn btn-default">click</a></td>
+												<td class="text-center">$ {{user_order.get_total_amount|three_digits}}</td>
+												<td class="text-center"><a href="{% url "order-list" basket_id=user_order.id %}" class="btn btn-default">click</a></td>
 											
 											</tr>
 										{% endfor %}

@@ -11,28 +11,28 @@
                 <table class="table">
                 <thead>
                     <tr>
-                    <th class="">Item Name</th>
-                    <th class="">Item Price</th>
-                    <th class="">Count</th>
-                    <th class="">Total Price</th>
-                    <th class="">Actions</th>
+                    <th class="text-center">Item Name</th>
+                    <th class="text-center">Item Price</th>
+                    <th class="text-center">Count</th>
+                    <th class="text-center">Total Price</th>
+                    <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for detail in basket.order_detail.all %}
-                        <tr class="">
-                            <td class="">
+                        <tr>
+                            <td class="text-center">
                                 <div class="product-info">
                                 <img width="80" src="images/shop/cart/cart-1.jpg" alt="" />
                                 <a href="{% url "product-detail" slug=detail.product.slug %}">{{detail.product.title}}</a>
                                 </div>
                             </td>
-                            <td class="">${{detail.product.price}}</td>
-                            <td class="">{{detail.count}}</td>
-                            <td class="">{{detail.get_total_price}}</td>
-                            <td class="">
+                            <td class="text-center">${{detail.product.price}}</td>
+                            <td class="text-center">{{detail.count}}</td>
+                            <td class="text-center">{{detail.get_total_price}}</td>
+                            <td class="text-center">
                                 {% comment %} <a class="product-remove" href="{% url "remove-product-from-basket" detail_id=detail.id %}">Remove</a> {% endcomment %}
-                                <a class="product-remove btn btn-light" onclick="removeOrderDetail({{detail.id}})">Remove</a>
+                                <a class="product-remove btn btn-light text-center" onclick="removeOrderDetail({{detail.id}})">Remove</a>
                             </td>
                         </tr>
                     {% endfor %}

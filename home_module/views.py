@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
 from django.contrib import messages
-from django.db.models import Count
+from django.db.models import Sum,Count
 from site_setting_module.models import SiteSetting,FooterLinkItem
 from product_module.models import Product
 from product_module.models import ProductCategory
@@ -24,7 +24,9 @@ def index(request):
     product_category_banner_right=ProductCategory.objects.filter(is_delete=False,is_banner=True,position__exact=ProductCategory.ProductCategoryPosition.right).first()
     product_category_banner_top_left=ProductCategory.objects.filter(is_delete=False,is_banner=True,position__exact=ProductCategory.ProductCategoryPosition.top_left).first()
     product_category_banner_bottom_left=ProductCategory.objects.filter(is_delete=False,is_banner=True,position__exact=ProductCategory.ProductCategoryPosition.bottom_left).first()
-    trend_products=Product.objects.filter(is_active=True,is_delete=False).annotate(visit_count=Count('productvisit')).order_by('-visit_count')[:9]
+   
+    most_viewed_products=Product.objects.filter(is_active=True,is_delete=False).annotate(visit_count=Count('productvisit')).order_by('-visit_count')[:6]
+    trend_products=Product.objects.annotate(buy_count=Sum('orderdetail__count')).filter(is_active=True,is_delete=False,orderdetail__order_basket__is_paid=True).order_by('-buy_count')[:9]
     
     return render(request,'home_module/index.html',{
         'form':form,
@@ -32,6 +34,7 @@ def index(request):
         'product_category_banner_right':product_category_banner_right,
         'product_category_banner_top_left':product_category_banner_top_left,
         'product_category_banner_bottom_left':product_category_banner_bottom_left,
+        'most_viewed_products':most_viewed_products
     })
 
 

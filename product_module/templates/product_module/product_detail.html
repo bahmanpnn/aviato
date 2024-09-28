@@ -130,20 +130,32 @@
 							</select>
 						</div> 
 					{% endcomment %}
+					<br>
+					{% if product.brand %}
+						<div class="product-category">
+							<span>Brand:</span>
+							<ul style="display:inline;">
+									<li><a href="#">{{product.brand}}</a></li>
+							</ul>
+						</div>
+					{% endif %}
+					{% if categories %}
+						<div class="product-category">
+							<span>Categories:</span>
+							<ul style="display:inline;">
+								{% for category in categories %}
+								<li><a href="{% url "products-by-category" category=category.url_title %}">{{category.url_title}}</a></li>
+								{% endfor %}
+							</ul>
+						</div>
+					{% endif %}
 					<div class="product-quantity">
 						<span>Quantity:</span>
 						<div class="product-quantity-slider">
 							<input class="text-center" id="product-quantity" type="text" value="1" name="product-quantity">
 						</div>
 					</div>
-					<div class="product-category">
-						<span>Categories:</span>
-						<ul style="display:inline;">
-							{% for category in categories %}
-								<li><a href="{% url "products-by-category" category=category.url_title %}">{{category.url_title}}</a></li>
-							{% endfor %}
-						</ul>
-					</div>
+					<br>
 					<button onclick="addProductToBasket({{product.id}})" type="submit" class="btn btn-main mt-20">Add To Cart</button>
 				</div>
 			</div>
@@ -152,17 +164,17 @@
 			<div class="col-xs-12">
 				<div class="tabCommon mt-20">
 					<ul class="nav nav-tabs">
-						<li class="active"><a data-toggle="tab" href="#reviews" aria-expanded="false">Reviews</a></li>
-						<li class=""><a data-toggle="tab" href="#details" aria-expanded="true">Details</a></li>
+						<li class="active"><a data-toggle="tab" href="#details" aria-expanded="true">Details</a></li>
+						<li class=""><a data-toggle="tab" href="#reviews" aria-expanded="false">Reviews</a></li>
 					</ul>
 					<div class="tab-content patternbg">
 						
-						<div id="details" class="tab-pane fade">
+						<div id="details" class="tab-pane fade active in">
 							<h4>Product Description</h4>
 							<p>{{product.content}}</p>
 						</div>
 
-						<div id="reviews" class="tab-pane fade active in">
+						<div id="reviews" class="tab-pane fade">
 							<!-- comment area-->
 							
 							<div class="post-comments" id='comments_area'>
@@ -278,156 +290,57 @@
 		</div>
 	</div>
 </section>
-<section class="products related-products section">
-	<div class="container">
-		<div class="row">
-			<div class="title text-center">
-				<h2>Related Products</h2>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-3">
-				<div class="product-item">
-					<div class="product-thumb">
-						<span class="bage">Sale</span>
-						<img class="img-responsive" src="/static/images/shop/products/product-5.jpg" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li>
-									<span  data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search"></i>
-									</span>
-								</li>
-								<li>
-			                        <a href="#" ><i class="tf-ion-ios-heart"></i></a>
-								</li>
-								<li>
-									<a href="#!"><i class="tf-ion-android-cart"></i></a>
-								</li>
-							</ul>
-                      	</div>
-					</div>
-					<div class="product-content">
-						<h4><a href="product-single.html">Reef Boardsport</a></h4>
-						<p class="price">$200</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="product-item">
-					<div class="product-thumb">
-						<img class="img-responsive" src="/static/images/shop/products/product-1.jpg" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li>
-									<span  data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search-strong"></i>
-									</span>
-								</li>
-								<li>
-			                        <a href="#" ><i class="tf-ion-ios-heart"></i></a>
-								</li>
-								<li>
-									<a href="#!"><i class="tf-ion-android-cart"></i></a>
-								</li>
-							</ul>
-                      	</div>
-					</div>
-					<div class="product-content">
-						<h4><a href="product-single.html">Rainbow Shoes</a></h4>
-						<p class="price">$200</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="product-item">
-					<div class="product-thumb">
-						<img class="img-responsive" src="/static/images/shop/products/product-2.jpg" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li>
-									<span  data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search"></i>
-									</span>
-								</li>
-								<li>
-			                        <a href="#" ><i class="tf-ion-ios-heart"></i></a>
-								</li>
-								<li>
-									<a href="#!"><i class="tf-ion-android-cart"></i></a>
-								</li>
-							</ul>
-                      	</div>
-					</div>
-					<div class="product-content">
-						<h4><a href="product-single.html">Strayhorn SP</a></h4>
-						<p class="price">$230</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="product-item">
-					<div class="product-thumb">
-						<img class="img-responsive" src="/static/images/shop/products/product-3.jpg" alt="product-img" />
-						<div class="preview-meta">
-							<ul>
-								<li>
-									<span  data-toggle="modal" data-target="#product-modal">
-										<i class="tf-ion-ios-search"></i>
-									</span>
-								</li>
-								<li>
-			                        <a href="#" ><i class="tf-ion-ios-heart"></i></a>
-								</li>
-								<li>
-									<a href="#!"><i class="tf-ion-android-cart"></i></a>
-								</li>
-							</ul>
-                      	</div>
-					</div>
-					<div class="product-content">
-						<h4><a href="product-single.html">Bradley Mid</a></h4>
-						<p class="price">$200</p>
-					</div>
-				</div>
-			</div>
-			
-		</div>
-	</div>
-</section>
 
+{% if related_products %}
+	<section class="products related-products section">
+		<div class="container">
+			<div class="row">
+				<div class="title text-center">
+					<h2>Related Products</h2>
+				</div>
+			</div>
+			<div class="row">
+				{% for related_product in related_products %}	
+				{% include "product_module/includes/product_item.html" with product=related_product col_size=3 %}
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+
+{% endif %}
 
 
 <!-- Modal -->
-<div class="modal product-modal fade" id="product-modal">
-	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		<i class="tf-ion-close"></i>
-	</button>
-  	<div class="modal-dialog " role="document">
-    	<div class="modal-content">
-	      	<div class="modal-body">
-	        	<div class="row">
-	        		<div class="col-md-8">
-	        			<div class="modal-image">
-		        			<img class="img-responsive" src="/static/images/shop/products/modal-product.jpg" />
-	        			</div>
-	        		</div>
-	        		<div class="col-md-3">
-	        			<div class="product-short-details">
-	        				<h2 class="product-title">GM Pendant, Basalt Grey</h2>
-	        				<p class="product-price">$200</p>
-	        				<p class="product-short-description">
-	        					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem iusto nihil cum. Illo laborum numquam rem aut officia dicta cumque.
-	        				</p>
-	        				<a href="#!" class="btn btn-main">Add To Cart</a>
-	        				<a href="#!" class="btn btn-transparent">View Product Details</a>
-	        			</div>
-	        		</div>
-	        	</div>
-	        </div>
-    	</div>
-  	</div>
-</div>
+	<div class="modal product-modal fade" id="product-modal">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<i class="tf-ion-close"></i>
+		</button>
+		<div class="modal-dialog " role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-8">
+							<div class="modal-image">
+								<img class="img-responsive" src="/static/images/shop/products/modal-product.jpg" />
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="product-short-details">
+								<h2 class="product-title">GM Pendant, Basalt Grey</h2>
+								<p class="product-price">$200</p>
+								<p class="product-short-description">
+									Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem iusto nihil cum. Illo laborum numquam rem aut officia dicta cumque.
+								</p>
+								<a href="#!" class="btn btn-main">Add To Cart</a>
+								<a href="#!" class="btn btn-transparent">View Product Details</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- Modal -->
 {% endblock content %}
 
 {% block footer_references %}

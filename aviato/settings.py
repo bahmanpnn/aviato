@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'order_module.apps.OrderModuleConfig',
     'user_profile_module.apps.UserProfileModuleConfig',
     'polls.apps.PollsConfig',
+    'admin_panel_module.apps.AdminPanelModuleConfig',
 
     
     #third party apps

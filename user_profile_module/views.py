@@ -20,17 +20,17 @@ class UserProfileView(View):
             'user_orders':user_orders
         })
 
-    def post(self,request):
-        pass
 
 
 class UserCompletedOrders(View):
     template_name='user_profile_module/orders.html'
     
-    def get(self,request,order_id):
-        target_basket_details=OrderBasket.objects.prefetch_related('order_detail').filter(is_paid=True,user_id=request.user.id).first()
+    def get(self,request,basket_id):
+        target_basket_details=OrderBasket.objects.prefetch_related('order_detail').filter(id=basket_id,is_paid=True,user_id=request.user.id).first()
+        
         if target_basket_details is None:
             raise Http404('invalid order detail id!!')
+        
         return render(request,self.template_name,{
             'target_basket_details':target_basket_details
         })

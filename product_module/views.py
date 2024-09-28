@@ -1,14 +1,16 @@
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.views.generic import DetailView
-from django.http import JsonResponse,HttpResponse
-from utils.http_service import get_client_ip
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.db.models import Q
 from user_profile_module.models import UserFavoriteProduct
 from order_module.models import OrderBasket,OrderDetail
+from utils.http_service import get_client_ip
 from utils.convertors import grouped_list
 from .models import ProductCategory,Product,ProductSorting,ProductVisit,ProductImages,ProductComment
 from .forms import ProductSortingForm
-from django.template.loader import render_to_string
+from itertools import chain
 
 
 class ProductView(View):
@@ -166,8 +168,39 @@ class ProductDetailView(DetailView):
         
 
         # # related products
-        # related_products=list(Product.objects.filter(brand_id=loaded_product.brand_id).exclude(id=loaded_product.id).all()[:12])
-        # context['related_products']=grouped_list(related_products,3)
+        # todo: add query other products that bought with this product
+        
+        # way 1
+        # baskets=OrderBasket.objects.prefetch_related('order_detail__product').exclude(order_detail__product_id=loaded_product.id).filter(is_paid=True,order_detail__product_id=loaded_product.id)
+        
+        # baskets=OrderBasket.objects.filter(is_paid=True,order_detail__product_id=loaded_product.id).prefetch_related('order_detail__product').exclude(order_detail__product_id=loaded_product.id)
+        # print(list(baskets))
+        # products_related=[]
+        # for basket in baskets:
+        #     for item in basket.order_detail.all():
+        #         if len(products_related)<=4 and item.product.id !=loaded_product.id:
+        #             products_related.append(item.product)
+        # print(products)
+
+        # way 2
+        # related_product=OrderDetail.objects.filter(order_basket__is_paid=True)
+        # for p in related_product:
+        #     print(p.product)
+
+        # related_products=Product.objects.filter(orderdetail__order_basket__is_paid=True).exclude(id=loaded_product.id)
+        # related_products=Product.objects.filter(Q(brand_id=loaded_product.brand_id)|Q(category__in=loaded_product.category.all())).exclude(id=loaded_product.id)[:4]
+        # todo:add products that category of them is same that product object in product detail view(use again set+category__in?) 
+        related_products=Product.objects.filter(Q(brand_id=loaded_product.brand_id)).exclude(id=loaded_product.id).all()[:4]
+        baskets=OrderBasket.objects.prefetch_related('order_detail').filter(is_paid=True,order_detail__product_id=loaded_product.id)
+
+        products_related=set()
+        for basket in baskets:
+            for item in basket.order_detail.all():
+                if len(products_related)<=4 and item.product.id !=loaded_product.id:
+                    products_related.add(item.product)
+
+        # context['related_products']=set(chain(related_products,products_related))
+        context['related_products']=products_related.union(related_products)
 
         return context
 
@@ -212,16 +245,13 @@ def add_product_comment(request):
         })
         
 
-
 # class ProductDetailView(View):
 #     template_name='product_module/product_detail.html'
     
+#     # def get(self,request,slug):
 #     def get(self,request,*args, **kwargs):
-#     def get(self,request,slug):
 #         product=get_object_or_404(Product,slug=kwargs['slug'],is_active=True,is_delete=False)
 #         return render(request,self.template_name,{
 #             'product':product
 #         })
-    
-#     def post(self,request):
-#         pass
+

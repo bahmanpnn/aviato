@@ -72,7 +72,7 @@ class Product(models.Model):
     is_delete=models.BooleanField(default=False)
     added_date=models.DateTimeField(auto_now_add=True)
     updated_date=models.DateTimeField(auto_now=True)
-    slug=models.SlugField(blank=True,null=True,db_index=True)
+    slug=models.SlugField(blank=True,null=True,db_index=True,max_length=127)
     content=models.TextField(null=True,blank=True)
     short_description=models.CharField(max_length=320,db_index=True,null=True,blank=True)
     brand=models.ForeignKey(ProductBrand,on_delete=models.SET_NULL,blank=True,null=True)
@@ -81,7 +81,7 @@ class Product(models.Model):
     sorting=models.ForeignKey(ProductSorting,on_delete=models.PROTECT,null=True,blank=True)
     
     def save(self,*args, **kwargs):
-        self.slug=slugify(self.title)
+        self.slug=slugify(self.title[0:128])
         return super().save(*args, **kwargs)
     
     def get_absolute_url(self):
