@@ -3,7 +3,10 @@ from product_module.models import ProductBrand
 
 
 class ProductBrandAdminForm(forms.Form):
-    title=forms.CharField(max_length=127)
+    title=forms.CharField(widget=forms.TextInput(attrs={
+        'class':'form-control input-sm',
+        'placeholder':'brand title'
+    }),max_length=127,required=False)
     is_active=forms.BooleanField(required=False)
 
 

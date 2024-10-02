@@ -1,7 +1,8 @@
 from datetime import datetime,timedelta
 from django.http import HttpResponse
+from django.urls import reverse
 from django.utils import timezone
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.views.generic import ListView
 from django.db.models import Count,Sum
@@ -10,6 +11,7 @@ from blog_module.models import ArticleComment
 from order_module.models import OrderBasket
 from account_module.models import User
 from .forms import ProductBrandAdminForm
+from django.contrib import messages
 
 
 class AdminDashboard(View):
@@ -106,8 +108,23 @@ class AdminProductBrandView(ListView):
     form_class=ProductBrandAdminForm
 
     def post(self,request):
+        # todo: add empty value for filter brand for title
+        # print(request.POST)
+        if 'add-new-brand' in request.POST:
+            form=self.form_class(request.POST)
+            if form.is_valid() and form.cleaned_data['title'] != '':
+                cd=form.cleaned_data
+                new_brand=ProductBrand(title=cd['title'],is_active=cd['is_active'])
+                new_brand.save()
+                brands=ProductBrand.objects.all()
+                messages.success(request,'brand added successfully','success')
+                return render(request,self.template_name,{
+                    'product_brands':brands,
+                    'form':self.form_class()
+                })
 
-        if 'filter-brand' in request.POST:
+
+        elif 'filter-brand' in request.POST:
             form=self.form_class(request.POST)
             if form.is_valid():
                 cd=form.cleaned_data
@@ -146,3 +163,33 @@ class AdminProductBrandView(ListView):
         context = super(AdminProductBrandView, self).get_context_data(**kwargs)
         context['form']=self.form_class()
         return context
+    
+
+def admin_product_brand_delete(request,brand_id):
+    target_brand=get_object_or_404(ProductBrand,id=brand_id)
+
+    if target_brand is not None:
+        target_brand.delete()
+        messages.success(request,'brand deleted successfully','success')
+        return redirect(reverse('admin-product-brands'))
+    else:
+        messages.error(request,'this brand does not exists!!','danger')
+        return redirect(reverse('admin-product-brands'))
+    
+
+def admin_product_brand_edit(request,brand_id):
+    target_brand=get_object_or_404(ProductBrand,id=brand_id)
+    if target_brand is not None:
+        return render(request,"admin_panel_module/product_module/product_brand_detail.html",{
+            'brand':target_brand,
+            'form':ProductBrandAdminForm()
+        })
+
+
+
+
+
+
+
+
+

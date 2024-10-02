@@ -1,5 +1,7 @@
 {% extends "admin_panel_module/shared/base.html" %}
 {% load poll_extras %}
+{% load crispy_forms_tags %}
+
 
 {% block title %}main dashboard{% endblock title %}
 {% block header_references %}{% endblock header_references %}
@@ -14,7 +16,7 @@
                 <table class="jsgrid-table table table-striped table-hover">
 
                    <tr class="jsgrid-header-row">
-                      <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 300px;">Title</th>
+                      <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 200px;">Title</th>
                       <th></th>
                       <th></th>
                       {% comment %} <th class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable" style="width: 50px;">Age</th>
@@ -22,7 +24,11 @@
                       <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 100px;">Country</th> {% endcomment %}
                       <th class="jsgrid-header-cell jsgrid-align-center" style="width: 100px;">Is Active</th>
                       <th></th>
-                      <th class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center" style="width: 200px;"><button class="btn btn-info" type="button" title="Switch to inserting">Add</button></th>
+                      <th></th>
+                      <th class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center" style="width: 200px;">
+                        <button style="width: 150px;" type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalNewBrand">Add New Brand</button>
+
+                     </th>
                    </tr>{% comment %}
                   <!-- search+filter form-->
                   {% comment %} <tr class="jsgrid-filter-row">
@@ -60,10 +66,13 @@
 
                   <!-- search+filter modelform-->
                   <tr class="jsgrid-filter-row">
-                     <form action="" method="post">
+                     <form action="" method="post" novalidate>
                         {% csrf_token %}
-                        <td class="jsgrid-cell" style="width: 150px;">{{form.title}}</td>
+                        <td class="jsgrid-cell" style="width: 200px;">{{form.title}}</td>
+                        <td></td>
+                        <td></td>
                         <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;">{{form.is_active}}</td>
+                        <td></td>
                         <td></td>
                         <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 200px;">
                            <input class="btn btn-dark" value="search" name="search-brand" type="submit" title="Search"/>
@@ -80,17 +89,20 @@
                    <tbody>
                      {% for product_brand in product_brands %}                
                         <tr {% if forloop.counter|divisibleby:2 %}class="jsgrid-alt-row"{% else %}class="jsgrid-row"{% endif %}>
-                           <td class="jsgrid-cell" style="width: 150px;">{{product_brand}}</td>
+                           <td class="jsgrid-cell" style="width: 200px;">{{product_brand}}</td>
                            <td></td>
                            <td></td>
                            
                            {% comment %} <td class="jsgrid-cell jsgrid-align-right" style="width: 50px;">61</td>
                            <td class="jsgrid-cell" style="width: 200px;">Ap #897-1459 Quam Avenue</td>
                            <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;">China</td> {% endcomment %}
-                           <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;"><input type="checkbox" disabled=""></td>
+                           <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;"><input type="checkbox" disabled="" {% if product_brand.is_active %}checked{% endif %}></td>
                            <td></td>
-                           <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 200px;"><button class="btn btn-warning" type="button" title="Edit">Edit</button>
-                              <button class="btn btn-danger" type="button" title="Delete">Delete</button></td>
+                           <td></td>
+                           <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 200px">
+                              <a class="btn btn-danger" href="{% url "admin-product-brands-delete" brand_id=product_brand.id %}" title="Delete">Delete</a>
+                              <a class="btn btn-warning" href="{% url "admin-product-brands-edit" brand_id=product_brand.id %}" title="Delete">Edit</a>
+                           </td>
                         </tr>
                      {% endfor %}
                    </tbody>
@@ -130,6 +142,33 @@
        </div>
     </div>
 </div>
+
+<!-- New-Address-Modal -->
+<div class="modal fade" id="exampleModalNewBrand" tabindex="-1" role="dialog" aria-labelledby="exampleModalNewBrand" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h3 class="modal-title text-center" id="exampleModalNewBrand">Add New Brand</h3>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         <form method="post" id="post-form" action="" novalidate>
+           {% csrf_token %}
+           {{ form | crispy}}
+           <input type="hidden" name="id_add_new_brand" value="1">
+           <div class="modal-footer">
+             <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
+             {% comment %} <button type="submit" name="add-new-brand" class="btn btn-dark">Add</button> {% endcomment %}
+             <input class="btn btn-dark" value="add-new-brand" name="add-new-brand" type="submit" title="AddNewBrand"/>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- End-New-Address-Modal-->
 {% endblock content %}
 
 {% block footer_references %}{% endblock footer_references %}
