@@ -1,0 +1,135 @@
+{% extends "admin_panel_module/shared/base.html" %}
+{% load poll_extras %}
+
+{% block title %}main dashboard{% endblock title %}
+{% block header_references %}{% endblock header_references %}
+
+{% block content %}
+<div class="col-12">
+    <div class="card">
+       <div class="card-body">
+          <div id="validation" class="m-t-40 jsgrid" style="position: relative; height: auto; width: 100%;">
+             <!--table header-->
+             <div class="jsgrid-grid-header jsgrid-header-scrollbar">
+                <table class="jsgrid-table table table-striped table-hover">
+
+                   <tr class="jsgrid-header-row">
+                      <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 300px;">Title</th>
+                      <th></th>
+                      <th></th>
+                      {% comment %} <th class="jsgrid-header-cell jsgrid-align-right jsgrid-header-sortable" style="width: 50px;">Age</th>
+                      <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 200px;">Address</th>
+                      <th class="jsgrid-header-cell jsgrid-align-center jsgrid-header-sortable" style="width: 100px;">Country</th> {% endcomment %}
+                      <th class="jsgrid-header-cell jsgrid-align-center" style="width: 100px;">Is Active</th>
+                      <th></th>
+                      <th class="jsgrid-header-cell jsgrid-control-field jsgrid-align-center" style="width: 200px;"><button class="btn btn-info" type="button" title="Switch to inserting">Add</button></th>
+                   </tr>{% comment %}
+                  <!-- search+filter form-->
+                  {% comment %} <tr class="jsgrid-filter-row">
+                     <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <td class="jsgrid-cell" style="width: 150px;"><input type="text" class="form-control input-sm"></td>
+                        <td></td>
+                        <td></td>
+                        
+                        <td class="jsgrid-cell jsgrid-align-right" style="width: 50px;"><input type="number" class="form-control input-sm"></td>
+                        <td class="jsgrid-cell" style="width: 200px;"><input type="text" class="form-control input-sm"></td>
+                        <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;">
+                           <select class="form-control input-sm">
+                              <option value="0"></option>
+                              <option value="1">United States</option>
+                              <option value="2">Canada</option>
+                              <option value="3">United Kingdom</option>
+                              <option value="4">France</option>
+                              <option value="5">Brazil</option>
+                              <option value="6">China</option>
+                              <option value="7">Russia</option>
+                           </select>
+                        </td> 
+
+                        <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;"><input name='is-active' type="checkbox" readonly=""></td>
+                        <td></td>
+                        <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 200px;">
+                           <input class="btn btn-dark" value="search" name="search-brand" type="submit" title="Search"/>
+                           <input class="btn btn-light" value="filter" name="filter-brand" type="submit" title="filter"/>
+                        </td>
+                     </form>
+                  </tr>
+                  <!-- search+filter form-->
+                   {% endcomment %}
+
+                  <!-- search+filter modelform-->
+                  <tr class="jsgrid-filter-row">
+                     <form action="" method="post">
+                        {% csrf_token %}
+                        <td class="jsgrid-cell" style="width: 150px;">{{form.title}}</td>
+                        <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;">{{form.is_active}}</td>
+                        <td></td>
+                        <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 200px;">
+                           <input class="btn btn-dark" value="search" name="search-brand" type="submit" title="Search"/>
+                           <input class="btn btn-light" value="filter" name="filter-brand" type="submit" title="Clear filter"/>
+                        </td>
+                     </form>
+                  </tr>
+                  <!-- search+filter modelform-->
+                </table>
+               </div>
+               <!--end table header-->
+             <div class="jsgrid-grid-body">
+                <table class="jsgrid-table table table-striped table-hover">
+                   <tbody>
+                     {% for product_brand in product_brands %}                
+                        <tr {% if forloop.counter|divisibleby:2 %}class="jsgrid-alt-row"{% else %}class="jsgrid-row"{% endif %}>
+                           <td class="jsgrid-cell" style="width: 150px;">{{product_brand}}</td>
+                           <td></td>
+                           <td></td>
+                           
+                           {% comment %} <td class="jsgrid-cell jsgrid-align-right" style="width: 50px;">61</td>
+                           <td class="jsgrid-cell" style="width: 200px;">Ap #897-1459 Quam Avenue</td>
+                           <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;">China</td> {% endcomment %}
+                           <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;"><input type="checkbox" disabled=""></td>
+                           <td></td>
+                           <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 200px;"><button class="btn btn-warning" type="button" title="Edit">Edit</button>
+                              <button class="btn btn-danger" type="button" title="Delete">Delete</button></td>
+                        </tr>
+                     {% endfor %}
+                   </tbody>
+                </table>
+             </div>
+            <!--pagination-->
+             <div class="jsgrid-pager-container">
+               <div class="jsgrid-pager">
+
+                  Pages: 
+                  {% if paginator.num_pages != 1 %}
+                     <span class="jsgrid-pager-nav-button"><a href="?page=1">First</a></span>
+                  {% endif %}
+                  {% if page_obj.has_previous %}
+                  <span class="jsgrid-pager-nav-button jsgrid-pager-nav-inactive-button"><a href="?page={{page_obj.previous_page_number}}">Prev</a></span>
+                  {% endif %}
+
+                  {% for page in paginator.page_range %}
+                     <span class="jsgrid-pager-page"><a {% if page_obj.number == page %}class='jsgrid-pager-current-page'{% endif %} href="?page={{page}}">{{page}}</a></span>
+                  {% endfor %}
+                  {% comment %} <span class="jsgrid-pager-page"><a href="javascript:void(0);">2</a></span>
+                  <span class="jsgrid-pager-nav-button"><a href="javascript:void(0);">...</a></span> {% endcomment %}
+                  {% if page_obj.has_next %}
+                  <span class="jsgrid-pager-nav-button"><a href="?page={{page_obj.next_page_number}}">Next</a></span>
+                  {% endif %}
+                  {% if paginator.num_pages != 1 %}
+                     <span class="jsgrid-pager-nav-button"><a href="?page={{paginator.num_pages}}">Last</a></span>
+                  {% endif %}
+                  {{page_obj.number}} of {{paginator.num_pages}}
+
+              </div>
+            </div>
+            <!--pagination-->
+             <div class="jsgrid-load-shader" style="display: none; position: absolute; inset: 0px; z-index: 1000;"></div>
+             <div class="jsgrid-load-panel" style="display: none; position: absolute; top: 50%; left: 50%; z-index: 1000;">Please, wait...</div>
+          </div>
+       </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block footer_references %}{% endblock footer_references %}

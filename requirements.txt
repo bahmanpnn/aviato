@@ -1,7 +1,10 @@
 asgiref==3.8.1
+crispy-bootstrap4==2024.1
 Django==5.0.7
+django-crispy-forms==2.3
 django-render-partial==0.4
 pillow==10.4.0
+sorl-thumbnail==12.10.0
 sqlparse==0.5.1
 typing_extensions==4.12.2
 tzdata==2024.1

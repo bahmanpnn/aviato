@@ -7,6 +7,6 @@ def three_digits(value:int):
     return '{:,}'.format(value)
 
 
-# @register.simple_tag
-# def multiply(price,count,*args, **kwargs):
-#     return three_digits(price*count)
+@register.simple_tag
+def check_modulo(value1,value2=2,*args, **kwargs):
+    return int(value1) % int(value2)

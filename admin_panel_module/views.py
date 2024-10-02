@@ -1,12 +1,16 @@
 from datetime import datetime,timedelta
+from django.http import HttpResponse
 from django.utils import timezone
 from django.shortcuts import render
 from django.views import View
+from django.views.generic import ListView
 from django.db.models import Count,Sum
-from product_module.models import ProductComment,Product
+from product_module.models import ProductComment,Product,ProductBrand
 from blog_module.models import ArticleComment
 from order_module.models import OrderBasket
 from account_module.models import User
+from .forms import ProductBrandAdminForm
+
 
 class AdminDashboard(View):
     template_name="admin_panel_module/dashboard.html"
@@ -91,3 +95,54 @@ class AdminDashboard(View):
             'this_week_sales_amount':this_week_sales_amount,
             'last_week_sales_amount':last_week_sales_amount,
         })
+
+
+class AdminProductBrandView(ListView):
+    template_name="admin_panel_module/product_module/product_brands.html"
+    model=ProductBrand
+    context_object_name='product_brands'
+    # ordering=['-title']
+    paginate_by=6
+    form_class=ProductBrandAdminForm
+
+    def post(self,request):
+
+        if 'filter-brand' in request.POST:
+            form=self.form_class(request.POST)
+            if form.is_valid():
+                cd=form.cleaned_data
+                brands=ProductBrand.objects.filter(title__iexact=cd['title'],is_active=cd['is_active'])
+                return render(request,self.template_name,{
+                    'form':self.form_class(),
+                    'product_brands':brands
+                })
+            else:
+                return HttpResponse('invalid-data-form')
+            
+        elif 'search-brand' in request.POST:
+            form=self.form_class(request.POST)
+            if form.is_valid():
+                cd=form.cleaned_data
+                brands=ProductBrand.objects.filter(title__icontains=cd['title'],is_active=cd['is_active'])
+                return render(request,self.template_name,{
+                    'form':self.form_class(),
+                    'product_brands':brands
+                })
+            else:
+                return HttpResponse('invalid-data-form')
+        
+        return HttpResponse('invalid-data-form')
+
+    def get_queryset(self):        
+        query=super().get_queryset()
+        return query
+    
+    def get_context_data(self, **kwargs):
+        '''
+            if need to pass new data in product template and
+            this is not product model must send with this method and override this
+        '''
+        # context=super().get_context_data(**kwargs) 
+        context = super(AdminProductBrandView, self).get_context_data(**kwargs)
+        context['form']=self.form_class()
+        return context

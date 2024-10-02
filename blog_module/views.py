@@ -34,9 +34,9 @@ class ArticleView(ListView):
             if need to pass new data in product template and
             this is not product model must send with this method and override this
         '''
-        most_viewed_articles=Article.objects.filter(is_active=True).annotate(visit_count=Count('articlevisit')).order_by('-visit_count')[:5]
         # context=super().get_context_data(**kwargs) 
         context = super(ArticleView, self).get_context_data(**kwargs)
+        most_viewed_articles=Article.objects.filter(is_active=True).annotate(visit_count=Count('articlevisit')).order_by('-visit_count')[:5]
         context['form'] = UserEmailSubscribeForm() 
         context['most_viewed_articles']=most_viewed_articles
         return context
