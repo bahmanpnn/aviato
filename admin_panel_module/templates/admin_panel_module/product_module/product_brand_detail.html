@@ -6,9 +6,33 @@
 {% block header_references %}{% endblock header_references %}
 
 {% block content %}
-    {% comment %} <form action="" method="post" novalidate>
-        {{form}}
-    </form> {% endcomment %}
+<div class="col-12">
+    <div class="card">
+       <div class="card-body">
+            <div id="validation" class="m-t-40 jsgrid" style="position: relative; height: auto; width: 100%;">
+                <div>
+                    <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <div>
+                        {% comment %} <div class="col-md-6 col-offset-3 offset-3"> {% endcomment %}
+                            {{form.title}}
+                        </div>
+                        <br>
+                        <div>
+                        {% comment %} <div class="col-md-2 col-offset-4 offset-6"> {% endcomment %}
+                            {{form.is_active.label}} <span> {{form.is_active}}</span>
+                        </div>
+                        <br>
+                        <div>
+                            <button type="submit" class="btn btn-light" >Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+       </div>
+    </div>
+</div>
+
 {% endblock content %}
 
 {% block footer_references %}{% endblock footer_references %}

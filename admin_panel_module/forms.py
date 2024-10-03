@@ -10,7 +10,15 @@ class ProductBrandAdminForm(forms.Form):
     is_active=forms.BooleanField(required=False)
 
 
-# class ProductBrandAdminForm(forms.ModelForm):
-#     class Meta:
-#         model=ProductBrand
-#         fields=('title','is_active')
+class ProductBrandAdminModelForm(forms.ModelForm):
+    class Meta:
+        model=ProductBrand
+        fields=('title','is_active')
+
+        widgets={
+            'title':forms.TextInput(attrs={
+                'class':'form-control input-sm',
+                'placeholder':'brand title',
+                'required':False
+            })
+            }

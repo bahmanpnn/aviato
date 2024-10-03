@@ -4,14 +4,14 @@ from django.urls import reverse
 from django.utils import timezone
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView,DetailView
 from django.db.models import Count,Sum
+from django.contrib import messages
 from product_module.models import ProductComment,Product,ProductBrand
 from blog_module.models import ArticleComment
 from order_module.models import OrderBasket
 from account_module.models import User
-from .forms import ProductBrandAdminForm
-from django.contrib import messages
+from .forms import ProductBrandAdminForm,ProductBrandAdminModelForm
 
 
 class AdminDashboard(View):
@@ -175,15 +175,35 @@ def admin_product_brand_delete(request,brand_id):
     else:
         messages.error(request,'this brand does not exists!!','danger')
         return redirect(reverse('admin-product-brands'))
+
+    
+class EditProductBrandAdminView(View):
+    template_name='admin_panel_module/product_module/product_brand_detail.html'
+    form_class=ProductBrandAdminModelForm
+
+    def dispatch(self, request,brand_id, *args, **kwargs):
+        self.target_brand=get_object_or_404(ProductBrand,id=brand_id)
+        return super().dispatch(request, *args, **kwargs)
     
 
-def admin_product_brand_edit(request,brand_id):
-    target_brand=get_object_or_404(ProductBrand,id=brand_id)
-    if target_brand is not None:
-        return render(request,"admin_panel_module/product_module/product_brand_detail.html",{
-            'brand':target_brand,
-            'form':ProductBrandAdminForm()
-        })
+    def get(self,request):
+        if self.target_brand is not None:
+            return render(request,self.template_name,{
+                'brand':self.target_brand,
+                'form':self.form_class(instance=self.target_brand)
+            })
+
+
+    def post(self,request):
+        form=self.form_class(request.POST,instance=self.target_brand)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'brand edited successfully','success')
+            return redirect(reverse('admin-product-brands'))
+        else:
+            return redirect(reverse('admin-product-brands'))
+
+
 
 
 
