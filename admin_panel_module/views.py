@@ -11,7 +11,7 @@ from product_module.models import ProductComment,Product,ProductBrand
 from blog_module.models import ArticleComment
 from order_module.models import OrderBasket
 from account_module.models import User
-from .forms import ProductBrandAdminForm,ProductBrandAdminModelForm
+from .forms import ProductBrandAdminForm,ProductBrandAdminModelForm,BasketAdminModelForm
 
 
 class AdminDashboard(View):
@@ -109,7 +109,7 @@ class AdminProductBrandView(ListView):
 
     def post(self,request):
         # todo: add empty value for filter brand for title
-        # print(request.POST)
+        print(request.POST)
         if 'add-new-brand' in request.POST:
             form=self.form_class(request.POST)
             if form.is_valid() and form.cleaned_data['title'] != '':
@@ -204,6 +204,115 @@ class EditProductBrandAdminView(View):
             return redirect(reverse('admin-product-brands'))
 
 
+class AccountOrderAdminView(ListView):
+    template_name="admin_panel_module/account_module/order_basket.html"
+    model=OrderBasket
+    context_object_name='order_baskets'
+    ordering=['-payment_date']
+    paginate_by=6
+    form_class=BasketAdminModelForm
+
+    def post(self,request):
+        # print(type(request.POST['payment_date']))
+
+        if 'add-new-basket' in request.POST:
+            form=self.form_class(request.POST)
+            # if form.is_valid() and form.cleaned_data['user'] != '': 
+            # form validation method handle empty user field and doesnt need to check empty user again
+            if form.is_valid():
+                cd=form.cleaned_data
+                if cd['payment_date']== None:
+                    new_basket=OrderBasket(user=cd['user'],is_paid=cd['is_paid'],payment_date=datetime.now())
+                else:
+                    new_basket=OrderBasket(user=cd['user'],is_paid=cd['is_paid'],payment_date=cd['payment_date'])
+                
+                new_basket.save()
+
+                messages.success(request,'basket added successfully','success')
+                return redirect(reverse('admin-account-orders'))
+
+
+        elif 'filter-basket' in request.POST:
+            form=self.form_class(request.POST)
+            if form.is_valid():
+                cd=form.cleaned_data
+                if cd['user'] == '' and cd['payment_date'] != None:
+                    order_baskets=OrderBasket.objects.filter(is_paid=cd['is_paid'],payment_date__gte=cd['payment_date'])
+                
+                elif cd['user'] != '' and cd['payment_date'] == None:
+                    order_baskets=OrderBasket.objects.filter(user=cd['user'],is_paid=cd['is_paid'])
+                
+                # because of validation method form it can not valid form that send just is_paid input with empty date and user
+                # elif cd['user'] == '' and cd['payment_date'] == None:
+                #     order_baskets=OrderBasket.objects.filter(is_paid=cd['is_paid'])
+
+                return render(request,self.template_name,{
+                    'form':self.form_class(),
+                    'order_baskets':order_baskets
+                })
+            else:
+                return HttpResponse('invalid-data-form')
+            
+        elif 'search-basket' in request.POST:
+            form=self.form_class(request.POST)
+            if form.is_valid():
+                cd=form.cleaned_data
+                order_baskets=OrderBasket.objects.filter(user=cd['user'],is_paid=cd['is_paid'],payment_date__gte=cd['payment_date'])
+                
+                return render(request,self.template_name,{
+                    'form':self.form_class(),
+                    'order_baskets':order_baskets
+                })
+            else:
+                return HttpResponse('invalid-data-form')
+        
+        return HttpResponse('invalid-data-form')
+
+
+    
+    def get_context_data(self, **kwargs):
+        context = super(AccountOrderAdminView, self).get_context_data(**kwargs)
+        context['form']=self.form_class()
+        return context
+    
+
+def admin_order_basket_delete(request,basket_id):
+    target_basket=get_object_or_404(OrderBasket,id=basket_id)
+
+    if target_basket is not None:
+        target_basket.delete()
+        messages.success(request,'basket deleted successfully','success')
+        return redirect(reverse('admin-account-orders'))
+    else:
+        messages.error(request,'this basket does not exists!!','danger')
+        return redirect(reverse('admin-account-orders'))
+
+    
+class EditOrderBasketAdminView(View):
+    template_name='admin_panel_module/account_module/order_basket_detail.html'
+    form_class=BasketAdminModelForm
+
+    def dispatch(self, request,basket_id, *args, **kwargs):
+        self.target_basket=get_object_or_404(OrderBasket,id=basket_id)
+        return super().dispatch(request, *args, **kwargs)
+    
+
+    def get(self,request):
+        if self.target_basket is not None:
+            return render(request,self.template_name,{
+                'brand':self.target_basket,
+                'form':self.form_class(instance=self.target_basket)
+            })
+
+
+    # def post(self,request):
+    #     form=self.form_class(request.POST,instance=self.target_basket)
+    #     if form.is_valid():
+    #         form.save()
+    #         messages.success(request,'brand edited successfully','success')
+    #         return redirect(reverse('admin-product-brands'))
+    #     else:
+    #         return redirect(reverse('admin-product-brands'))
 
 
 
