@@ -1,7 +1,8 @@
 from django import forms
 from product_module.models import ProductBrand
 from order_module.models import OrderBasket,OrderDetail
-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column
 
 class ProductBrandAdminForm(forms.Form):
     title=forms.CharField(widget=forms.TextInput(attrs={
@@ -59,3 +60,32 @@ class BasketAdminModelForm(forms.ModelForm):
         #         'required':False
         #     })
         #     }
+
+
+class OrderDetailAdminModelForm(forms.ModelForm):
+
+    class Meta:
+        model=OrderDetail
+        fields=['product','count','final_price']
+        # fields='__all__'
+        # exclude=['order_basket']
+
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.helper = FormHelper()
+    #     self.helper.layout = Layout(
+    #         Row(
+    #             Column('product', css_class='form-group col-md-3 mb-0 input'),
+    #             Column('count', css_class='form-group col-md-3 mb-0 input'),
+    #             Column('final_price', css_class='form-group col-md-3 mb-0 input'),
+    #             css_class='form-row'
+    #         )
+    #     )
+
+    def __init__(self, *args, **kwargs):
+        super(OrderDetailAdminModelForm, self).__init__(*args, **kwargs)
+
+        #Custom classok
+        self.fields['product'].widget.attrs['class'] = 'input'
+        self.fields['count'].widget.attrs['class'] = 'input'
+        self.fields['final_price'].widget.attrs['class'] = 'input'

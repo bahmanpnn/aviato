@@ -7,11 +7,14 @@ from django.views import View
 from django.views.generic import ListView,DetailView
 from django.db.models import Count,Sum
 from django.contrib import messages
+from django.forms import formset_factory
+from django.forms.models import modelformset_factory,inlineformset_factory
 from product_module.models import ProductComment,Product,ProductBrand
 from blog_module.models import ArticleComment
-from order_module.models import OrderBasket
+from order_module.models import OrderBasket,OrderDetail
 from account_module.models import User
-from .forms import ProductBrandAdminForm,ProductBrandAdminModelForm,BasketAdminModelForm
+from .forms import OrderDetailAdminModelForm, ProductBrandAdminForm,\
+                    ProductBrandAdminModelForm,BasketAdminModelForm
 
 
 class AdminDashboard(View):
@@ -73,12 +76,12 @@ class AdminDashboard(View):
         for sale in this_week_sales:
             this_week_sales_amount+=sale.get_total_amount()
 
-        print(this_week_sales_amount)
+        # print(this_week_sales_amount)
 
         last_week_sales_amount=0
         for sale in last_week_sales:
             last_week_sales_amount+=sale.get_total_amount()
-        print(last_week_sales_amount)
+        # print(last_week_sales_amount)
 
 
 
@@ -294,26 +297,34 @@ class EditOrderBasketAdminView(View):
 
     def dispatch(self, request,basket_id, *args, **kwargs):
         self.target_basket=get_object_or_404(OrderBasket,id=basket_id)
+        if self.target_basket is not None:
+            self.order_details=OrderDetail.objects.filter(order_basket_id=basket_id)
+            # self.order_basket_formset = inlineformset_factory(OrderBasket, OrderDetail,extra=2,fields=['product','count','final_price'])
+            # self.order_basket_formset = inlineformset_factory(OrderBasket, OrderDetail,fields='__all__')
         return super().dispatch(request, *args, **kwargs)
     
-
     def get(self,request):
-        if self.target_basket is not None:
-            return render(request,self.template_name,{
-                'brand':self.target_basket,
-                'form':self.form_class(instance=self.target_basket)
-            })
+        order_basket_formset = inlineformset_factory(OrderBasket, OrderDetail,extra=2,fields=['product','count','final_price'])
+        formset = order_basket_formset(instance=self.target_basket)
 
+        return render(request,self.template_name,{
+            'basket':self.target_basket,
+            'form':self.form_class(instance=self.target_basket),
+            'form_set':formset
+        })
 
-    # def post(self,request):
-    #     form=self.form_class(request.POST,instance=self.target_basket)
-    #     if form.is_valid():
-    #         form.save()
-    #         messages.success(request,'brand edited successfully','success')
-    #         return redirect(reverse('admin-product-brands'))
-    #     else:
-    #         return redirect(reverse('admin-product-brands'))
+    def post(self,request):
+        # print(request.POST)
+        order_basket_formset = inlineformset_factory(OrderBasket, OrderDetail,extra=2,fields=['product','count','final_price'])
+        formset = order_basket_formset(request.POST,instance=self.target_basket)
+        form=self.form_class(request.POST,instance=self.target_basket)
+        if formset.is_valid() and form.is_valid() :
+            formset.save()
+            form.save()
 
+        # return redirect(reverse('admin-account-orders'))
+        messages.success(request,'basket updated successfully') # it appears in django admin, not admin panel!!
+        return redirect(reverse('admin-order-basket-edit',args=[self.target_basket.id]))
 
 
 

@@ -1,12 +1,156 @@
 {% extends "admin_panel_module/shared/base.html" %}
 {% load poll_extras %}
+{% load crispy_forms_tags %}
 
 
 {% block title %}Basket Detail{% endblock title %}
 {% block header_references %}{% endblock header_references %}
 
-{% block content %}
-    detail
+{% block content %}   
+    <div class='container'>
+        <form method='post'>
+        {% csrf_token %}
+        {{ form | crispy}}
+        {{ form_set | crispy}}
+
+        <input class='btn btn-dark' type='submit' value='submit'>
+        </form>
+    <div>
 {% endblock content %}
 
 {% block footer_references %}{% endblock footer_references %}
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    <table class="jsgrid-table table table-striped table-hover">
+        <tr class="jsgrid-header-row">
+            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 200px;">User</th>
+            <th class="jsgrid-header-cell">Payment Date</th>
+            <th></th>
+            <th class="jsgrid-header-cell jsgrid-align-center" style="width: 100px;">Is Paid</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <!-- search+filter modelform-->
+        <tr class="jsgrid-filter-row">
+            <td class="jsgrid-cell" style="width:33%;">{{form.user}}</td>
+            <td class="jsgrid-cell jsgrid-align-center" style="width: 33%;">{{form.payment_date}}</td>
+            <td></td>
+            <td class="jsgrid-cell jsgrid-align-center" style="width: 33%;">{{form.is_paid}}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <!-- search+filter modelform-->
+    </table>
+    <table class="jsgrid-table table table-striped table-hover">
+        <tr class="jsgrid-header-row">
+            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 200px;">Product</th>
+            <th class="jsgrid-header-cell">Count</th>
+            <th></th>
+            <th class="jsgrid-header-cell jsgrid-align-center" style="width: 100px;">Final Price</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        <hr>
+        {% for formm in form_set %}
+        <tr class="jsgrid-header-row">
+            <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 200px;">{{formm.product}}</th>
+            <th class="jsgrid-header-cell">{{formm.count}}</th>
+            <th></th>
+            <th class="jsgrid-header-cell jsgrid-align-center" style="width: 100px;">{{formm.final_price}}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+        {% comment %} <input type="submit" value="Submit"> {% endcomment %}
+        <button type="submit" class="btn btn-dark offset-4 col-md-3 btn-lg" >Submit</button>
+    </div>
+</form>
+<br>
+<!-- way2 -->
+<div class="col-12">
+    <div class="card">
+    <div class="card-body">
+            <div id="validation" class="m-t-40 jsgrid" style="position: relative; height: auto; width: 100%;">
+                <div>
+                    <table class="jsgrid-table table table-striped table-hover">
+                        <!-- search+filter modelform-->
+                        <tr class="jsgrid-filter-row">
+                        <form action="" method="post" novalidate>
+                        {% csrf_token %}
+                        <td class="jsgrid-cell" style="width:33%;">{{form.user}}</td>
+                        <td class="jsgrid-cell jsgrid-align-center" style="width: 33%;">{{form.payment_date}}</td>
+                        <td></td>
+                        <td class="jsgrid-cell jsgrid-align-center" style="width: 33%;">{{form.is_paid}}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </form>
+                        </tr>
+                        <!-- search+filter modelform-->
+                        <tr class="jsgrid-header-row">
+                        <th class="jsgrid-header-cell jsgrid-header-sortable" style="width: 200px;">Product</th>
+                        <th class="jsgrid-header-cell">Count</th>
+                        <th></th>
+                        <th class="jsgrid-header-cell jsgrid-align-center" style="width: 100px;">Final Price</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        </tr>
+                    </table>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <table class="table">
+                            <tbody>
+                            {% for formm in form_set %}
+                                <tr>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>{{formm.product}}</td>
+                                    <td>{{formm.count}}</td>
+                                    <td>{{formm.final_price}}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <br>
+                        <div>
+                            {% comment %} <input type="submit" value="Submit"> {% endcomment %}
+                            <button type="submit" class="btn btn-light" >Submit</button>
+                        </div>
+                    </form>
+                    {% comment %} <div class="jsgrid-grid-body">
+                        <table class="jsgrid-table table table-striped table-hover">
+                            <tbody>
+                            {% for formm in form_set %}    
+                                <form action="" method="post" novalidate>   
+                                    {% csrf_token %}         
+                                    <tr {% if forloop.counter|divisibleby:2 %}class="jsgrid-alt-row"{% else %}class="jsgrid-row"{% endif %}>
+                                    <td class="jsgrid-cell" style="width: 200px;">{{formm}}</td>
+                                    <td>{{formm.product}}</td>
+                                    <td></td>
+                                    <td class="jsgrid-cell jsgrid-align-center" style="width: 100px;"><input type="number"/>{{formm.count}}</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td class="jsgrid-cell jsgrid-control-field jsgrid-align-center" style="width: 200px">
+                                        <a class="btn btn-danger" href="#" title="Delete">Delete</a>
+                                    </td>
+                                    </tr>
+                                    <br>
+                                    <div>
+                                        <button type="submit" class="btn btn-light" >Submit</button>
+                                    </div>
+                                </form>
+                            {% endfor %}
+                        </tbody>
+                        </table>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+    </div>
+    </div>
+</div>
