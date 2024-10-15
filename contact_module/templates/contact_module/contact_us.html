@@ -1,19 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
-{% block header_references %}
-
-<style>
-    .error-list li{
-        color:red;
-    }
-</style>
-
-{% endblock header_references %}
 
 {% block title %}contact us{% endblock title %}
-{% comment %} {% block header_references %}
-    <link rel="stylesheet" href="/static/contact_us.css">
-{% endblock header_references %} {% endcomment %}
+{% block header_references %}
+    <title>Office Location</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="/static/contact_module/css/contact_us_custom.css" />
+{% endblock header_references %}
 
 
 {% block content %}
@@ -56,7 +50,8 @@
                     <!-- Contact Details -->
                     <div class="contact-details col-md-6 " >
                         <div class="google-map">
-                            <div id="map"></div>
+                            <div id="map2"></div>
+                            {% comment %} <div id="map"></div> {% endcomment %}
                         </div>
                         <ul class="contact-short-info" >
                             {% if site_settings.address %}
@@ -110,3 +105,15 @@
     </section>
 	
 {% endblock content %}
+
+{% block footer_references %}
+    <script>
+        var map = L.map('map2').setView([36.310476, 59.529669], 13); // Office's coordinates
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker([36.310476, 59.529669]).addTo(map) // Office's coordinates
+            .bindPopup('<div class="text-center"><b>Our Office</b><br><a href="https://www.google.com/maps/dir/?api=1&destination=36.310476, 59.529669" target="_blank">Get Direction</a></div>')
+            .openPopup();
+    </script>
+{% endblock footer_references %}
