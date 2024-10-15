@@ -4,10 +4,43 @@
 
 
 {% block title %}Basket Detail{% endblock title %}
-{% block header_references %}{% endblock header_references %}
+{% block header_references %}
+    <link rel="stylesheet" href="/static/admin_panel_module/dist/css/custom.css">
+{% endblock header_references %}
 
 {% block content %}   
-    <div class='container'>
+    {% comment %} <div class="container">
+        <h1>Manage Order Details</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form_set.management_form }}
+            <div class="formset">
+                {% for form in form_set %}
+                    <div class="form">
+                        {{ form.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </div> {% endcomment %}
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form | crispy}}
+            {{ form_set.management_form }}
+            <div class="formset">
+                {% for form in form_set %}
+                    <div class="form">
+                        {{ form.as_p }}
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+    {% comment %} <div class='container'>
         <form method='post'>
         {% csrf_token %}
         {{ form | crispy}}
@@ -15,10 +48,11 @@
 
         <input class='btn btn-dark' type='submit' value='submit'>
         </form>
-    <div>
+    <div> {% endcomment %}
 {% endblock content %}
 
 {% block footer_references %}{% endblock footer_references %}
+
 <form action="" method="post" novalidate>
     {% csrf_token %}
     <table class="jsgrid-table table table-striped table-hover">

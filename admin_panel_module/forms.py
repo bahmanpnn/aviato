@@ -70,6 +70,7 @@ class OrderDetailAdminModelForm(forms.ModelForm):
         # fields='__all__'
         # exclude=['order_basket']
 
+    #way 2 for add class and style in codes
     # def __init__(self, *args, **kwargs):
     #     super().__init__(*args, **kwargs)
     #     self.helper = FormHelper()
@@ -82,10 +83,26 @@ class OrderDetailAdminModelForm(forms.ModelForm):
     #         )
     #     )
 
-    def __init__(self, *args, **kwargs):
-        super(OrderDetailAdminModelForm, self).__init__(*args, **kwargs)
+    # def __init__(self, *args, **kwargs):
+    #     super(OrderDetailAdminModelForm, self).__init__(*args, **kwargs)
 
-        #Custom classok
-        self.fields['product'].widget.attrs['class'] = 'input'
-        self.fields['count'].widget.attrs['class'] = 'input'
-        self.fields['final_price'].widget.attrs['class'] = 'input'
+    #     #Custom classok
+    #     self.fields['product'].widget.attrs['class'] = 'input'
+    #     self.fields['count'].widget.attrs['class'] = 'input'
+    #     self.fields['final_price'].widget.attrs['class'] = 'input'
+
+
+#way 3
+# class OrderDetailForm(forms.ModelForm):
+#     class Meta:
+#         model = OrderDetail
+#         fields = ['product', 'quantity', 'price']
+#         widgets = {
+#             'product': forms.TextInput(attrs={'class': 'form-control'}),
+#             'quantity': forms.NumberInput(attrs={'class': 'form-control'}),
+#             'price': forms.NumberInput(attrs={'class': 'form-control'}),
+#         }
+
+# from django.forms import inlineformset_factory
+
+# OrderDetailInlineFormSet = inlineformset_factory(OrderBasket, OrderDetail, form=OrderDetailForm, extra=3, max_num=5)
