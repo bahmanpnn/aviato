@@ -42,4 +42,6 @@ class ContactUsView(View):
             'form':form,
             'site_settings':self.site_settings
         })
-        
+
+def test_map(request):
+    return render(request,'contact_module/test_map.html')

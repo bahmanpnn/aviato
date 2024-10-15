@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% comment %} {% block title %}Office Location{% endblock title %} {% endcomment %}
+{% block header_references %}
+    <title>Office Location</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="/static/contact_module/css/contact_us_custom.css" />
+{% endblock header_references %}
+
+{% block content %}
+    <h1>Our Office Location</h1>
+    <div id="map2"></div>
+{% endblock content %}
+
+{% block footer_references %}
+    <script>
+        var map = L.map('map2').setView([36.310476, 59.529669], 15); // Office's coordinates
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker([36.310476, 59.529669]).addTo(map) // Office's coordinates
+            .bindPopup('<b>Our Office</b><br><a href="https://www.google.com/maps/dir/?api=1&destination=36.310476, 59.529669" target="_blank">Get Direction</a>')
+            .openPopup();
+    </script>
+{% endblock footer_references %}
+
+{% comment %} <!DOCTYPE html>
+<html>
+<head>
+    <title>Office Location</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Our Office Location</h1>
+    <div id="map"></div>
+    <script>
+        var map = L.map('map').setView([36.310476, 59.529669], 15); // Tehran's coordinates
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        L.marker([36.310476, 59.529669]).addTo(map) // Tehran's coordinates
+            .bindPopup('Office')
+            .openPopup();
+    </script>
+</body>
+</html> {% endcomment %}

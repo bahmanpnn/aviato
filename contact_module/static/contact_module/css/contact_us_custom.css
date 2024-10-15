@@ -5,3 +5,7 @@
 .errorlist li{
     color: red;
 }
+#map2 {
+    height: 500px;
+    width: 100%;
+}
