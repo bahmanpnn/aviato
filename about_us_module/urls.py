@@ -3,8 +3,6 @@ from . import views
 
 urlpatterns = [
     path('',views.AboutUsView.as_view(),name='about-us'),
+    path('resume/',views.resume_view,name='resume'),
     
-    #way4 
-    # path('pdf/',views.pdf_view,name='pdf-view'),
-    # path('show_pdf/',views.show_pdf_view,name='show-pdf-view'),
 ]

@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}My resume{% endblock title %}
+{% block content %}
+    <iframe src="data:application/pdf;base64,{{ resume }}" height="1000px" width="100%" class="pdf-container"></iframe>
+{% endblock content %}
