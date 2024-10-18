@@ -22,3 +22,8 @@ def resume_view(request):
     with open(pdf_path, "rb") as pdf_file:
         encoded_string = base64.b64encode(pdf_file.read()).decode('utf-8')
     return render(request, 'about_us_module/resume.html', {'resume':encoded_string}) 
+
+
+def video_view(request):
+    return render(request, 'video.html')
+

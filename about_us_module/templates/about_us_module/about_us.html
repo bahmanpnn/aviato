@@ -3,6 +3,15 @@
 
 
 {% block title %}about us{% endblock title %}
+{% block header_references %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Presentation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% endblock header_references %}
 
 {% block content %}
     <section class="about section">
@@ -66,21 +75,52 @@
         </div>
     </section>
 
-
     <div class="section video-testimonial bg-1 overly-white text-center mt-50">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <h2>Video presentation</h2>
-                    {% comment %} <video src="{% static "feed.mp4" %}">
-                    </video> {% endcomment %}
-                    <a class="play-icon" href="https://www.youtube.com/watch?v=oyEuk8j8imI&amp;rel=0" data-toggle="lightbox">
+                    <a style="text-decoration: none;" class="play-icon" href="" data-toggle="modal" data-target="#videoModal">
                         <i class="tf-ion-ios-play"></i>
                     </a>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="videoModalLabel">Video Presentation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <video controls style="width: 100%;">
+                        <source src="{% static 'feed.mp4' %}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    {% comment %} <div class="section video-testimonial bg-1 overly-white text-center mt-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Video presentation</h2>
+                    <a class="play-icon" href="https://www.youtube.com/watch?v=oyEuk8j8imI&amp;rel=0" data-toggle="lightbox">
+                        <i class="tf-ion-ios-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> {% endcomment %}
 
 {% endblock content %}
 

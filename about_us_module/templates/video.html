@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Presentation</title>
+    <!-- Video.js CSS -->
+    <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+    <!-- Optional Video.js theme -->
+    <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet" />
+    <style>
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .video-js .vjs-big-play-button {
+            font-size: 3em; /* Bigger play button */
+            border: none;
+            background: rgba(0,0,0,0.5); /* Semi-transparent background */
+            border-radius: 50%;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Video Presentation</h1>
+        <div class="video-container">
+            <video
+                id="my-video"
+                class="video-js vjs-theme-forest"
+                controls
+                preload="auto"
+                data-setup='{"fluid": true}'>
+                <source src="{% static 'feed.mp4' %}" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Video.js JavaScript -->
+    <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+</body>
+</html>
+
