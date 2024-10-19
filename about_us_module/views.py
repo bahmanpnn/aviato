@@ -25,5 +25,5 @@ def resume_view(request):
 
 
 def video_view(request):
-    return render(request, 'video.html')
+    return render(request, 'about_us_module/video.html')
 

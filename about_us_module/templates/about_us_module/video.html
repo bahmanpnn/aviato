@@ -1,7 +1,9 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
+
+{% block title %}Video Presentation{% endblock title %}
+
+{% block header_references %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Presentation</title>
@@ -37,11 +39,16 @@
             border-radius: 50%;
             color: #fff;
         }
+        /* Ensure control visibility on all browsers */
+        .vjs-default-skin .vjs-control-bar {
+            display: flex !important;
+        }
     </style>
-</head>
-<body>
+{% endblock header_references %}
+
+{% block content %}
     <div class="content">
-        <h1>Video Presentation</h1>
+        <h1 class="text-center">Video Presentation</h1>
         <div class="video-container">
             <video
                 id="my-video"
@@ -54,9 +61,9 @@
             </video>
         </div>
     </div>
+{% endblock content %}
 
+{% block footer_references %}
     <!-- Video.js JavaScript -->
     <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
-</body>
-</html>
-
+{% endblock footer_references %}
