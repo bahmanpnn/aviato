@@ -15,6 +15,7 @@ urlpatterns = [
     path('orders/',include('order_module.urls')),
     path('user/',include('user_profile_module.urls')),
     path('admin-panel/',include('admin_panel_module.urls')),
+    path('auth/', include('social_django.urls', namespace='social')),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

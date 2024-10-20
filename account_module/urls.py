@@ -8,5 +8,4 @@ urlpatterns = [
     path('logout/',views.LogoutView.as_view(),name='logout'),
     path('forget-password/',views.ForgetPasswordView.as_view(),name='forget-password-page'),
     path('reset-password/<str:email_reset_password_code>/',views.ResetPasswordView.as_view(),name='reset-password-page'),
-
 ]

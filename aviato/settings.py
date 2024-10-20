@@ -1,4 +1,8 @@
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+# Load the .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,6 +49,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     "crispy_forms",
     "crispy_bootstrap4",
+    "social_django",
 
 ]
 
@@ -62,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'aviato.urls'
@@ -80,6 +86,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'order_module.context_processors.basket_products',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -139,7 +147,6 @@ STATICFILES_DIRS=[
     BASE_DIR / 'static'
 ]
 
-import os
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
@@ -161,8 +168,50 @@ AUTH_USER_MODEL='account_module.User'
 EMAIL_BACKEND="django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS=True
 EMAIL_HOST='smtp.gmail.com'
-EMAIL_HOST_USER="hamidbagheri042@gmail.com" #this is my test gmail please dont use it for yourself
-EMAIL_HOST_PASSWORD='jqepansykjkurupk'
+EMAIL_HOST_USER=os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD=os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_PORT=587
 DEFAULT_FROM_EMAIL="Aviato group"
+
+
+# Social Django Authentication
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    # 'social_core.backends.linkedin.LinkedinOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+# SOCIAL_AUTH_LINKEDIN_KEY = 'your-linkedin-client-id'
+# SOCIAL_AUTH_LINKEDIN_SECRET = 'your-linkedin-client-secret'
+SOCIAL_AUTH_GITHUB_KEY = os.getenv('SOCIAL_AUTH_GITHUB_KEY')
+SOCIAL_AUTH_GITHUB_SECRET = os.getenv('SOCIAL_AUTH_GITHUB_SECRET')
+
+# Production: https://yourdomain.com/auth/complete/github/
+
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000'
+SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://127.0.0.1:8000/auth/complete/github/'
+
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email', 'read:user']
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'account_module.social_pipeline.create_user',  # Ensure this is included
+    # 'social_core.pipeline.user.create_user',  # Ensure this is included
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+)
+
+LOGIN_URL = 'login-page'
+LOGOUT_URL = 'logout'
+
+# Document
+# todo:add thid field next time to send data with post method(default use get method to send username password(?))
+# SOCIAL_AUTH_REQUIRE_POST = True
+
 

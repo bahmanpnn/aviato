@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from .managers import CustomUserManager
+
 
 class User(AbstractUser):
 
@@ -14,7 +16,9 @@ class User(AbstractUser):
     # doesn't need to add to fields again!
 
     REQUIRED_FIELDS=['email','username']
-
+    
+    objects = CustomUserManager()
+    
     def __str__(self):
         
         if self.username:
@@ -22,6 +26,17 @@ class User(AbstractUser):
         
         return self.email
     
+    # def create_user(self, phone_number, email, username=None, password=None, **extra_fields):
+    #     if not phone_number:
+    #         raise ValueError('The Phone Number field must be set')
+    #     if not email:
+    #         raise ValueError('The Email field must be set')
+    #     email = self.normalize_email(email)
+    #     user = self.model(phone_number=phone_number, email=email, username=username, **extra_fields)
+    #     user.set_password(password)
+    #     user.save(using=self._db)
+    #     return user
+
 
 class UserAddressInformation(models.Model):
     address=models.TextField()

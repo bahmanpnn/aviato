@@ -6,3 +6,4 @@ todos.txt
 medias/
 db.sqlite3
 cache/
+.env

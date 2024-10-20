@@ -1,3 +1,4 @@
+import requests
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import login,logout
@@ -6,10 +7,10 @@ from django.urls import reverse
 from django.views import View
 from django.contrib import messages
 from django.utils.crypto import get_random_string
+from site_setting_module.models import SiteSetting
+from utils.email_service import email_service
 from .forms import LoginViewForm,registerform,ForgetPasswordForm,ResetPasswordForm
 from .models import User
-from utils.email_service import email_service
-from site_setting_module.models import SiteSetting
 
 
 #done
@@ -85,13 +86,13 @@ class LoginView(View):
             check_user_phone_number=User.objects.filter(phone_number__iexact=cd['email_or_phone_number']).first()
             if check_user_email:
                 if check_user_email.check_password(cd['password']) and check_user_email.is_active:
-                    login(request,check_user_email)
+                    login(request,check_user_email,backend='django.contrib.auth.backends.ModelBackend')
                     messages.success(request,'you logged in successfully')
                     return redirect('home-page')
             
             elif check_user_phone_number:
                 if check_user_phone_number.check_password(cd['password']) and check_user_phone_number.is_active:
-                    login(request,check_user_phone_number)
+                    login(request,check_user_phone_number,backend='django.contrib.auth.backends.ModelBackend')
                     messages.success(request,'you logged in successfully')
                     return redirect('home-page')
             
@@ -153,7 +154,12 @@ class LogoutView(View,LoginRequiredMixin):
     def get(self,request):
         logout(request)
         messages.success(request,'you logged out successfully',extra_tags='success')
-        return redirect(reverse('home-page'))
+
+        response = redirect('home-page')
+        response.delete_cookie('sessionid')
+
+        requests.get('https://github.com/logout')
+        return response
 
 #done
 class ForgetPasswordView(View):
@@ -226,5 +232,4 @@ class ResetPasswordView(View):
             'form':form
         })
     
-
 
