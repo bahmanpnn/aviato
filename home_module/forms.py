@@ -6,3 +6,9 @@ class GetUserEmailForSubscribeForm(forms.Form):
         'class':'form-control',
         'placeholder':'Enter Your Email Address'
     }))
+
+class SearchForm(forms.Form):
+    search_field=forms.CharField(max_length=255,widget=forms.TextInput(attrs={
+        'class':'form-control',
+        'placeholder':'Search...'
+    }))

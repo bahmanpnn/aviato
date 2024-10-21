@@ -19,6 +19,16 @@ class ProductView(View):
     
     def get(self,request,*args,**kwargs):
         categories=ProductCategory.objects.filter(is_active=True,is_delete=False,parent_id=None)
+        search_field=request.GET.get('search_field')
+        if search_field is not None:
+            products=Product.objects.filter(Q(title__icontains=search_field)|Q(short_description__icontains=search_field))
+
+            return render(request,self.template_name,{
+            'categories':categories,
+            'products':products,
+            'form':self.form_class()
+            })
+
         products=Product.objects.filter(is_active=True,is_delete=False).order_by('-added_date')
         
         sorting=request.GET.get('sorting')

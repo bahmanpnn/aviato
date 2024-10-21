@@ -68,7 +68,10 @@
                                     class="tf-ion-ios-search-strong"></i> Search</a>
                             <ul class="dropdown-menu search-dropdown">
                                 <li>
-                                    <form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
+                                    <form method="get" action="{% url "products" %}" novalidate>
+                                        {{search_form.search_field}}
+                                        {% comment %} <input type="search" class="form-control" placeholder="Search..."> {% endcomment %}
+                                    </form>
                                 </li>
                             </ul>
                         </li>

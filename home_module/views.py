@@ -7,7 +7,7 @@ from site_setting_module.models import SiteSetting,FooterLinkItem
 from product_module.models import Product
 from product_module.models import ProductCategory
 from .models import Slider,UserEmailSubscribe
-from .forms import GetUserEmailForSubscribeForm
+from .forms import GetUserEmailForSubscribeForm,SearchForm
 
 
 def index(request):
@@ -45,7 +45,8 @@ def header_component(request):
     site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
 
     return render(request,'header_component.html',{
-        'site_settings':site_settings
+        'site_settings':site_settings,
+        'search_form':SearchForm()
     })
 
 def slider_component(request):
