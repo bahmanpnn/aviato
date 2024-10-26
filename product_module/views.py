@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 from django.views.generic import DetailView
@@ -14,41 +15,57 @@ from itertools import chain
 
 
 class ProductView(View):
-    template_name='product_module/products.html'
-    form_class=ProductSortingForm
+    template_name = 'product_module/p3.html'
     
-    def get(self,request,*args,**kwargs):
-        categories=ProductCategory.objects.filter(is_active=True,is_delete=False,parent_id=None)
-        search_field=request.GET.get('search_field')
-        if search_field is not None:
-            products=Product.objects.filter(Q(title__icontains=search_field)|Q(short_description__icontains=search_field))
+    def get(self, request,category=None, *args, **kwargs):
+        categories = ProductCategory.objects.filter(is_active=True, is_delete=False, parent_id=None)
+        products = Product.objects.filter(is_active=True, is_delete=False)
 
-            return render(request,self.template_name,{
-            'categories':categories,
-            'products':products,
-            'form':self.form_class()
-            })
+        # Search functionality
+        search_field = request.GET.get('search_field', '')
+        if search_field:
+            products = products.filter(Q(title__icontains=search_field) | Q(short_description__icontains=search_field))
 
-        products=Product.objects.filter(is_active=True,is_delete=False).order_by('-added_date')
-        
-        sorting=request.GET.get('sorting')
-        if sorting is not None:
-            products.filter(sorting__url_title__iexact=sorting) 
-            print(products)  
-        
-        category=kwargs.get('category')
+        # Category filter
+        # category = request.GET.get('category', '')
         if category is not None:
-            products=products.filter(category__url_title__iexact=category,is_active=True)
-    
-    
-        return render(request,self.template_name,{
-            'categories':categories,
-            'products':products,
-            'form':self.form_class()
-        })
-    
-    def post(self,request):
-        pass
+            products = products.filter(category__url_title=category)
+
+        # Sorting filter
+        sort_filter = request.GET.get('sort', '')
+        if sort_filter:
+            try:
+                sorting_option = ProductSorting.objects.get(url_title=sort_filter)
+                if sorting_option.url_title == 'most-expensive':
+                    products = products.order_by('-price')
+                elif sorting_option.url_title == 'cheapest':
+                    products = products.order_by('price')
+                elif sorting_option.url_title in ['kids', 'women', 'men']:
+                    products = products.filter(sorting=sorting_option)
+            except ProductSorting.DoesNotExist:
+                pass  # If sorting option does not exist, do nothing
+
+        # Pagination
+        paginator = Paginator(products, 2)  # Show 2 products per page
+        page_number = request.GET.get('page', 1)
+        try:
+            products_page = paginator.page(page_number)
+        except PageNotAnInteger:
+            products_page = paginator.page(1)  # If page is not an integer, deliver first page
+        except EmptyPage:
+            products_page = paginator.page(paginator.num_pages)  # If page is out of range, deliver last page
+
+        sorting_options = ProductSorting.objects.all().order_by('url_title')  # Fetch all sorting options
+
+        context = {
+            'products': products_page,
+            'categories': categories,
+            'sorting_options': sorting_options,
+            'selected_category': category,
+            'selected_sort': sort_filter,
+            'paginator': paginator,
+        }
+        return render(request, self.template_name, context)
 
 
 def add_remove_product_to_favorite_list(request):

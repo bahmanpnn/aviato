@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% load poll_extras %}
+
+
+{% block title %}products page{% endblock title %}
+
+
+{% block content %}
+	<section class="products section">
+		<div class="container">
+			<div class="row">
+				<!--sidebar-->
+				<div class="col-md-3">
+					<!--sorting -->
+					<div class="widget">
+						<h4 class="widget-title">Sort By</h4>
+                        <form method="get" action="" id='filter-form'>
+							<select class="form-control" name="sort" id="sort" onchange="updateSorting()">
+								{% for sorting in sorting_options %}
+									<option value="{{ sorting.url_title }}" {% if sorting.url_title == selected_sort %}selected{% endif %}>
+										{{ sorting.url_title|capfirst }}
+									</option>
+								{% endfor %}
+							</select>
+                        </form>
+
+					</div>
+					<!--sorting -->
+
+					<!--category -->
+					<div class="widget product-category">
+						<h4 class="widget-title">Categories</h4>
+						{% for category in categories %}
+							{% if category.productcategory_set.all %}
+								<div class="panel-group commonAccordion" id="accordion" role="tablist" aria-multiselectable="true">
+									<div class="panel panel-default">
+										<div class="panel-heading" role="tab" id="headingOne">
+												<h4 class="panel-title">
+													<a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{category.url_title}}" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+														{{category.title}}
+													</a>
+												</h4>
+										</div>
+										<div id="{{category.url_title}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+											<div class="panel-body">
+												<ul>
+													{% for sub_category in category.productcategory_set.all %}
+														<li><a href="{% url "products-by-category" category=sub_category.url_title %}">{{sub_category.title}}</a></li>
+													{% endfor %}
+												</ul>
+											</div>
+										</div>
+								</div>
+							</div>
+							{% else %}
+							<a href="{% url "products-by-category" category=category.url_title %}">
+								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+									<div class="panel panel-default">
+										<div class="panel-heading" role="tab" id="headingOne">
+												<h4 class="panel-title">
+													{{category.title}}
+												</h4>
+										</div>
+									</div>
+								</div>
+							</a>
+							{% endif %}
+						{% endfor %}
+						
+					</div>
+					<!--category -->
+					
+
+				</div>
+				<!--sidebar-->
+				<div class="col-md-9">
+					<div class="row">
+						<br>
+						{% if products %}
+							<div>
+								{% for product in products %}
+									{% include "product_module/includes/product_item.html" with product=product col_size=4 %}
+								{% endfor %}
+							</div>
+						{% else %}
+							<h4 class="alert alert-info text-center">there is no product in this field!!<h4>
+						{% endif %}
+							<!-- Modal -->
+							<!-- this part is for when you return from another page to product page show this slide like advertisement  -->
+								<div class="modal product-modal fade" id="product-modal">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<i class="tf-ion-close"></i>
+									</button>
+									<div class="modal-dialog " role="document">
+										<div class="modal-content">
+											<div class="modal-body">
+												<div class="row">
+													<div class="col-md-8 col-sm-6 col-xs-12">
+														<div class="modal-image">
+															<img class="img-responsive" src="/static/images/shop/products/modal-product.jpg" alt="product-img" />
+														</div>
+													</div>
+													<div class="col-md-4 col-sm-6 col-xs-12">
+														<div class="product-short-details">
+															<h2 class="product-title">GM Pendant, Basalt Grey</h2>
+															<p class="product-price">$200</p>
+															<p class="product-short-description">
+																Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem iusto nihil cum. Illo laborum numquam rem aut officia dicta cumque.
+															</p>
+															<a href="cart.html" class="btn btn-main">Add To Cart</a>
+															<a href="product-single.html" class="btn btn-transparent">View Product Details</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							<!-- modal -->
+					</div>	
+					<!-- Pagination Controls -->
+					<div class="text-center">
+						<ul class="pagination post-pagination">
+	
+						{% if products.has_previous %}
+							<li><a href="?page=1&sort={{ selected_sort }}&category={{ selected_category }}">ّFirst</a></li>
+							<li><a href="?page={{ products.previous_page_number }}&sort={{ selected_sort }}&category={{ selected_category }}">Prev</a></li>
+						{% endif %}
+
+						{% if products.has_previous or products.has_next %}
+							{% for page_num in products.paginator.page_range %}
+								{% if page_num == products.number %}
+									<li class="active"><a href="?page={{ page_num }}&sort={{ selected_sort }}&category={{ selected_category }}">{{ page_num }}</a></li>  <!-- Current page -->
+								{% else %}
+									<li><a href="?page={{ page_num }}&sort={{ selected_sort }}&category={{ selected_category }}">{{ page_num }}</a></li>
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+
+						{% if products.has_next %}
+							<li><a href="?page={{ products.next_page_number }}&sort={{ selected_sort }}&category={{ selected_category }}">Next</a></li>
+							<li><a href="?page={{ products.paginator.num_pages }}&sort={{ selected_sort }}&category={{ selected_category }}">Last</a></li>
+						{% endif %}
+						</ul>
+					</div>
+					<!-- Pagination Controls -->			
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+    <script>
+        function updateSorting() {
+            const form = document.getElementById('filter-form');
+            const sortSelect = document.getElementById('sort');
+            const selectedSort = sortSelect.value;
+
+            // Create a URLSearchParams object to manage query parameters
+            const params = new URLSearchParams(new FormData(form));
+
+            // Update the sort parameter
+            params.set('sort', selectedSort);
+
+            // Redirect to the updated URL
+            window.location.search = params.toString();
+        }
+    </script>
+{% endblock content %}
+{% block footer_references %}{% endblock footer_references %}
+
+

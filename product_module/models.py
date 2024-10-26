@@ -43,7 +43,7 @@ class ProductCategory(models.Model):
 
 
 class ProductSorting(models.Model):
-    parent=models.CharField(max_length=127,default='all')
+    # parent=models.CharField(max_length=127,default='all')
     title=models.CharField(max_length=300,db_index=True)
     url_title=models.CharField(max_length=300)
     is_active=models.BooleanField(default=True)

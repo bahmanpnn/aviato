@@ -7,3 +7,4 @@ medias/
 db.sqlite3
 cache/
 .env
+aviato todos.txt
