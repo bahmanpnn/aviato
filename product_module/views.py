@@ -22,6 +22,7 @@ class ProductView(View):
         products = Product.objects.filter(is_active=True, is_delete=False)
 
         # Search functionality
+        # todo: add pagination and sorting for search field to user can visit next pages of search items
         search_field = request.GET.get('search_field', '')
         if search_field:
             products = products.filter(Q(title__icontains=search_field) | Q(short_description__icontains=search_field))
@@ -46,7 +47,7 @@ class ProductView(View):
                 pass  # If sorting option does not exist, do nothing
 
         # Pagination
-        paginator = Paginator(products, 2)  # Show 2 products per page
+        paginator = Paginator(products, 6)  # Show 2 products per page
         page_number = request.GET.get('page', 1)
         try:
             products_page = paginator.page(page_number)

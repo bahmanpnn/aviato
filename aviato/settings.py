@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
     "social_django",
+    'ckeditor',
 
 ]
 
@@ -213,5 +214,34 @@ LOGOUT_URL = 'logout'
 # Document
 # todo:add thid field next time to send data with post method(default use get method to send username password(?))
 # SOCIAL_AUTH_REQUIRE_POST = True
+
+
+# ckeditor configuration
+CKEDITOR_UPLOAD_PATH = "uploads/ckeditor/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'editor': 'ckeditor5',
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+}
+
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'Custom',
+#         'toolbar_Custom': [
+#             {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat']},
+#             {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
+#             {'name': 'insert', 'items': ['Image', 'Table', 'HorizontalRule', 'SpecialChar']},
+#             {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+#             {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+#         ],
+#         'height': 300,
+#         'width': '100%',
+#     },
+# }
+
+
 
 

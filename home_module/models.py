@@ -1,10 +1,12 @@
 from django.db import models
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 
 class Slider(models.Model):
     title=models.CharField(max_length=100)
-    text=models.TextField()
+    # text=RichTextField(config_name='default')  # Specify the config if needed
+    text=RichTextField()
     created_date=models.DateTimeField(auto_now_add=True)
     is_active=models.BooleanField(default=False)
     image=models.ImageField(upload_to='sliders/',null=True)
