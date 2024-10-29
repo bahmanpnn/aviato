@@ -85,7 +85,9 @@ def add_remove_product_to_favorite_list(request):
                         'title':'alert',
                         'text':'product removed successfully',
                         'icon':'success',
-                        'confirm_button_text':'OK'
+                        'confirm_button_text':'OK',
+                        'product_id':product_id,
+                        'action':'removing'
                     })
             else:    
                 add_product_to_favorites=UserFavoriteProduct(user_id=request.user.id,product_id=target_product.id)
@@ -96,7 +98,9 @@ def add_remove_product_to_favorite_list(request):
                         'title':'alert',
                         'text':'product added successfully',
                         'icon':'success',
-                        'confirm_button_text':'OK'
+                        'confirm_button_text':'OK',
+                        'product_id':product_id,
+                        'action':'adding'
                     })
         
         else:

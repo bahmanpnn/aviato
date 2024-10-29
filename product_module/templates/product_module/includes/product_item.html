@@ -23,7 +23,7 @@
                     <li>
                         {% comment %} <a onclick="addProductToFavoriteList({{product.id}})"><i class="tf-ion-ios-heart {% if {% check_is_favorite product.id user.id %} %}favorite-heart{% endif %}" data-product-id="{{ product.id }}"></i></a>  {% endcomment %}
                         <a onclick="addProductToFavoriteList({{ product.id }})">
-                            <i class="tf-ion-ios-heart {% if product.id|is_favorite_product:request.user.id %}favorite-heart{% else %}empty-heart{% endif %}">
+                            <i id="product_{{product.id}}" class="tf-ion-ios-heart {% if product.id|is_favorite_product:request.user.id %}favorite-heart{% endif %}">
                             </i>
                         </a>                     
                     </li>

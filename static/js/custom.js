@@ -161,6 +161,13 @@ function addProductToFavoriteList(productId) {
                 }
               });
         }else{
+            const heartIcon=document.getElementById('product_'+res.product_id)
+            if(res.action =='removing'){
+                heartIcon.classList.remove('favorite-heart');
+            }else{
+                heartIcon.classList.add('favorite-heart');
+            }
+
             Swal.fire({
                 title: res.title,
                 text:res.text,
