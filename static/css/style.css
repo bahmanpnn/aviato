@@ -1005,12 +1005,11 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
   background: #000;
   color: #fff;
 }
-/* added by myself */
-/* .product-item .product-thumb .preview-meta li a, .product-item .product-thumb .preview-meta li favorite-product span {
-  background: #ffffff !important; 
-  color: #000000 !important;
-} */
-/* end added */
+
+.favorite-heart {
+  color: rgb(163, 9, 9);  /* Color when favorited */
+}
+
 .product-item:hover .product-thumb:before {
   opacity: 1;
 }
@@ -1018,15 +1017,18 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
   opacity: 1;
   transform: translateY(-20px);
 }
+
 .product-item .product-content {
   text-align: center;
 }
+
 .product-item .product-content h4 {
   font-size: 16px;
   font-weight: 400;
   margin-top: 15px;
   margin-bottom: 6px;
 }
+
 .product-item .product-content h4 a {
   color: #000;
 }
@@ -1036,6 +1038,7 @@ input[type=email]:focus, input[type=password]:focus, input[type=text]:focus, inp
   text-align: center;
   padding: 0 !important;
 }
+
 .product-modal:before {
   content: "";
   display: inline-block;

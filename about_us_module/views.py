@@ -10,7 +10,10 @@ class AboutUsView(View):
     template_name='about_us_module/about_us.html'
     
     def get(self,request):
-        site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
+        try:
+            site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
+        except:
+            site_settings=None
 
         return render(request,self.template_name,{
             'site_settings':site_settings

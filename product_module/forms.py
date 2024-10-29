@@ -18,16 +18,18 @@ CHOICES =(
 
 
 class ProductSortingForm(forms.Form):
+    try:
+        product_sortings_list=[]
+        for item in ProductSorting.objects.filter(is_active=True,is_delete=False):
+            product_sortings_list.append((item.url_title,item))
 
-    product_sortings_list=[]
-    for item in ProductSorting.objects.filter(is_active=True,is_delete=False):
-        product_sortings_list.append((item.url_title,item))
-
-    sorting=forms.ChoiceField(label='',choices=product_sortings_list,widget=forms.Select(attrs={
-        'onchange': 'submit();',
-        'class':'form-control text-capitalize',
-        # 'style':'text-transform: capitalize;'
-        }))
+        sorting=forms.ChoiceField(label='',choices=product_sortings_list,widget=forms.Select(attrs={
+            'onchange': 'submit();',
+            'class':'form-control text-capitalize',
+            # 'style':'text-transform: capitalize;'
+            }))
+    except:
+        pass
     
 
 

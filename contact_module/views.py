@@ -4,26 +4,13 @@ from .forms import ContactUsModelForm
 from django.contrib import messages
 from site_setting_module.models import SiteSetting
 
-# def contact_us(request):
-
-#     if request.method == 'POST':
-#         form=ContactUsModelForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             # messages.success(request,'your message send successfully',extra_tags='success')
-#             return redirect('contact-us')
-#         else:
-#             return render(request,'contact_module/contact_us.html',{
-#                 'form':form
-#             })
-
-#     return render(request,'contact_module/contact_us.html',{
-#         'form':ContactUsModelForm()
-#     })
 
 class ContactUsView(View):
-    site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
-
+    try:
+        site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
+    except:
+        site_settings=None
+        
     def get(self,request):
 
         return render(request,'contact_module/contact_us.html',{

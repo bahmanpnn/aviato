@@ -1,6 +1,7 @@
 {% load poll_extras %}
 {% load thumbnail %}
 
+
 <div class="col-md-{{col_size}}">
     <div class="product-item">
         <div class="product-thumb">
@@ -20,7 +21,11 @@
                         </li>
                     </a>
                     <li>
-                        <a onclick="addProductToFavoriteList({{product.id}})" ><i class="tf-ion-ios-heart"></i></a>
+                        {% comment %} <a onclick="addProductToFavoriteList({{product.id}})"><i class="tf-ion-ios-heart {% if {% check_is_favorite product.id user.id %} %}favorite-heart{% endif %}" data-product-id="{{ product.id }}"></i></a>  {% endcomment %}
+                        <a onclick="addProductToFavoriteList({{ product.id }})">
+                            <i class="tf-ion-ios-heart {% if product.id|is_favorite_product:request.user.id %}favorite-heart{% else %}empty-heart{% endif %}">
+                            </i>
+                        </a>                     
                     </li>
                     <li>
                         <a onclick="addOneToBasket({{product.id}})"><i class="tf-ion-android-cart"></i></a>

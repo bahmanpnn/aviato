@@ -15,7 +15,7 @@ from itertools import chain
 
 
 class ProductView(View):
-    template_name = 'product_module/p3.html'
+    template_name = 'product_module/products.html'
     
     def get(self, request,category=None, *args, **kwargs):
         categories = ProductCategory.objects.filter(is_active=True, is_delete=False, parent_id=None)
@@ -56,7 +56,10 @@ class ProductView(View):
         except EmptyPage:
             products_page = paginator.page(paginator.num_pages)  # If page is out of range, deliver last page
 
-        sorting_options = ProductSorting.objects.all().order_by('url_title')  # Fetch all sorting options
+        try:
+            sorting_options = ProductSorting.objects.all().order_by('url_title')  # Fetch all sorting options
+        except:
+            sorting_options = None
 
         context = {
             'products': products_page,
@@ -273,13 +276,5 @@ def add_product_comment(request):
         })
         
 
-# class ProductDetailView(View):
-#     template_name='product_module/product_detail.html'
-    
-#     # def get(self,request,slug):
-#     def get(self,request,*args, **kwargs):
-#         product=get_object_or_404(Product,slug=kwargs['slug'],is_active=True,is_delete=False)
-#         return render(request,self.template_name,{
-#             'product':product
-#         })
+
 
