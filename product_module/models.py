@@ -3,6 +3,7 @@ from django.core.validators import MaxValueValidator,MinValueValidator
 from django.urls import reverse
 from django.utils.text import slugify
 from account_module.models import User
+from ckeditor.fields import RichTextField
 
 
 class ProductBrand(models.Model):
@@ -73,7 +74,8 @@ class Product(models.Model):
     added_date=models.DateTimeField(auto_now_add=True)
     updated_date=models.DateTimeField(auto_now=True)
     slug=models.SlugField(blank=True,null=True,db_index=True,max_length=127)
-    content=models.TextField(null=True,blank=True)
+    # content=models.TextField(null=True,blank=True)
+    content=RichTextField(null=True,blank=True)
     short_description=models.CharField(max_length=320,db_index=True,null=True,blank=True)
     brand=models.ForeignKey(ProductBrand,on_delete=models.SET_NULL,blank=True,null=True)
     category=models.ManyToManyField(ProductCategory)
