@@ -9,14 +9,17 @@ from django.db.models import Count,Sum
 from django.contrib import messages
 from django.forms import formset_factory
 from django.forms.models import modelformset_factory,inlineformset_factory
+from django.utils.decorators import method_decorator
 from product_module.models import ProductComment,Product,ProductBrand
 from blog_module.models import ArticleComment
 from order_module.models import OrderBasket,OrderDetail
 from account_module.models import User
 from .forms import OrderDetailAdminModelForm, ProductBrandAdminForm,\
                     ProductBrandAdminModelForm,BasketAdminModelForm
+from permissions import *
 
 
+@method_decorator(is_admin_permission_checker,name='dispatch')
 class AdminDashboard(View):
     template_name="admin_panel_module/dashboard.html"
 
@@ -102,6 +105,7 @@ class AdminDashboard(View):
         })
 
 
+@method_decorator(is_admin_permission_checker,name='dispatch')
 class AdminProductBrandView(ListView):
     template_name="admin_panel_module/product_module/product_brands.html"
     model=ProductBrand
@@ -168,6 +172,7 @@ class AdminProductBrandView(ListView):
         return context
     
 
+@is_admin_permission_checker
 def admin_product_brand_delete(request,brand_id):
     target_brand=get_object_or_404(ProductBrand,id=brand_id)
 
@@ -179,7 +184,8 @@ def admin_product_brand_delete(request,brand_id):
         messages.error(request,'this brand does not exists!!','danger')
         return redirect(reverse('admin-product-brands'))
 
-    
+
+@method_decorator(is_admin_permission_checker,name='dispatch')    
 class EditProductBrandAdminView(View):
     template_name='admin_panel_module/product_module/product_brand_detail.html'
     form_class=ProductBrandAdminModelForm
@@ -207,6 +213,7 @@ class EditProductBrandAdminView(View):
             return redirect(reverse('admin-product-brands'))
 
 
+@method_decorator(is_admin_permission_checker,name='dispatch')
 class AccountOrderAdminView(ListView):
     template_name="admin_panel_module/account_module/order_basket.html"
     model=OrderBasket
@@ -279,6 +286,7 @@ class AccountOrderAdminView(ListView):
         return context
     
 
+@is_admin_permission_checker
 def admin_order_basket_delete(request,basket_id):
     target_basket=get_object_or_404(OrderBasket,id=basket_id)
 
@@ -290,7 +298,8 @@ def admin_order_basket_delete(request,basket_id):
         messages.error(request,'this basket does not exists!!','danger')
         return redirect(reverse('admin-account-orders'))
 
-    
+
+@method_decorator(is_admin_permission_checker,name='dispatch')    
 class EditOrderBasketAdminView(View):
     template_name='admin_panel_module/account_module/order_basket_detail.html'
     form_class=BasketAdminModelForm

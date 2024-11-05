@@ -9,8 +9,11 @@ from order_module.models import OrderBasket
 from account_module.models import User,UserAddressInformation
 from .forms import EditUserForm,EditUserAddressForm,ChangePasswordForm
 from .models import UserFavoriteProduct
+from permissions import is_authenticated_permission
+from django.utils.decorators import method_decorator
 
 
+@method_decorator(is_authenticated_permission,name='dispatch')
 class UserProfileView(View):
     template_name='user_profile_module/dashboard.html'
     
@@ -21,7 +24,7 @@ class UserProfileView(View):
         })
 
 
-
+@method_decorator(is_authenticated_permission,name='dispatch')
 class UserCompletedOrders(View):
     template_name='user_profile_module/orders.html'
     
@@ -36,6 +39,7 @@ class UserCompletedOrders(View):
         })
 
     
+@method_decorator(is_authenticated_permission,name='dispatch')
 class UserProfileDetail(View):
     template_name='user_profile_module/profile_details.html'
     form_class = EditUserForm
@@ -78,6 +82,7 @@ class UserProfileDetail(View):
         })
 
 
+@method_decorator(is_authenticated_permission,name='dispatch')
 class UserAddress(View):
     template_name='user_profile_module/address.html'
     form_class=EditUserAddressForm
@@ -124,6 +129,7 @@ class UserAddress(View):
         return redirect(reverse('address'))
     
 
+@is_authenticated_permission
 def user_address_remove(request,user_address_id):
     target_user_address=get_object_or_404(UserAddressInformation,user_id=request.user.id,id=user_address_id)
     if target_user_address is not None:
@@ -132,6 +138,7 @@ def user_address_remove(request,user_address_id):
         return redirect(reverse('address'))
     
 
+@is_authenticated_permission
 def user_favorite_products(request):
     user_favorite_products=UserFavoriteProduct.objects.filter(user_id=request.user.id).order_by('product__added_date')
 

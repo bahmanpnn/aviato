@@ -12,6 +12,7 @@ from utils.convertors import grouped_list
 from .models import ProductCategory,Product,ProductSorting,ProductVisit,ProductImages,ProductComment
 from .forms import ProductSortingForm
 from itertools import chain
+from permissions import is_authenticated_permission
 
 
 class ProductView(View):

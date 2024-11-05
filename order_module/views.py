@@ -7,6 +7,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from product_module.models import Product
 from .models import OrderBasket,OrderDetail
+from permissions import is_authenticated_permission
 
 
 def add_product_to_basket(request):
@@ -58,7 +59,77 @@ def add_product_to_basket(request):
             'icon':'warning',
             'confirm_button_text':'return to login page'
         })
+
+
+
+class UserOrderBasket(View,LoginRequiredMixin):
+    template_name='order_module/basket.html'
+
+    def get(self,request):
+        current_basket,is_created=OrderBasket.objects.prefetch_related('order_detail').get_or_create(is_paid=False,user_id=request.user.id)
+
+        return render(request,self.template_name,{
+            'basket':current_basket,
+            'total_price':current_basket.get_total_amount,
+            })
     
+    def post(self,request):
+        pass
+
+
+@is_authenticated_permission
+def remove_product_from_basket_ajax(request):
+    detail_id=request.GET.get('detail_id')
+    target_order_detail=OrderDetail.objects.filter(id=detail_id,order_basket__user_id=request.user.id,order_basket__is_paid=False).first()
+
+    if target_order_detail is not None:
+        target_order_detail.delete() 
+
+    else:
+        return JsonResponse({
+            'status':'invalid-detail-id'
+        })
+    current_basket,is_created=OrderBasket.objects.prefetch_related('order_detail').get_or_create(is_paid=False,user_id=request.user.id)
+    data=render_to_string('order_module/includes/basket_orders.html',{
+        'basket':current_basket,
+        'total_price':current_basket.get_total_amount
+    })
+    return JsonResponse({
+            'status':'success',
+            'body':data
+        })
+
+
+# todo:switch all redirects with next method to redirect user last page and url after actions!
+@is_authenticated_permission
+def remove_basket_cart(request,detail_id):
+    if detail_id is not None:   
+        target_order_detail=OrderDetail.objects.filter(id=detail_id,order_basket__user_id=request.user.id,order_basket__is_paid=False).first()
+        if target_order_detail is not None:
+            target_order_detail.delete()
+            messages.success(request,'product removed successfully form your basket!!')
+            return redirect(reverse('home-page'))
+        else:
+            messages.error(request,'product did not exist in your basket!!')
+            redirect(reverse('home-page'))
+    else:
+        return redirect('home-page')
+
+
+@is_authenticated_permission
+def remove_product_from_basket(request,detail_id):
+    if detail_id is not None:   
+        target_order_detail=OrderDetail.objects.filter(id=detail_id).first()
+        if target_order_detail is not None:
+            target_order_detail.delete()
+            messages.success(request,'product removed successfully form your basket!!')
+            return redirect(reverse('order-basket'))
+        else:
+            messages.error(request,'product did not exist in your basket!!')
+            redirect(reverse('order-basket'))
+    else:
+        return redirect('home-page')
+      
 
 # has buggy -__-
 # def add_product_to_basket(request):
@@ -94,67 +165,4 @@ def add_product_to_basket(request):
 #     })
 
 
-class UserOrderBasket(View,LoginRequiredMixin):
-    template_name='order_module/basket.html'
 
-    def get(self,request):
-        current_basket,is_created=OrderBasket.objects.prefetch_related('order_detail').get_or_create(is_paid=False,user_id=request.user.id)
-
-        return render(request,self.template_name,{
-            'basket':current_basket,
-            'total_price':current_basket.get_total_amount,
-            })
-    
-    def post(self,request):
-        pass
-
-
-def remove_product_from_basket_ajax(request):
-    detail_id=request.GET.get('detail_id')
-    target_order_detail=OrderDetail.objects.filter(id=detail_id,order_basket__user_id=request.user.id,order_basket__is_paid=False).first()
-
-    if target_order_detail is not None:
-        target_order_detail.delete() 
-
-    else:
-        return JsonResponse({
-            'status':'invalid-detail-id'
-        })
-    current_basket,is_created=OrderBasket.objects.prefetch_related('order_detail').get_or_create(is_paid=False,user_id=request.user.id)
-    data=render_to_string('order_module/includes/basket_orders.html',{
-        'basket':current_basket,
-        'total_price':current_basket.get_total_amount
-    })
-    return JsonResponse({
-            'status':'success',
-            'body':data
-        })
-
-
-# todo:switch all redirects with next method to redirect user last page and url after actions!
-def remove_basket_cart(request,detail_id):
-    if detail_id is not None:   
-        target_order_detail=OrderDetail.objects.filter(id=detail_id,order_basket__user_id=request.user.id,order_basket__is_paid=False).first()
-        if target_order_detail is not None:
-            target_order_detail.delete()
-            messages.success(request,'product removed successfully form your basket!!')
-            return redirect(reverse('home-page'))
-        else:
-            messages.error(request,'product did not exist in your basket!!')
-            redirect(reverse('home-page'))
-    else:
-        return redirect('home-page')
-
-
-def remove_product_from_basket(request,detail_id):
-    if detail_id is not None:   
-        target_order_detail=OrderDetail.objects.filter(id=detail_id).first()
-        if target_order_detail is not None:
-            target_order_detail.delete()
-            messages.success(request,'product removed successfully form your basket!!')
-            return redirect(reverse('order-basket'))
-        else:
-            messages.error(request,'product did not exist in your basket!!')
-            redirect(reverse('order-basket'))
-    else:
-        return redirect('home-page')

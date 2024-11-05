@@ -9,7 +9,7 @@ from home_module.models import UserEmailSubscribe
 from utils.http_service import get_client_ip
 from .models import Article,ArticleCategory,ArticleComment,ArticleVisit
 from .forms import UserEmailSubscribeForm
-
+from permissions import is_authenticated_permission
 
 class ArticleView(ListView):
     template_name='blog_module/articles.html'
@@ -89,25 +89,23 @@ def categories(request):
     })
 
 
+@is_authenticated_permission
 def add_article_comment(request):
+    article_id=request.GET.get('article_id')
+    parent_id=request.GET.get('parent_id')
+    comment_text=request.GET.get('comment')
+    new_comment=ArticleComment(parent_id=parent_id,article_id=article_id,text=comment_text,author_id=request.user.id)
+    new_comment.save()
 
-    if request.user.is_authenticated:
-        article_id=request.GET.get('article_id')
-        parent_id=request.GET.get('parent_id')
-        comment_text=request.GET.get('comment')
-        new_comment=ArticleComment(parent_id=parent_id,article_id=article_id,text=comment_text,author_id=request.user.id)
-        new_comment.save()
-
-        comments=ArticleComment.objects.filter(article_id=article_id,parent_id=None).order_by('-created_date').prefetch_related('articlecomment_set')
-        comments_count=ArticleComment.objects.filter(article_id=article_id).count()
+    comments=ArticleComment.objects.filter(article_id=article_id,parent_id=None).order_by('-created_date').prefetch_related('articlecomment_set')
+    comments_count=ArticleComment.objects.filter(article_id=article_id).count()
 
 
-        return render(request,'blog_module/includes/article_comments.html',{
-            'comments':comments,
-            'comments_count':comments_count
-        })
+    return render(request,'blog_module/includes/article_comments.html',{
+        'comments':comments,
+        'comments_count':comments_count
+    })
 
-    return HttpResponse('got response succussfully')
 
 
 

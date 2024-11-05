@@ -13,7 +13,6 @@ from .forms import LoginViewForm,registerform,ForgetPasswordForm,ResetPasswordFo
 from .models import User
 
 
-#done
 class RegisterView(View):
     template_name="account_module/register.html"
     form_class=registerform
@@ -46,7 +45,6 @@ class RegisterView(View):
         })       
 
 
-#done
 class EmailActiveCode(View):
     def get(self,request,email_active_code):
         # check_user:User=User.objects.filter(email_active_code__iexact=email_active_code).first() ***
@@ -67,7 +65,6 @@ class EmailActiveCode(View):
         return redirect('home-page')
 
 
-#done
 class LoginView(View):
     template_name="account_module/login.html"
     form_class=LoginViewForm
@@ -105,6 +102,94 @@ class LoginView(View):
         return render(request,self.template_name,{
             'form':form
         })
+
+
+class LogoutView(View,LoginRequiredMixin):
+    def get(self,request):
+        logout(request)
+        messages.success(request,'you logged out successfully',extra_tags='success')
+
+        response = redirect('home-page')
+        response.delete_cookie('sessionid')
+
+        try:
+            requests.get('https://github.com/logout')
+        except:
+            pass
+        
+        return response
+
+
+class ForgetPasswordView(View):
+    template_name="account_module/forget_password.html"
+    from_class=ForgetPasswordForm
+
+    def get(self,request):
+        return render(request,self.template_name,{
+            'form':self.from_class()
+        })
+
+    def post(self,request):
+        form=self.from_class(request.POST)
+
+        if form.is_valid():
+            check_email=User.objects.filter(email__iexact=form.cleaned_data['email']).exists()
+
+
+            if check_email:
+                # send email
+                target_user=User.objects.get(email__iexact=form.cleaned_data['email'])
+                site_setting=SiteSetting.objects.filter(is_main_setting=True).first()
+                email_template='account_module/email/reset_password_email.html'
+                email_service('reset password',form.cleaned_data['email'],{'user':target_user,'site_setting':site_setting},email_template)
+
+                messages.success(request,'email sent successfully!! check your messages to reset your password')
+                return redirect(reverse('login-page'))
+            else:
+                form.add_error('email','this email does not exists in our site!!')
+
+        return render(request,self.template_name,{
+            'form':form
+        })
+
+
+class ResetPasswordView(View):
+    template_name='account_module/reset_password.html'
+    form_class=ResetPasswordForm
+
+    def get(self,request,email_reset_password_code):
+        # check_code=get_object_or_404(User,email_active_code__iexact=email_reset_password_code)
+        # check_code=User.objects.get(email_active_code__iexact=email_reset_password_code)
+        
+        # if not check_code:
+        #     messages.warning(request,'this code is expired or not exists!')
+        #     return redirect(reverse('login-page'))
+        
+        check_code=User.objects.filter(email_active_code__iexact=email_reset_password_code).first()
+        
+        if check_code is None:
+            messages.warning(request,'this code is expired or not exists!')
+            # return redirect(reverse('login-page'))
+            raise Http404()
+        
+        return render(request,self.template_name,{
+            'form':self.form_class()
+        })
+    
+    def post(self,request,email_reset_password_code):
+        form=self.form_class(request.POST)
+
+        if form.is_valid():
+            user=User.objects.get(email_active_code__iexact=email_reset_password_code)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
+            messages.success(request,'your password changed successfully!! now you can login :))')
+            return redirect(reverse('login-page'))
+        
+        return render(request,self.template_name,{
+            'form':form
+        })
+    
 
 
 # class LoginView(View):
@@ -149,87 +234,4 @@ class LoginView(View):
 #         })
 
 
-#done
-class LogoutView(View,LoginRequiredMixin):
-    def get(self,request):
-        logout(request)
-        messages.success(request,'you logged out successfully',extra_tags='success')
-
-        response = redirect('home-page')
-        response.delete_cookie('sessionid')
-
-        requests.get('https://github.com/logout')
-        return response
-
-#done
-class ForgetPasswordView(View):
-    template_name="account_module/forget_password.html"
-    from_class=ForgetPasswordForm
-
-    def get(self,request):
-        return render(request,self.template_name,{
-            'form':self.from_class()
-        })
-
-    def post(self,request):
-        form=self.from_class(request.POST)
-
-        if form.is_valid():
-            check_email=User.objects.filter(email__iexact=form.cleaned_data['email']).exists()
-
-
-            if check_email:
-                # send email
-                target_user=User.objects.get(email__iexact=form.cleaned_data['email'])
-                site_setting=SiteSetting.objects.filter(is_main_setting=True).first()
-                email_template='account_module/email/reset_password_email.html'
-                email_service('reset password',form.cleaned_data['email'],{'user':target_user,'site_setting':site_setting},email_template)
-
-                messages.success(request,'email sent successfully!! check your messages to reset your password')
-                return redirect(reverse('login-page'))
-            else:
-                form.add_error('email','this email does not exists in our site!!')
-
-        return render(request,self.template_name,{
-            'form':form
-        })
-
-#done
-class ResetPasswordView(View):
-    template_name='account_module/reset_password.html'
-    form_class=ResetPasswordForm
-
-    def get(self,request,email_reset_password_code):
-        # check_code=get_object_or_404(User,email_active_code__iexact=email_reset_password_code)
-        # check_code=User.objects.get(email_active_code__iexact=email_reset_password_code)
-        
-        # if not check_code:
-        #     messages.warning(request,'this code is expired or not exists!')
-        #     return redirect(reverse('login-page'))
-        
-        check_code=User.objects.filter(email_active_code__iexact=email_reset_password_code).first()
-        
-        if check_code is None:
-            messages.warning(request,'this code is expired or not exists!')
-            # return redirect(reverse('login-page'))
-            raise Http404()
-        
-        return render(request,self.template_name,{
-            'form':self.form_class()
-        })
-    
-    def post(self,request,email_reset_password_code):
-        form=self.form_class(request.POST)
-
-        if form.is_valid():
-            user=User.objects.get(email_active_code__iexact=email_reset_password_code)
-            user.set_password(form.cleaned_data['password'])
-            user.save()
-            messages.success(request,'your password changed successfully!! now you can login :))')
-            return redirect(reverse('login-page'))
-        
-        return render(request,self.template_name,{
-            'form':form
-        })
-    
 
