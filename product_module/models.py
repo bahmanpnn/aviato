@@ -78,7 +78,7 @@ class Product(models.Model):
     content=RichTextField(null=True,blank=True)
     short_description=models.CharField(max_length=320,db_index=True,null=True,blank=True)
     brand=models.ForeignKey(ProductBrand,on_delete=models.SET_NULL,blank=True,null=True)
-    category=models.ManyToManyField(ProductCategory)
+    category=models.ManyToManyField(ProductCategory,related_name='categories')
     rating=models.PositiveIntegerField(default=0,validators=[MaxValueValidator(5),MinValueValidator(0)],blank=True,null=True)
     sorting=models.ForeignKey(ProductSorting,on_delete=models.PROTECT,null=True,blank=True)
     

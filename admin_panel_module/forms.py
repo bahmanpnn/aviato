@@ -1,8 +1,23 @@
 from django import forms
-from product_module.models import ProductBrand
+from product_module.models import ProductBrand,Product
 from order_module.models import OrderBasket,OrderDetail
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column
+
+
+class ProductAdminModelForm(forms.ModelForm):
+    class Meta:
+        model=Product
+        fields=('title','is_active','is_delete','price','image','brand','category')
+
+        widgets={
+            'title':forms.TextInput(attrs={
+                'class':'form-control input-sm',
+                'placeholder':'product title',
+                'style':'width:150px;'
+            })
+            }
+
 
 class ProductBrandAdminForm(forms.Form):
     title=forms.CharField(widget=forms.TextInput(attrs={
@@ -21,22 +36,10 @@ class ProductBrandAdminModelForm(forms.ModelForm):
             'title':forms.TextInput(attrs={
                 'class':'form-control input-sm',
                 'placeholder':'brand title',
-                'required':False
+                # 'required':False
             })
             }
 
-"""
-    date = fields.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
-    To apply this on a forms.ModelForm:
-
-    class MyModelForm(forms.ModelForm):
-        class Meta:
-            model = MyModel
-            fields = ['my_field', 'date']
-            widgets = {
-                'date': forms.widgets.DateInput(attrs={'type': 'date'})
-            }
-"""
 
 class DateTimeInput(forms.DateTimeInput):
     input_type = 'datetime-local'
@@ -91,6 +94,19 @@ class OrderDetailAdminModelForm(forms.ModelForm):
     #     self.fields['count'].widget.attrs['class'] = 'input'
     #     self.fields['final_price'].widget.attrs['class'] = 'input'
 
+# way2 
+"""
+    date = fields.DateField(widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+    To apply this on a forms.ModelForm:
+
+    class MyModelForm(forms.ModelForm):
+        class Meta:
+            model = MyModel
+            fields = ['my_field', 'date']
+            widgets = {
+                'date': forms.widgets.DateInput(attrs={'type': 'date'})
+            }
+"""
 
 #way 3
 # class OrderDetailForm(forms.ModelForm):

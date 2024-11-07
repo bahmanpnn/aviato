@@ -15,7 +15,7 @@ from blog_module.models import ArticleComment
 from order_module.models import OrderBasket,OrderDetail
 from account_module.models import User
 from .forms import OrderDetailAdminModelForm, ProductBrandAdminForm,\
-                    ProductBrandAdminModelForm,BasketAdminModelForm
+                    ProductBrandAdminModelForm,BasketAdminModelForm,ProductAdminModelForm
 from permissions import *
 
 
@@ -105,6 +105,118 @@ class AdminDashboard(View):
         })
 
 
+# Product views
+@method_decorator(is_admin_permission_checker,name='dispatch')
+class AdminProductView(ListView):
+    template_name="admin_panel_module/product_module/products.html"
+    model=Product
+    context_object_name='products'
+    paginate_by=6
+    ordering='-added_date'
+    form_class=ProductAdminModelForm
+
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def post(self,request):
+        # todo: add empty value for filter and search fields like price or category and...
+        if 'add-new-product' in request.POST:
+            form=self.form_class(request.POST,files=request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request,'product added successfully','success')
+                return redirect(reverse('admin-products'))
+
+        elif 'filter-product' in request.POST:
+            form=self.form_class(request.POST)
+            if form.is_valid():
+                cd=form.cleaned_data
+
+                title=cd['title']
+                is_active=cd['is_active']
+                is_delete=cd['is_delete']
+                price=cd['price']
+                brand=cd['brand']
+                category=cd['category']
+
+                products=Product.objects.filter(title__icontains=title,is_active=is_active,is_delete=is_delete,price=price,brand=brand,category__id__in=category)
+                return render(request,self.template_name,{
+                    'form':self.form_class(),
+                    'products':products
+                })
+            else:
+                # print(form.errors)
+                return HttpResponse('invalid-filter-product-data')
+            
+        # elif 'search-product' in request.POST:
+        #     form=self.form_class(request.POST)
+        #     if form.is_valid():
+        #         cd=form.cleaned_data
+        #         products=Product.objects.filter(title__icontains=cd['title'],is_active=cd['is_active'])
+        #         return render(request,self.template_name,{
+        #             'form':self.form_class(),
+        #             'products':products
+        #         })
+        #     else:
+        #         return HttpResponse('invalid-data-form')
+        
+        return HttpResponse('invalid-data-form')
+
+    def get_context_data(self, **kwargs):
+        '''
+            if need to pass new data in product template and
+            this is not product model must send with this method and override this
+        '''
+        context = super(AdminProductView, self).get_context_data(**kwargs)
+        context['form']=self.form_class()
+        return context
+
+
+@method_decorator(is_admin_permission_checker,name='dispatch')
+class EditProductAdminView(View):
+    template_name='admin_panel_module/product_module/product_detail.html'
+    form_class=ProductAdminModelForm
+
+
+    def dispatch(self, request,product_id, *args, **kwargs):
+        self.target_product=get_object_or_404(Product,id=product_id)
+        return super().dispatch(request, *args, **kwargs)
+    
+
+    def get(self,request):
+        if self.target_product is not None:
+            return render(request,self.template_name,{
+                'target_product':self.target_product,
+                'form':self.form_class(instance=self.target_product)
+            })
+
+
+    def post(self,request):
+        form=self.form_class(request.POST,instance=self.target_product)
+        if form.is_valid():
+            form.save()
+            messages.success(request,'product edited successfully','success')
+            return redirect(reverse('admin-products'))
+        else:
+            return redirect(reverse('admin-products'))
+
+
+
+@is_admin_permission_checker
+def admin_product_delete(request,product_id):
+    target_product=get_object_or_404(Product,id=product_id)
+
+    if target_product is not None:
+        target_product.delete()
+        messages.success(request,'product deleted successfully','success')
+        return redirect(reverse('admin-products'))
+    else:
+        messages.error(request,'this product does not exists!!','danger')
+        return redirect(reverse('admin-products'))
+
+
+
+# Brand views
 @method_decorator(is_admin_permission_checker,name='dispatch')
 class AdminProductBrandView(ListView):
     template_name="admin_panel_module/product_module/product_brands.html"
@@ -212,7 +324,7 @@ class EditProductBrandAdminView(View):
         else:
             return redirect(reverse('admin-product-brands'))
 
-
+# Account views
 @method_decorator(is_admin_permission_checker,name='dispatch')
 class AccountOrderAdminView(ListView):
     template_name="admin_panel_module/account_module/order_basket.html"
@@ -334,6 +446,7 @@ class EditOrderBasketAdminView(View):
         # return redirect(reverse('admin-account-orders'))
         messages.success(request,'basket updated successfully') # it appears in django admin, not admin panel!!
         return redirect(reverse('admin-order-basket-edit',args=[self.target_basket.id]))
+
 
 
 
