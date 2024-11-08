@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import OrderBasket,OrderDetail
+from .models import OrderBasket,OrderDetail,OrderSubmittedAddress
 
 
 class OrderDetailInline(admin.TabularInline):
@@ -18,3 +18,6 @@ class OrderAdmin(admin.ModelAdmin):
     list_display=('id','user','payment_date','is_paid')
     list_filter=('is_paid',)
     inlines=(OrderDetailInline,) 
+
+
+admin.site.register(OrderSubmittedAddress)

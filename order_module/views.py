@@ -93,16 +93,18 @@ class UserCheckOutBasket(View,LoginRequiredMixin):
         
     def post(self,request):
         # todo:create forms for details billing template
-        fullname=request.POST['fullname']
-        user=request.POST['user']
-        address=request.POST['address']
-        zip_code=request.POST['zip_code']
+        fullname=request.POST['full_name']
+        address=request.POST['user_address']
+        zip_code=request.POST['zipcode']
         city=request.POST['city']
         country=request.POST['country']
         
-        new_paying_info=OrderSubmittedAddress(order_basket_id=self.current_basket.id,user=user,fullname=fullname,address=address,zip_code=zip_code,city=city,country=country)
-        new_paying_info.save()
-
+        if request.user.id == self.current_basket.user.id:
+            new_paying_info=OrderSubmittedAddress(order_basket_id=self.current_basket.id,user_id=request.user.id,fullname=fullname,address=address,zip_code=zip_code,city=city,country=country)
+            new_paying_info.save()
+        else:
+            return HttpResponse('user of basket and user that is paying not match!!')
+        
         # zibal and main paying
         
         return HttpResponse('done')
