@@ -11,18 +11,18 @@
        <div class="card-body">
             <div id="validation" class="m-t-40 jsgrid" style="position: relative; height: auto; width: 100%;">
                 <div>
-                    <form action="" method="post" novalidate>
+                    <form action="" method="post" novalidate enctype="multipart/form-data">
                         {% csrf_token %}
                         {{form.as_p}}
-                        {% comment %} <div>
-                            {{form.title}}
-                        </div>
-                        <br>
+{% comment %}                             
+                        <!-- Render the formset -->
+                        {{ form.images_formset.management_form }}
+                        {% for image_form in form.images_formset %}
+                            {{ image_form.as_p }}
+                        {% endfor %} {% endcomment %}
+                            
                         <div>
-                            {{form.is_active.label}} <span> {{form.is_active}}</span>
-                        </div>
-                        <br> {% endcomment %}
-                        <div>
+                            {% comment %} <input type="submit" value="Save"> {% endcomment %}
                             <button type="submit" class="btn btn-light" >Submit</button>
                         </div>
                     </form>

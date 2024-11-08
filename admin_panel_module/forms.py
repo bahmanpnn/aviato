@@ -1,22 +1,80 @@
 from django import forms
-from product_module.models import ProductBrand,Product
+from product_module.models import ProductBrand,Product,ProductExtraImage
 from order_module.models import OrderBasket,OrderDetail
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column
+from django.forms import inlineformset_factory
+# from crispy_forms.helper import FormHelper
+# from crispy_forms.layout import Layout, Row, Column
 
 
 class ProductAdminModelForm(forms.ModelForm):
+    #     # Note: Do NOT define FormSet as a class attribute
+    #     # Create an inline formset
+    #     ProductImageFormSet = inlineformset_factory(
+    #         Product,  # Parent model
+    #         ProductExtraImage,  # Child model
+    #         fields=['image'],  # Fields to include in the formset
+    #         extra=3,  # Number of empty forms to display
+    #         max_num=5,  # Maximum number of forms
+    #         )
     class Meta:
-        model=Product
-        fields=('title','is_active','is_delete','price','image','brand','category')
-
-        widgets={
-            'title':forms.TextInput(attrs={
-                'class':'form-control input-sm',
-                'placeholder':'product title',
-                'style':'width:150px;'
+        model = Product
+        fields = ['title', 'is_active', 'is_delete', 'price', 'image', 'brand', 'category']
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'form-control input-sm',
+                'placeholder': 'product title',
+                'style': 'width:150px;'
             })
-            }
+        }
+
+    # def __init__(self, *args, **kwargs):
+    #     # Create the formset in the __init__ method
+    #     super().__init__(*args, **kwargs)
+        
+    #     # Create the inline formset
+    #     self.image_formset = inlineformset_factory(
+    #         Product,  # Parent model
+    #         ProductExtraImage,  # Child model
+    #         fields=['image'],  # Fields to include in the formset
+    #         extra=3,  # Number of empty forms to display
+    #         max_num=5,  # Maximum number of forms
+    #         can_delete=True  # Allow deletion of existing images
+    #     )
+        
+    #     # If this is an existing product, pass the instance to the formset
+    #     if self.instance.pk:
+    #         self.images_formset = self.image_formset(
+    #             instance=self.instance,
+    #             queryset=ProductExtraImage.objects.filter(product=self.instance)
+    #         )
+    #     else:
+    #         # For a new product, create an empty formset
+    #         self.images_formset = self.image_formset()
+
+    # def is_valid(self):
+    #     # Override is_valid to validate both the main form and the formset
+    #     main_form_valid = super().is_valid()
+        
+    #     # Validate the formset
+    #     images_formset_valid = self.images_formset.is_valid()
+        
+    #     return main_form_valid and images_formset_valid
+
+    # def save(self, commit=True):
+    #     # Save the main product form
+    #     instance = super().save(commit=commit)
+        
+    #     # Save the formset with the product instance
+    #     if commit:
+    #         # Associate formset with the product instance
+    #         self.images_formset.instance = instance
+            
+    #         # Save the formset
+    #         self.images_formset.save()
+        
+    #     return instance
+
+
 
 
 class ProductBrandAdminForm(forms.Form):

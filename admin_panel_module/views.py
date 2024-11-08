@@ -201,7 +201,6 @@ class EditProductAdminView(View):
             return redirect(reverse('admin-products'))
 
 
-
 @is_admin_permission_checker
 def admin_product_delete(request,product_id):
     target_product=get_object_or_404(Product,id=product_id)
@@ -213,7 +212,6 @@ def admin_product_delete(request,product_id):
     else:
         messages.error(request,'this product does not exists!!','danger')
         return redirect(reverse('admin-products'))
-
 
 
 # Brand views
@@ -420,8 +418,6 @@ class EditOrderBasketAdminView(View):
         self.target_basket=get_object_or_404(OrderBasket,id=basket_id)
         if self.target_basket is not None:
             self.order_details=OrderDetail.objects.filter(order_basket_id=basket_id)
-            # self.order_basket_formset = inlineformset_factory(OrderBasket, OrderDetail,extra=2,fields=['product','count','final_price'])
-            # self.order_basket_formset = inlineformset_factory(OrderBasket, OrderDetail,fields='__all__')
         return super().dispatch(request, *args, **kwargs)
     
     def get(self,request):
@@ -435,7 +431,6 @@ class EditOrderBasketAdminView(View):
         })
 
     def post(self,request):
-        # print(request.POST)
         order_basket_formset = inlineformset_factory(OrderBasket, OrderDetail,extra=2,fields=['product','count','final_price'])
         formset = order_basket_formset(request.POST,instance=self.target_basket)
         form=self.form_class(request.POST,instance=self.target_basket)
@@ -443,7 +438,6 @@ class EditOrderBasketAdminView(View):
             formset.save()
             form.save()
 
-        # return redirect(reverse('admin-account-orders'))
         messages.success(request,'basket updated successfully') # it appears in django admin, not admin panel!!
         return redirect(reverse('admin-order-basket-edit',args=[self.target_basket.id]))
 

@@ -9,7 +9,7 @@ from user_profile_module.models import UserFavoriteProduct
 from order_module.models import OrderBasket,OrderDetail
 from utils.http_service import get_client_ip
 from utils.convertors import grouped_list
-from .models import ProductCategory,Product,ProductSorting,ProductVisit,ProductImages,ProductComment
+from .models import ProductCategory,Product,ProductSorting,ProductVisit,ProductComment
 from .forms import ProductSortingForm
 from itertools import chain
 from permissions import is_authenticated_permission

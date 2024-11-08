@@ -58,10 +58,6 @@ class ProductSorting(models.Model):
         verbose_name_plural='sortings'
 
 
-class ProductImages(models.Model):
-    image=models.ImageField(upload_to='images/product-extra-images')
-    product=models.ForeignKey('Product',on_delete=models.CASCADE)
-
 
 class Product(models.Model):
 
@@ -97,6 +93,17 @@ class Product(models.Model):
     def __str__(self):
         return self.title
     
+    def get_images(self):
+        return self.images.all()
+
+
+class ProductExtraImage(models.Model):
+    image=models.ImageField(upload_to='images/products/extra_images',null=True,blank=True)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name='images')
+    # product=models.ForeignKey(Product,on_delete=models.CASCADE,related_name='product_extra_images')
+
+    def __str__(self):
+        return self.product.title
 
 class ProductVisit(models.Model):
     ip=models.CharField(max_length=32)

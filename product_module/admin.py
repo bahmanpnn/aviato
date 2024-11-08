@@ -1,6 +1,12 @@
 from django.contrib import admin
 from .models import Product,ProductBrand,ProductCategory,\
-                            ProductSorting,ProductVisit,ProductImages,ProductComment
+                            ProductSorting,ProductVisit,ProductComment,ProductExtraImage
+from admin_panel_module.forms import ProductAdminModelForm
+
+# class ProductExtraImageInline(admin.TabularInline):
+#     model = ProductExtraImage
+#     extra = 3
+#     max_num = 5
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -8,6 +14,20 @@ class ProductAdmin(admin.ModelAdmin):
     search_fields = ('title', 'short_description')
     list_filter = ('is_active', 'category', 'sorting')
 
+    # form = ProductAdminModelForm
+    # inlines = [ProductExtraImageInline]
+    
+    # def get_form(self, request, obj=None, **kwargs):
+    #     # Ensure the form is using our custom form
+    #     kwargs['form'] = ProductAdminModelForm
+    #     return super().get_form(request, obj, **kwargs)
+
+    # def save_form(self, request, form, change):
+    #     """
+    #     Given a ModelForm return an unsaved instance. ``change`` is True if
+    #     the object is being changed, and False if it's being added.
+    #     """
+    #     return form.save(commit=False)
 
 class ProductCategoryAdmin(admin.ModelAdmin):
     list_display = ('url_title', 'is_active', 'is_delete')
@@ -17,12 +37,8 @@ class ProductCategoryAdmin(admin.ModelAdmin):
 class ProductSortingAdmin(admin.ModelAdmin):
     list_display = ('title', 'url_title', 'is_active', 'is_delete')
     search_fields = ('title', 'url_title')
+    
 
-
-class ProductImagesAdmin(admin.ModelAdmin):
-    list_display=['product_id','product']
-
-admin.site.register(ProductImages,ProductImagesAdmin)
 admin.site.register(ProductVisit)
 admin.site.register(ProductBrand)
 admin.site.register(ProductCategory,ProductCategoryAdmin)

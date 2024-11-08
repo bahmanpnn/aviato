@@ -3,6 +3,7 @@ from django.db import models
 from account_module.models import User
 from product_module.models import Product
 
+
 class OrderBasket(models.Model):
     user=models.ForeignKey(User,on_delete=models.PROTECT)
     is_paid=models.BooleanField(default=False)
@@ -36,6 +37,15 @@ class OrderDetail(models.Model):
     def get_total_price(self):
         return self.product.price * self.count
     
+
+class OrderSubmittedAddress(models.Model):
+    order_basket=models.ForeignKey(OrderBasket,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.PROTECT)
+    fullname=models.CharField(max_length=127)
+    address=models.CharField(max_length=127)
+    zip_code=models.CharField(max_length=127)
+    city=models.CharField(max_length=127)
+    country=models.CharField(max_length=127)
 
 
 # class Coupon(models.Model):

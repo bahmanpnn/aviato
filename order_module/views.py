@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
 from django.template.loader import render_to_string
 from django.contrib import messages
 from product_module.models import Product
-from .models import OrderBasket,OrderDetail
+from .models import OrderBasket,OrderDetail,OrderSubmittedAddress
 from permissions import is_authenticated_permission
 
 
@@ -72,9 +72,40 @@ class UserOrderBasket(View,LoginRequiredMixin):
             'basket':current_basket,
             'total_price':current_basket.get_total_amount,
             })
+
+
+class UserCheckOutBasket(View,LoginRequiredMixin):
+    template_name='order_module/checkout.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.current_basket,self.is_created=OrderBasket.objects.prefetch_related('order_detail').get_or_create(is_paid=False,user_id=request.user.id)
+        return super().dispatch(request, *args, **kwargs)
     
+
+    def get(self,request):
+        if not self.is_created:
+            return render(request,self.template_name,{
+                'basket':self.current_basket,
+                'total_price':self.current_basket.get_total_amount,
+                })
+        else:
+            raise Http404() # remember it just raise in debug=False
+        
     def post(self,request):
-        pass
+        # todo:create forms for details billing template
+        fullname=request.POST['fullname']
+        user=request.POST['user']
+        address=request.POST['address']
+        zip_code=request.POST['zip_code']
+        city=request.POST['city']
+        country=request.POST['country']
+        
+        new_paying_info=OrderSubmittedAddress(order_basket_id=self.current_basket.id,user=user,fullname=fullname,address=address,zip_code=zip_code,city=city,country=country)
+        new_paying_info.save()
+
+        # zibal and main paying
+        
+        return HttpResponse('done')
 
 
 @is_authenticated_permission
@@ -130,39 +161,5 @@ def remove_product_from_basket(request,detail_id):
     else:
         return redirect('home-page')
       
-
-# has buggy -__-
-# def add_product_to_basket(request):
-#     if request.user.is_authenticated:
-
-#         count=request.GET.get('count')
-#         if count<1:
-#             return JsonResponse({
-#             'status':'invalid-data'
-#             })
-        
-#         target_product=Product.objects.filter(id=request.GET.get('product_id'),is_active=True,is_delete=False).first()
-#         if target_product is not None:
-#             current_basket,is_created=OrderBasket.objects.get_or_create(is_paid=False,user_id=request.user.id)
-#             order_detail=current_basket.order_detail.filter(product_id=target_product.id).first()
-#             if order_detail is not None:
-#                 order_detail.count+=count
-#                 order_detail.save()
-#             else:
-#                 new_order_detail=OrderDetail(product_id=target_product.id,order_basket_id=current_basket.id,count=count)
-#                 new_order_detail.save()
-
-#             return JsonResponse({
-#                 'status':'success',
-#                 'title':'alert',
-#                 'text':'product added successfully',
-#                 'icon':'success',
-#                 'confirm_button_text':'OK'
-#             })
-
-#     return JsonResponse({
-#         'status':'not-authenticated'
-#     })
-
 
 
