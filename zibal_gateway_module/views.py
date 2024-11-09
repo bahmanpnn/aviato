@@ -1,9 +1,12 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from order_module.models import OrderBasket,OrderSubmittedAddress
 from zibal_payment.client import ZibalClient
 from zibal_payment.exceptions import ZibalError
 from zibal_payment.client import ZibalClient
+
+
 
 
 # https://help.zibal.ir/article/44
@@ -11,7 +14,7 @@ from zibal_payment.client import ZibalClient
 # https://github.com/Mohammad222PR/zibal-payment/blob/main/examples/payment_example_request.py
 # https://help.zibal.ir/IPG/API/#authentication
 
-
+@login_required
 def send_request(request):
     try:
         current_basket,is_created=OrderBasket.objects.prefetch_related('order_detail').get_or_create(is_paid=False,user_id=request.user.id)
@@ -59,7 +62,7 @@ def send_request(request):
     finally:
         return redirect(payment_url)
 
-    
+@login_required
 def verify_payment(request):
     try:    
         merchant_id = "zibal"

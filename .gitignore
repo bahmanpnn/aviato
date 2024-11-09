@@ -1,6 +1,5 @@
 env/
 __pycache__/
-migrations/
 medias/sliders/
 todos.txt
 medias/
