@@ -27,3 +27,4 @@ typing_extensions==4.12.2
 tzdata==2024.1
 urllib3==2.2.3
 zibal==1.1.0
+zibal_payment==1.0.2
