@@ -28,7 +28,7 @@
             <div class="col-md-8">
                 <div class="block billing-details">
                     <h4 class="widget-title">Billing Details</h4>
-                    <form class="checkout-form" action="" method="post">
+                    <form class="checkout-form" action="{% url "send-request" %}" method="post">
                         {% csrf_token %}
                         <div class="form-group">
                             <label for="full_name">Full Name</label>

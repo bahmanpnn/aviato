@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'user_profile_module.apps.UserProfileModuleConfig',
     'polls.apps.PollsConfig',
     'admin_panel_module.apps.AdminPanelModuleConfig',
+    'zibal_gateway_module.apps.ZibalGatewayModuleConfig',
 
     
     #third party apps

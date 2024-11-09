@@ -16,6 +16,7 @@ urlpatterns = [
     path('user/',include('user_profile_module.urls')),
     path('admin-panel/',include('admin_panel_module.urls')),
     path('auth/', include('social_django.urls', namespace='social')),
+    path('zibal/', include('zibal_gateway_module.urls')),
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

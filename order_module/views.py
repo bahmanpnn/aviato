@@ -1,12 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
 from django.template.loader import render_to_string
 from django.contrib import messages
 from product_module.models import Product
-from .models import OrderBasket,OrderDetail,OrderSubmittedAddress
+from .models import OrderBasket,OrderDetail
 from permissions import is_authenticated_permission
 
 
@@ -61,7 +61,6 @@ def add_product_to_basket(request):
         })
 
 
-
 class UserOrderBasket(View,LoginRequiredMixin):
     template_name='order_module/basket.html'
 
@@ -72,8 +71,8 @@ class UserOrderBasket(View,LoginRequiredMixin):
             'basket':current_basket,
             'total_price':current_basket.get_total_amount,
             })
-
-
+    
+    
 class UserCheckOutBasket(View,LoginRequiredMixin):
     template_name='order_module/checkout.html'
 
@@ -83,6 +82,8 @@ class UserCheckOutBasket(View,LoginRequiredMixin):
     
 
     def get(self,request):
+        # print(request.GET)
+
         if not self.is_created:
             return render(request,self.template_name,{
                 'basket':self.current_basket,
@@ -91,24 +92,6 @@ class UserCheckOutBasket(View,LoginRequiredMixin):
         else:
             raise Http404() # remember it just raise in debug=False
         
-    def post(self,request):
-        # todo:create forms for details billing template
-        fullname=request.POST['full_name']
-        address=request.POST['user_address']
-        zip_code=request.POST['zipcode']
-        city=request.POST['city']
-        country=request.POST['country']
-        
-        if request.user.id == self.current_basket.user.id:
-            new_paying_info=OrderSubmittedAddress(order_basket_id=self.current_basket.id,user_id=request.user.id,fullname=fullname,address=address,zip_code=zip_code,city=city,country=country)
-            new_paying_info.save()
-        else:
-            return HttpResponse('user of basket and user that is paying not match!!')
-        
-        # zibal and main paying
-        
-        return HttpResponse('done')
-
 
 @is_authenticated_permission
 def remove_product_from_basket_ajax(request):
@@ -163,5 +146,6 @@ def remove_product_from_basket(request,detail_id):
     else:
         return redirect('home-page')
       
-
-
+      
+def confirm_checkout(request):
+    return render(request,'order_module/confirm_checkout.html')
