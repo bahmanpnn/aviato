@@ -3,26 +3,35 @@
         <div class="row">
             <div class="col-md-12">
                 <ul class="social-media">
-                    <li>
-                        <a href="https://www.facebook.com/themefisher">
-                            <i class="tf-ion-social-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/themefisher">
-                            <i class="tf-ion-social-instagram"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.twitter.com/themefisher">
-                            <i class="tf-ion-social-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.pinterest.com/themefisher/">
-                            <i class="tf-ion-social-pinterest"></i>
-                        </a>
-                    </li>
+ 
+                    {% if site_settings.instagram %}
+                        <li>
+                            <a href="{{site_settings.instagram}}">
+                                <i class="tf-ion-social-instagram"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if site_settings.facebook %}
+                        <li>
+                            <a href="https://www.facebook.com/themefisher">
+                                <i class="tf-ion-social-facebook"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if site_settings.pinterest %}
+                        <li>
+                            <a href="https://www.pinterest.com/themefisher/">
+                                <i class="tf-ion-social-pinterest"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% if site_settings.twitter %}
+                        <li>
+                            <a href="https://www.twitter.com/themefisher">
+                                <i class="tf-ion-social-twitter"></i>
+                            </a>
+                        </li>
+                    {% endif %}
                 </ul>
                 <ul class="footer-menu text-uppercase">
                     {% for footer_link_item in footer_link_items %}

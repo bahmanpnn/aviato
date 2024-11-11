@@ -5,16 +5,9 @@ from dotenv import load_dotenv
 # Load the .env file
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Add your project directory to the sys.path
-# project_home = '/home/avalanch/aviato'
-# if project_home not in sys.path:
-#     sys.path.append(project_home)
-
 SECRET_KEY = os.getenv('SECRET_KEY')
-
 
 DEBUG = True
 
@@ -111,7 +104,6 @@ DATABASES = {
 #         'PASSWORD':'zxcvb12345!@',
 #         'USER':'avalanch',
 #         'HOST':'avalanch.mysql.pythonanywhere-services.com',
-#         'PORT':3306,
 #     }
 # }
 
@@ -149,8 +141,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 #media url is for load and server medias in site and templates
 MEDIA_URL='/media/'

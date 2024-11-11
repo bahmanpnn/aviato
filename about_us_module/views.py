@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse
 from django.conf import settings
-from site_setting_module.models import SiteSetting
+from site_setting_module.models import SiteSetting,TeamMember,Award
 import os
 import base64
 
@@ -15,8 +15,14 @@ class AboutUsView(View):
         except:
             site_settings=None
 
+        finally:
+            team_members=TeamMember.objects.all()
+            awards=Award.objects.all()
+
         return render(request,self.template_name,{
-            'site_settings':site_settings
+            'site_settings':site_settings,
+            'team_members':team_members,
+            'awards':awards
         })
 
 

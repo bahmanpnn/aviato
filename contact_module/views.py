@@ -33,3 +33,7 @@ class ContactUsView(View):
 
 def test_map(request):
     return render(request,'contact_module/test_map.html')
+
+
+def faq_view(request):
+    return render(request,'contact_module/faq.html')

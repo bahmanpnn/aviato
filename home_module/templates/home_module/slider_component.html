@@ -1,4 +1,5 @@
-<div class="hero-slider">
+{% if sliders %}
+  <div class="hero-slider">
     {% for slider in sliders %}
         <div class="slider-item th-fullpage hero-area" style="background-image: url({{ slider.image.url }});">
           <div class="container">
@@ -12,4 +13,5 @@
           </div>
         </div>
     {% endfor %}
-</div>
+  </div>
+{% endif %}

@@ -14,62 +14,64 @@
 				<!--sidebar-->
 				<div class="col-md-3">
 					<!--sorting -->
-					<div class="widget">
-						<h4 class="widget-title">Sort By</h4>
-                        <form method="get" action="" id='filter-form'>
-							<select class="form-control" name="sort" id="sort" onchange="updateSorting()">
-								{% for sorting in sorting_options %}
-									<option value="{{ sorting.url_title }}" {% if sorting.url_title == selected_sort %}selected{% endif %}>
-										{{ sorting.url_title|capfirst }}
-									</option>
-								{% endfor %}
-							</select>
-                        </form>
-
-					</div>
+					{% if sorting_options %}
+						<div class="widget">
+								<h4 class="widget-title">Sort By</h4>
+								<form method="get" action="" id='filter-form'>
+									<select class="form-control" name="sort" id="sort" onchange="updateSorting()">
+										{% for sorting in sorting_options %}
+											<option value="{{ sorting.url_title }}" {% if sorting.url_title == selected_sort %}selected{% endif %}>
+												{{ sorting.url_title|capfirst }}
+											</option>
+										{% endfor %}
+									</select>
+								</form>
+						</div>
+					{% endif %}
 					<!--sorting -->
 
 					<!--category -->
-					<div class="widget product-category">
-						<h4 class="widget-title">Categories</h4>
-						{% for category in categories %}
-							{% if category.productcategory_set.all %}
-								<div class="panel-group commonAccordion" id="accordion" role="tablist" aria-multiselectable="true">
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="headingOne">
-												<h4 class="panel-title">
-													<a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{category.url_title}}" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
-														{{category.title}}
-													</a>
-												</h4>
-										</div>
-										<div id="{{category.url_title}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-											<div class="panel-body">
-												<ul>
-													{% for sub_category in category.productcategory_set.all %}
-														<li><a href="{% url "products-by-category" category=sub_category.url_title %}">{{sub_category.title}}</a></li>
-													{% endfor %}
-												</ul>
-											</div>
-										</div>
-								</div>
-							</div>
-							{% else %}
-							<a href="{% url "products-by-category" category=category.url_title %}">
-								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-									<div class="panel panel-default">
-										<div class="panel-heading" role="tab" id="headingOne">
-												<h4 class="panel-title">
-													{{category.title}}
-												</h4>
+						{% if categories %}
+							<div class="widget product-category">
+								<h4 class="widget-title">Categories</h4>
+								{% for category in categories %}
+									{% if category.productcategory_set.all %}
+										<div class="panel-group commonAccordion" id="accordion" role="tablist" aria-multiselectable="true">
+											<div class="panel panel-default">
+												<div class="panel-heading" role="tab" id="headingOne">
+														<h4 class="panel-title">
+															<a role="button" data-toggle="collapse" data-parent="#accordion" href="#{{category.url_title}}" aria-expanded="false" aria-controls="collapseOne" class="collapsed">
+																{{category.title}}
+															</a>
+														</h4>
+												</div>
+												<div id="{{category.url_title}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+													<div class="panel-body">
+														<ul>
+															{% for sub_category in category.productcategory_set.all %}
+																<li><a href="{% url "products-by-category" category=sub_category.url_title %}">{{sub_category.title}}</a></li>
+															{% endfor %}
+														</ul>
+													</div>
+												</div>
 										</div>
 									</div>
-								</div>
-							</a>
-							{% endif %}
-						{% endfor %}
-						
-					</div>
+									{% else %}
+									<a href="{% url "products-by-category" category=category.url_title %}">
+										<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+											<div class="panel panel-default">
+												<div class="panel-heading" role="tab" id="headingOne">
+														<h4 class="panel-title">
+															{{category.title}}
+														</h4>
+												</div>
+											</div>
+										</div>
+									</a>
+									{% endif %}
+								{% endfor %}
+							</div>
+						{% endif %}
 					<!--category -->
 					
 

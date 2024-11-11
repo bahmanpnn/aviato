@@ -31,49 +31,37 @@
             </div>
             <br>
             <hr>
-            <div class="row mt-40">
-                <div class="col-md-4 text-center">
-                    <img src="/static/images/about/awards-logo.png">
+            {% if awards %}
+                <div class="row mt-40">
+                    {% for award in awards %}
+                        <div class="col-md-4 text-center">
+                            <img src="/static/images/about/awards-logo.png">
+                        </div>
+                    {% endfor %}
                 </div>
-                <div class="col-md-4 text-center">
-                    <img src="/static/images/about/awards-logo.png">
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="/static/images/about/awards-logo.png">
-                </div>
-            </div>
+            {% endif %}
         </div>
     </section>
-    <section class="team-members ">
-        <div class="container">
-            <div class="row">
-                <div class="title"><h2>Team Members</h2></div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="team-member text-center">
-                        <img class="img-circle" src="/static/images/team/team-1.jpg">
-                        <h4>Jonathon Andrew</h4>
-                        <p>Founder and Shop Manager</p>
-                    </div>
+    {% if team_members %}
+        <section class="team-members ">
+            <div class="container">
+                <div class="row">
+                    <div class="title"><h2>Team Members</h2></div>
                 </div>
-                <div class="col-md-4">
-                    <div class="team-member text-center">
-                        <img class="img-circle" src="/static/images/team/team-2.jpg">
-                        <h4>Adipisci Velit</h4>
-                        <p>Developer</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="team-member text-center">
-                        <img class="img-circle" src="/static/images/team/team-3.jpg">
-                        <h4>John Fexit</h4>
-                        <p>Shop Manager</p>
-                    </div>
+                <div class="row">
+                    {% for team_member in team_members %}
+                        <div class="col-md-4">
+                            <div class="team-member text-center">
+                                <img class="img-circle" src="{{team_member.image.url}}">
+                                <h4>{{team_member.full_name}}</h4>
+                                <p>{{team_member.position}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    {% endif %}
 
     <div class="section video-testimonial bg-1 overly-white text-center mt-50">
         <div class="container">

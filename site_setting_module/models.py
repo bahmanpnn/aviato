@@ -14,6 +14,13 @@ class SiteSetting(models.Model):
     about_us=RichTextField(blank=True,null=True)
     site_name=models.CharField(max_length=150)
     site_url=models.CharField(max_length=255)
+    
+    #social media
+    facebook=models.URLField(blank=True,null=True)
+    instagram=models.URLField(blank=True,null=True)
+    telegram=models.URLField(blank=True,null=True)
+    twitter=models.URLField(blank=True,null=True)
+    pinterest=models.URLField(blank=True,null=True)
 
     def __str__(self):
         return self.site_name
@@ -26,4 +33,14 @@ class FooterLinkItem(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class TeamMember(models.Model):
+    image=models.ImageField(upload_to='images/team_members',blank=True,null=True)
+    full_name=models.CharField(max_length=127)
+    position=models.CharField(max_length=127)
+
+
+class Award(models.Model):
+    image=models.ImageField(upload_to='images/awards',null=True)
 

@@ -42,8 +42,11 @@ def navbar_component(request):
     return render(request,'navbar_component.html')
 
 def header_component(request):
-    site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
-
+    try:
+        site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
+    except:
+        site_settings=None
+        
     return render(request,'header_component.html',{
         'site_settings':site_settings,
         'search_form':SearchForm()
@@ -58,8 +61,11 @@ def slider_component(request):
 
 def footer_component(request):
     footer_link_items=FooterLinkItem.objects.all()
-    site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
     
+    try:
+        site_settings=SiteSetting.objects.filter(is_main_setting=True).first()
+    except:
+        site_settings=None
     return render(request,'footer_component.html',{
         'footer_link_items':footer_link_items,
         'site_settings':site_settings
