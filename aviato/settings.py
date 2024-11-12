@@ -100,10 +100,10 @@ DATABASES = {
 
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME':'avalanch$default',
-#         'PASSWORD':'zxcvb12345!@',
-#         'USER':'avalanch',
-#         'HOST':'avalanch.mysql.pythonanywhere-services.com',
+#         'NAME':'',
+#         'PASSWORD':'',
+#         'USER':'',
+#         'HOST':'',
 #     }
 # }
 
@@ -130,19 +130,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' #this is for load static in templates
 
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #developing mode
+# this is for all the directory that set in django settings and load all the static files
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static') # production mode
+# is the directory that use for production mode and when you run collectstatic command,
+# all the static files that are in static_files directories collect in that.
 
 #media url is for load and server medias in site and templates
 MEDIA_URL='/media/'

@@ -1,0 +1,11 @@
+.errorlist{
+    padding-left: 0 !important;
+}
+
+.errorlist li{
+    color: red;
+}
+#map2 {
+    height: 300px;
+    width: 100%;
+}
