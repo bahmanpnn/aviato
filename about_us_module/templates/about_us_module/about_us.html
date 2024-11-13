@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load thumbnail %}
 
 
 {% block title %}about us{% endblock title %}
@@ -7,10 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Presentation</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> {% endcomment %}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    {% comment %} <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> {% endcomment %}
 {% endblock header_references %}
 
 {% block content %}
@@ -35,7 +36,9 @@
                 <div class="row mt-40">
                     {% for award in awards %}
                         <div class="col-md-4 text-center">
-                            <img src="/static/images/about/awards-logo.png">
+                            {% thumbnail award.image '108x104' as im %}
+                                <img class="img-circle" src="{{im.url}}">
+                            {% endthumbnail %}
                         </div>
                     {% endfor %}
                 </div>
@@ -52,7 +55,11 @@
                     {% for team_member in team_members %}
                         <div class="col-md-4">
                             <div class="team-member text-center">
-                                <img class="img-circle" src="{{team_member.image.url}}">
+                                {% if team_member.image %}
+                                    {% thumbnail team_member.image '220x220' as im%}
+                                        <img class="img-circle" src="{{im.url}}">
+                                    {% endthumbnail %}
+                                {% endif %}
                                 <h4>{{team_member.full_name}}</h4>
                                 <p>{{team_member.position}}</p>
                             </div>
@@ -88,7 +95,7 @@
                 </div>
                 <div class="modal-body">
                     <video controls style="width: 100%;">
-                        <source src="{% static 'feed.mp4' %}" type="video/mp4">
+                        <source src="{% static '/Feed.mp4' %}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>

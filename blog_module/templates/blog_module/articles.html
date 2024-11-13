@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% load render_partial %}
+{% load poll_extras %}
+
 
 {% block title %}blog page{% endblock title %}
 
@@ -13,7 +15,7 @@
 					<div class="content">
 						<h1 class="page-name">Blog</h1>
 						<ol class="breadcrumb">
-							<li><a href="index.html">Home</a></li>
+							<li><a href="={% url "home-page" %}">Home</a></li>
 							<li class="active">blog</li>
 						</ol>
 					</div>
@@ -61,9 +63,7 @@
 						<!-- End Most Viewd Posts -->
 
 						<!-- Widget Category -->
-							{% if  categories %}
-								{% render_partial 'blog_module.views.categories' %}
-							{% endif %}
+							{% render_partial 'blog_module.views.artilce_categories' %}
 						<!-- End category  -->
 					</aside>
 
@@ -72,13 +72,13 @@
 					<div class="post">
 					<div class="post-media post-thumb">
 					</div>
-		<h2 class="post-title"><a href="blog-single.html"></a></h2>
-		<div class="post-meta">
-		</div>
-		<div class="post-content">
-		</div>
+					<h2 class="post-title"><a href="blog-single.html"></a></h2>
+					<div class="post-meta">
+					</div>
+					<div class="post-content">
+					</div>
 
-	</div>
+		</div>
 		{% for article in articles %}
 			<div class="post">
 				<div class="post-media post-thumb">
@@ -93,44 +93,45 @@
 							<i class="tf-ion-ios-calendar"></i>{{article.created_date}}
 						</li>
 						<li>
-							<i class="tf-ion-android-person"></i> POSTED BY {{article.author}}
+							<i class="tf-ion-android-person"></i> POSTED BY {{article.author|capfirst}}
 						</li>
 						<li>
-							<a href="#!"><i class="tf-ion-ios-pricetags"></i> LIFESTYLE</a>,<a href="#!"> TRAVEL</a>, <a href="#!">FASHION</a>
+							{% for category in article.category.all %}
+								<a href={% url "articles-by-category" category %}>{% if forloop.first %}<i class="tf-ion-ios-pricetags"></i>{% endif %} {{category}}</a>
+							{% endfor %}
 						</li>
 						<li>
-							<a href="#!"><i class="tf-ion-chatbubbles"></i> COMMENTS</a>
+							<a><i class="tf-ion-chatbubbles"></i> COMMENTS({% article_comments_count article.id %})</a>
 						</li>
 					</ul>
 				</div>
 				<div class="post-content">
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit vitae placeat ad architecto nostrum asperiores vel aperiam, veniam eum nulla. Maxime cum magnam, adipisci architecto quibusdam cumque veniam fugiat quae. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio vitae ab doloremque accusamus sit, eos dolorum officiis a perspiciatis aliquid. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod, facere</p>
+					<p>{{article.text}}</p>
 					<a href="{% url "article-detail" slug=article.slug %}" class="btn btn-main">Continue Reading</a>
 				</div>
 			</div>
 		{% endfor %}
-		{% if pagination %}
-			<div class="text-center">
-				<ul class="pagination post-pagination">
-					{% if page_obj.has_previous %}
-					<li><a href="?page={{page_obj.previous_page_number}}">Prev</a></li>
-					{% endif %}
+		<div class="text-center">
+			<ul class="pagination post-pagination">
+				{% if page_obj.has_previous %}
+				<li><a href="?page={{page_obj.previous_page_number}}">Prev</a></li>
+				{% endif %}
 
+				{% if page_obj.has_next or page_obj.has_previous %}
 					{% for page in paginator.page_range %}
 						<li {% if page_obj.number == page %}class='active'{% endif %}><a href="?page={{page}}">{{page}}</a></li>
 					{% endfor %}
+				{% endif %}
 
-					{% if page_obj.has_next %}
-						<li><a href="?page={{page_obj.next_page_number}}">Next</a></li>
-					{% endif %}
-				</ul>
-			</div>
-		{% endif %}
-      		</div>
+				{% if page_obj.has_next %}
+					<li><a href="?page={{page_obj.next_page_number}}">Next</a></li>
+				{% endif %}
+			</ul>
+		</div>
+		</div>
 		</div>
 	</div>
 </div>
 {% endblock content %}
 
 {% block footer_references %}{% endblock footer_references %}
-

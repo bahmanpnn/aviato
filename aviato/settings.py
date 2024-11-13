@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 # Load the .env file
 load_dotenv()
 
+HOST_DOMAIN='https://bahmanpournazari.pythonanywhere.com/'
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -149,7 +151,7 @@ MEDIA_URL='/media/'
 
 #media root is for uploading medias from user and site.it needs to add urls in base urls project
 # MEDIA_ROOT= BASE_DIR / 'medias'
-MEDIA_ROOT= os.path.join(BASE_DIR, 'medias')
+MEDIA_ROOT= os.path.join(BASE_DIR, 'media')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -180,8 +182,10 @@ SOCIAL_AUTH_GITHUB_SECRET = os.getenv('SOCIAL_AUTH_GITHUB_SECRET')
 
 # Production: https://yourdomain.com/auth/complete/github/
 
-LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000'
-SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'http://127.0.0.1:8000/auth/complete/github/'
+# LOGIN_REDIRECT_URL = HOST_DOMAIN
+# SOCIAL_AUTH_GITHUB_REDIRECT_URI = HOST_DOMAIN + '/auth/complete/github/'
+LOGIN_REDIRECT_URL = 'localhost:8000'
+SOCIAL_AUTH_GITHUB_REDIRECT_URI = 'localhost:8000/auth/complete/github/'
 
 SOCIAL_AUTH_GITHUB_SCOPE = ['user:email', 'read:user']
 

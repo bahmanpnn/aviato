@@ -7,8 +7,6 @@ from zibal_payment.exceptions import ZibalError
 from zibal_payment.client import ZibalClient
 
 
-
-
 # https://help.zibal.ir/article/44
 # https://pypi.org/project/zibal-payment/
 # https://github.com/Mohammad222PR/zibal-payment/blob/main/examples/payment_example_request.py
@@ -37,7 +35,7 @@ def send_request(request):
         print('step 1')
         response = client.payment_request(
             amount=1000,
-            callback_url="http://127.0.0.1:8000/zibal/verify-payment/",
+            callback_url="bahmanpournazari.pythonanywhere.com/zibal/verify-payment/",
             description="Test Payment"
         )
         track_id = response.get("trackId")

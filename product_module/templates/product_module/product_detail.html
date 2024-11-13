@@ -4,39 +4,9 @@
 {% load poll_extras %}
 
 
-{% block title %}products page{% endblock title %}
+{% block title %}product detail page{% endblock title %}
 
 {% block header_references %}
-{% comment %} <!-- Basic Page Needs
-  ================================================== -->
-  <meta charset="utf-8">
-  <title>Aviato | E-commerce template</title>
-
-  <!-- Mobile Specific Metas
-  ================================================== -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Construction Html5 Template">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <meta name="author" content="Themefisher">
-  <meta name="generator" content="Themefisher Constra HTML Template v1.0">
-  
-  <!-- Favicon -->
-  <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.png" />
-  
-  <!-- Themefisher Icon font -->
-  <link rel="stylesheet" href="plugins/themefisher-font/style.css">
-  <!-- bootstrap.min css -->
-  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
-  
-  <!-- Animate css -->
-  <link rel="stylesheet" href="plugins/animate/animate.css">
-  <!-- Slick Carousel -->
-  <link rel="stylesheet" href="plugins/slick/slick.css">
-  <link rel="stylesheet" href="plugins/slick/slick-theme.css">
-  
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="css/style.css"> {% endcomment %}
-
 {% endblock header_references %}
 
 
@@ -101,9 +71,11 @@
 					<h2>{{product.title}}</h2>
 					<p class="product-price">${{product.price|three_digits}}</p>
 					
-					<p class="product-description mt-20">
-						{{product.short_description}}
-					</p>
+					{% if product.short_description %}
+						<p class="product-description mt-20">
+							{{product.short_description}}
+						</p>
+					{% endif %}
 				
 					{% comment %} 
 						<div class="color-swatches">
@@ -135,7 +107,7 @@
 						<div class="product-category">
 							<span>Brand:</span>
 							<ul style="display:inline;">
-									<li><a href="#">{{product.brand}}</a></li>
+									<li><a>{{product.brand}}</a></li>
 							</ul>
 						</div>
 					{% endif %}
@@ -301,15 +273,14 @@
 			</div>
 			<div class="row">
 				{% for related_product in related_products %}	
-				{% include "product_module/includes/product_item.html" with product=related_product col_size=3 %}
+					{% include "product_module/includes/product_item.html" with product=related_product col_size=3 %}
 				{% endfor %}
 			</div>
 		</div>
 	</section>
 
 {% endif %}
-
-
+{% comment %} 
 <!-- Modal -->
 	<div class="modal product-modal fade" id="product-modal">
 		<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -340,35 +311,9 @@
 			</div>
 		</div>
 	</div>
-<!-- Modal -->
+<!-- Modal --> {% endcomment %}
 {% endblock content %}
 
 {% block footer_references %}
-   {% comment %} <!-- 
-    Essential Scripts
-    =====================================-->
-    
-    <!-- Main jQuery -->
-    <script src="plugins/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.1 -->
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Bootstrap Touchpin -->
-    <script src="plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
-    <!-- Instagram Feed Js -->
-    <script src="plugins/instafeed/instafeed.min.js"></script>
-    <!-- Video Lightbox Plugin -->
-    <script src="plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
-    <!-- Count Down Js -->
-    <script src="plugins/syo-timer/build/jquery.syotimer.min.js"></script>
-
-    <!-- slick Carousel -->
-    <script src="plugins/slick/slick.min.js"></script>
-    <script src="plugins/slick/slick-animation.min.js"></script>
-
-    <!-- Google Mapl -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-    <script type="text/javascript" src="plugins/google-map/gmap.js"></script>
-
-    <!-- Main Js File -->
-    <script src="js/script.js"></script> {% endcomment %}
+  
 {% endblock footer_references %}

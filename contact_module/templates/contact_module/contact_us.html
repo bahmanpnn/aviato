@@ -87,13 +87,13 @@
                         <div class="social-icon">
                             <ul>
                                 {% if site_settings.facebook %}
-                                    <li><a class="fb-icon" href="https://www.facebook.com/themefisher"><i class="tf-ion-social-facebook"></i></a></li>
+                                    <li><a class="fb-icon" href="{{site_settings.facebook}}"><i class="tf-ion-social-facebook"></i></a></li>
                                 {% endif %}
                                 {% if site_settings.twitter %}
-                                <li><a href="https://www.twitter.com/themefisher"><i class="tf-ion-social-twitter"></i></a></li>
+                                <li><a href="{{site_settings.twitter}}"><i class="tf-ion-social-twitter"></i></a></li>
                                 {% endif %}
                                 {% if site_settings.pinterest %}
-                                <li><a href="https://themefisher.com/"><i class="tf-ion-social-pinterest-outline"></i></a></li>
+                                <li><a href="{{site_settings.pinterest}}"><i class="tf-ion-social-pinterest-outline"></i></a></li>
                                 {% endif %}
 
                             </ul>

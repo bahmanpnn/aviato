@@ -58,7 +58,6 @@ class ProductSorting(models.Model):
         verbose_name_plural='sortings'
 
 
-
 class Product(models.Model):
 
     image=models.ImageField(upload_to='images/products',null=True,blank=True)
@@ -111,8 +110,7 @@ class ProductVisit(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.product} - {self.ip}'
-    
+        return f'{self.product} - {self.ip}'  
 
 class ProductComment(models.Model):
     parent=models.ForeignKey('ProductComment',null=True,blank=True,on_delete=models.CASCADE)

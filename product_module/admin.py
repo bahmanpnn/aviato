@@ -40,6 +40,7 @@ class ProductSortingAdmin(admin.ModelAdmin):
     
 
 admin.site.register(ProductVisit)
+admin.site.register(ProductExtraImage)
 admin.site.register(ProductBrand)
 admin.site.register(ProductCategory,ProductCategoryAdmin)
 admin.site.register(ProductSorting,ProductSortingAdmin)

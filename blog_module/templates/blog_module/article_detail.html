@@ -44,7 +44,7 @@
 									</li>
 								{% endif %}
 							<li>
-								<i class="tf-ion-ios-pricetags"></i>{% for tag in article.tags.all %}<a href=""> {{tag}}</a>{% endfor %}
+								{% for tag in article.tags.all %}{% if forloop.first %}<i class="tf-ion-ios-pricetags"></i>{% endif %}<a> {{tag}}</a>{% endfor %}
 							</li>
 						</ul>
 					</div>

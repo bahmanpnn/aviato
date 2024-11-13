@@ -9,7 +9,7 @@ from user_profile_module.models import UserFavoriteProduct
 from order_module.models import OrderBasket,OrderDetail
 from utils.http_service import get_client_ip
 from utils.convertors import grouped_list
-from .models import ProductCategory,Product,ProductSorting,ProductVisit,ProductComment
+from .models import ProductCategory,Product,ProductSorting,ProductVisit,ProductComment,ProductExtraImage
 from .forms import ProductSortingForm
 from itertools import chain
 from permissions import is_authenticated_permission
@@ -178,8 +178,9 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         loaded_product=self.object
 
-        context['categories']=ProductCategory.objects.filter(product=loaded_product)
-        
+        # context['categories']=ProductCategory.objects.filter(product_id=loaded_product.id)
+        context['categories']=loaded_product.category.all()
+
         # product visit adding and get user ip
         user_ip=get_client_ip(self.request)        
         has_been_visited=ProductVisit.objects.filter(ip__exact=user_ip,product_id=loaded_product.id).exists()
@@ -192,7 +193,7 @@ class ProductDetailView(DetailView):
             new_visit=ProductVisit(ip=user_ip,product_id=loaded_product.id,user_id=user_id)
             new_visit.save()
 
-        product_images=list(ProductImages.objects.filter(product_id=loaded_product.id).all())
+        product_images=list(ProductExtraImage.objects.filter(product_id=loaded_product.id).all())
         product_images.insert(0,loaded_product)
         context['product_all_images']=product_images
         context['product_images']=grouped_list(product_images,6)
