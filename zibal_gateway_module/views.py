@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse,reverse_lazy
 from order_module.models import OrderBasket,OrderSubmittedAddress
 from zibal_payment.client import ZibalClient
 from zibal_payment.exceptions import ZibalError
@@ -12,8 +13,10 @@ from zibal_payment.client import ZibalClient
 # https://github.com/Mohammad222PR/zibal-payment/blob/main/examples/payment_example_request.py
 # https://help.zibal.ir/IPG/API/#authentication
 
+
 @login_required
 def send_request(request):
+    payment_url=None
     try:
         current_basket,is_created=OrderBasket.objects.prefetch_related('order_detail').get_or_create(is_paid=False,user_id=request.user.id)
         fullname=request.POST['full_name']
@@ -35,10 +38,12 @@ def send_request(request):
         print('step 1')
         response = client.payment_request(
             amount=1000,
-            callback_url="bahmanpournazari.pythonanywhere.com/zibal/verify-payment/",
+            callback_url="http://127.0.0.1:8000/zibal/verify-payment/",
             description="Test Payment"
         )
         track_id = response.get("trackId")
+        print(track_id)
+        print(response)
         
         print('_'*85)
         # Step 2: Generate the payment URL
@@ -56,9 +61,12 @@ def send_request(request):
 
     except ZibalError as e:
         print(f"An error occurred: {e}")
-    
+        
     finally:
-        return redirect(payment_url)
+        if payment_url is not None:
+            return redirect(payment_url)
+        else:
+            return HttpResponse('payment url didn\'t generate')
 
 @login_required
 def verify_payment(request):

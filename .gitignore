@@ -1,11 +1,13 @@
 env/
+venv/
 __pycache__/
 medias/sliders/
 todos.txt
+media/
 medias/
+db.sqlite
 db.sqlite3
 cache/
 .env
 aviato todos.txt
-.idea
-medias/
+/.idea/

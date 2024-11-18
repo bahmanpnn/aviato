@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 # Load the .env file
 load_dotenv()
 
-HOST_DOMAIN='https://bahmanpournazari.pythonanywhere.com/'
+# HOST_DOMAIN='https://bahmanpournazari.pythonanywhere.com/'
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -106,6 +106,9 @@ DATABASES = {
 #         'PASSWORD':'',
 #         'USER':'',
 #         'HOST':'',
+#         'OPTIONS':{
+#                   'traditional':true
+#                   }
 #     }
 # }
 
@@ -139,10 +142,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/' #this is for load static in templates
 
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #developing mode
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #developing mode
 # this is for all the directory that set in django settings and load all the static files
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') # production mode
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static') # production mode
 # is the directory that use for production mode and when you run collectstatic command,
 # all the static files that are in static_files directories collect in that.
 
