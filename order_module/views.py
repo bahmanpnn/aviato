@@ -8,6 +8,9 @@ from django.contrib import messages
 from product_module.models import Product
 from .models import OrderBasket,OrderDetail
 from permissions import is_authenticated_permission
+import datetime
+from .forms import CouponApplyForm
+from .models import Coupon
 
 
 def add_product_to_basket(request):
@@ -149,3 +152,23 @@ def remove_product_from_basket(request,detail_id):
       
 def confirm_checkout(request):
     return render(request,'order_module/confirm_checkout.html')
+
+
+class CouponApplyView(LoginRequiredMixin,View):
+    form_class=CouponApplyForm
+
+    def post(self,request):
+        now=datetime.datetime.now()
+        code=request.POST['code']
+        try:
+            coupon=Coupon.objects.get(code__exact=code,valid_from__lte=now,valid_to__gte=now,is_active=True)
+
+        except Coupon.DoesNotExist:
+            messages.error(request,'this coupon does not exists or maybe expired!!')
+            return redirect('order-checkout')
+            
+        order=OrderBasket.objects.get(user_id=request.user.id,is_paid=False)
+        order.discount=coupon.discount
+        order.save()
+        messages.success(request,'coupon added successfully')
+        return redirect('order-checkout')

@@ -87,9 +87,9 @@
                                         </div>
                                     </div>
                                 {% endfor %}
-                                {% comment %} <div class="discount-code">
+                                <div class="discount-code">
                                     <p>Have a discount ? <a data-toggle="modal" data-target="#coupon-modal" href="#!">enter it here</a></p>
-                                </div> {% endcomment %}
+                                </div>
                                 <ul class="summary-prices">
                                 <li>
                                     <span>Shipping:</span>
@@ -115,11 +115,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-body">
-                <form>
+                <form action="{% url "coupon-apply" %}" method='post' novalidate>
+                    {% csrf_token %}
                     <div class="form-group">
-                        <input class="form-control" type="text" placeholder="Enter Coupon Code">
+                        <input class="form-control" name='code' type="text" placeholder="Enter Coupon Code">
                     </div>
-                    <button type="submit" class="btn btn-main">Apply Coupon</button>
+                    <button type="submit" class="btn btn-main col-md-offset-4">Apply Coupon</button>
                 </form>
             </div>
             </div>
