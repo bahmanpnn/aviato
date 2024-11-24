@@ -75,7 +75,12 @@ class ProductAdminModelForm(forms.ModelForm):
     #     return instance
 
 
+class ProductExtraImageForm(forms.ModelForm):
+    class Meta:
+        model = ProductExtraImage
+        fields = ['image']
 
+ImageFormSet = inlineformset_factory(Product, ProductExtraImage, form=ProductExtraImageForm,extra=0)
 
 class ProductBrandAdminForm(forms.Form):
     title=forms.CharField(widget=forms.TextInput(attrs={

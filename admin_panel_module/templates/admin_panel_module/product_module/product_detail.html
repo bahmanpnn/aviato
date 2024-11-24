@@ -3,7 +3,8 @@
 
 
 {% block title %}edit brand{% endblock title %}
-{% block header_references %}{% endblock header_references %}
+{% block header_references %}
+{% endblock header_references %}
 
 {% block content %}
 <div class="col-12">
@@ -14,13 +15,25 @@
                     <form action="" method="post" novalidate enctype="multipart/form-data">
                         {% csrf_token %}
                         {{form.as_p}}
-{% comment %}                             
-                        <!-- Render the formset -->
-                        {{ form.images_formset.management_form }}
-                        {% for image_form in form.images_formset %}
-                            {{ image_form.as_p }}
-                        {% endfor %} {% endcomment %}
-                            
+                        {{ formset.management_form }}
+
+                        <div class="formset">
+                            {% for form in formset %}
+                                <div class="image-item">
+                                    {% if form.instance.image %}
+                                        <img style="width:75px;"  src="{{ form.instance.image.url }}" alt="Product Image">
+                                    {% endif %}
+                                    <div class="form">
+                                        {{ form.as_p }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div>
+                            <lable>Add new images:</label>
+                                <br>
+                            <input type="file" name="new-images" accept="image/png,image/jpeg" multiple >
+                        </div>
                         <div>
                             {% comment %} <input type="submit" value="Save"> {% endcomment %}
                             <button type="submit" class="btn btn-light" >Submit</button>

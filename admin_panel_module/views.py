@@ -1,3 +1,4 @@
+import os
 from datetime import datetime,timedelta
 from django.http import HttpResponse
 from django.urls import reverse
@@ -14,10 +15,10 @@ from product_module.models import ProductComment,Product,ProductBrand, ProductEx
 from blog_module.models import ArticleComment
 from order_module.models import OrderBasket,OrderDetail
 from account_module.models import User
-from .forms import OrderDetailAdminModelForm, ProductBrandAdminForm,\
-                    ProductBrandAdminModelForm,BasketAdminModelForm,ProductAdminModelForm
 from permissions import *
-import os
+from .forms import  OrderDetailAdminModelForm, ProductBrandAdminForm,\
+                    ProductBrandAdminModelForm,BasketAdminModelForm,ProductAdminModelForm,\
+                    ImageFormSet
 
 
 @method_decorator(is_admin_permission_checker,name='dispatch')
@@ -122,7 +123,7 @@ class AdminProductView(ListView):
     def post(self,request):
         # todo: add empty value for filter and search fields like price or category and...
         if 'add-new-product' in request.POST:
-            ALLOWED_TYPES = ['jpg', 'jpeg', 'png', 'gif']
+            ALLOWED_TYPES = ['jpg', 'jpeg', 'png']
             form=self.form_class(request.POST,files=request.FILES)
             new_product_pictures=request.FILES.getlist('product-images')
             # print(new_product_pictures)
@@ -135,7 +136,7 @@ class AdminProductView(ListView):
                         # raise form.add_error(error='File types is not allowed')
                 form.save()
 
-                # todo: use signals for adding images
+                # todo: use signals for adding images + modelformset to handle more html form in view
                 # for picture in new_product_pictures:
                 #     last_product_id=Product.objects.last().id # get last product id that added from post form before of this loop
                 #     product_image=ProductExtraImage(product_id=last_product_id,image=picture)
@@ -213,14 +214,26 @@ class EditProductAdminView(View):
         if self.target_product is not None:
             return render(request,self.template_name,{
                 'target_product':self.target_product,
-                'form':self.form_class(instance=self.target_product)
+                'form':self.form_class(instance=self.target_product),
+                'formset':ImageFormSet(instance=self.target_product)
             })
 
 
     def post(self,request):
         form=self.form_class(request.POST,instance=self.target_product)
-        if form.is_valid():
+        formset=ImageFormSet(request.POST,request.FILES,instance=self.target_product)
+        product_new_pictures=request.FILES.getlist('new-images')
+
+        if form.is_valid() and formset.is_valid():
             form.save()
+            formset.save()
+            if product_new_pictures:
+                will_add=[]
+                for picture in product_new_pictures:
+                    will_add.append(ProductExtraImage(product=self.target_product,image=picture))
+                
+                ProductExtraImage.objects.bulk_create(will_add)
+
             messages.success(request,'product edited successfully','success')
             return redirect(reverse('admin-products'))
         else:
