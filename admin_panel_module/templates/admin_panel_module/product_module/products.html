@@ -140,6 +140,10 @@
            {% csrf_token %}
            {{ form | crispy}}
            <input type="hidden" name="id_add_new_product" value="1">
+
+           <label for="avatar">Choose Product pictures:</label>
+           <input type="file" id="product-images" name="product-images" accept="image/png,image/jpeg" multiple />
+           
            <div class="modal-footer">
                <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
                <input class="btn btn-dark" value="add-new-product" name="add-new-product" type="submit" title="AddNewProduct"/>

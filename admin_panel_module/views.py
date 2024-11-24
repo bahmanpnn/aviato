@@ -7,16 +7,17 @@ from django.views import View
 from django.views.generic import ListView,DetailView
 from django.db.models import Count,Sum
 from django.contrib import messages
-from django.forms import formset_factory
+from django.forms import ValidationError, formset_factory
 from django.forms.models import modelformset_factory,inlineformset_factory
 from django.utils.decorators import method_decorator
-from product_module.models import ProductComment,Product,ProductBrand
+from product_module.models import ProductComment,Product,ProductBrand, ProductExtraImage
 from blog_module.models import ArticleComment
 from order_module.models import OrderBasket,OrderDetail
 from account_module.models import User
 from .forms import OrderDetailAdminModelForm, ProductBrandAdminForm,\
                     ProductBrandAdminModelForm,BasketAdminModelForm,ProductAdminModelForm
 from permissions import *
+import os
 
 
 @method_decorator(is_admin_permission_checker,name='dispatch')
@@ -121,9 +122,34 @@ class AdminProductView(ListView):
     def post(self,request):
         # todo: add empty value for filter and search fields like price or category and...
         if 'add-new-product' in request.POST:
+            ALLOWED_TYPES = ['jpg', 'jpeg', 'png', 'gif']
             form=self.form_class(request.POST,files=request.FILES)
-            if form.is_valid():
+            new_product_pictures=request.FILES.getlist('product-images')
+            # print(new_product_pictures)
+
+            if form.is_valid() and new_product_pictures:
+                for image in new_product_pictures:
+                    extension = os.path.splitext(image.name)[1][1:].lower()
+                    if extension not in ALLOWED_TYPES:
+                        raise ValidationError(error='File types is not allowed')
+                        # raise form.add_error(error='File types is not allowed')
                 form.save()
+
+                # todo: use signals for adding images
+                # for picture in new_product_pictures:
+                #     last_product_id=Product.objects.last().id # get last product id that added from post form before of this loop
+                #     product_image=ProductExtraImage(product_id=last_product_id,image=picture)
+                #     product_image.save()
+                
+
+                # bulk_create is better to use because of one connection with database and
+                # add some images at a time
+                will_add=[]
+                for picture in new_product_pictures:
+                    last_product_id=Product.objects.last().id # get last product id that added from post form before of this loop
+                    will_add.append(ProductExtraImage(product_id=last_product_id,image=picture))
+                ProductExtraImage.objects.bulk_create(will_add)
+
                 messages.success(request,'product added successfully','success')
                 return redirect(reverse('admin-products'))
 
