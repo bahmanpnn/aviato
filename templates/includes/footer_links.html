@@ -1,7 +1,15 @@
       <!-- 
         Essential Scripts
         =====================================-->
-        
+        <script>
+          function updateLanguage() {
+              const form = document.getElementById('language-form');
+              // const selectedValue = document.getElementById('language').value;
+              // console.log('Selected language:', selectedValue);
+              // console.log(form);
+              form.submit();  // Submit the form to update the language
+          }
+        </script>
         <!-- Main jQuery -->
         <script src="/static/plugins/jquery/dist/jquery.min.js"></script>
         <!-- Bootstrap 3.1 -->
@@ -28,3 +36,4 @@
         <script src="/static/js/custom.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="/static/js/jquery.js"></script>
+

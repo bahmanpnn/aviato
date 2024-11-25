@@ -2,20 +2,31 @@
 {% load render_partial %}
 {% load thumbnail %}
 {% load poll_extras %}
+{% load i18n %}
 
 {% block content %}
-
+    {% comment %} <form method="post" action="{% url 'set_language' %}" id="language-form">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.path }}">
+        <select class="form-control" name="language" id="language" onchange="updateLanguage()">
+            {% get_available_languages as languages %}
+            {% for language_code, language_name in languages %}
+                <option value="{{ language_code }}" {% if selected_language == language_code %} selected {% endif %}>
+                    {{ language_name }}
+                </option>
+            {% endfor %}
+        </select>
+    </form> {% endcomment %}
     {% render_partial 'home_module.views.slider_component'%}
     
     <!-- Main Menu Section -->
-    
     {% if product_category_banner_bottom_left and product_category_banner_bottom_left and product_category_banner_right %}
         <section class="product-category section">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="title text-center">
-                            <h2>Product Category</h2>
+                            <h2>{% trans "Product Category" %}</h2>
                         </div>
                     </div>
                     {% if product_category_banner_bottom_left and product_category_banner_top_left %}
@@ -80,7 +91,7 @@
             <div class="container">
                 <div class="row">
                     <div class="title text-center">
-                        <h2>Trendy Products</h2>
+                        <h2>{% trans "Trendy Products" %}</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -129,7 +140,7 @@
             <div class="container">
                 <div class="row">
                     <div class="title text-center">
-                        <h2>Most Viewed Products</h2>
+                        <h2>{% trans "Most Viewed Products" %}</h2>
                     </div>
                 </div>
                 <div class="row">
@@ -181,7 +192,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="title">
-                        <h2>SUBSCRIBE TO NEWSLETTER</h2>
+                        <h2>{% trans "SUBSCRIBE TO NEWSLETTER" %}</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, <br> facilis numquam impedit ut sequi. Minus facilis vitae excepturi sit laboriosam.</p>
                     </div>
                     <div class="col-lg-6 col-md-offset-3">
@@ -194,7 +205,7 @@
 
                                 
                                 {{form.email}}
-                                <button class="btn btn-main" type="submit">Subscribe Now!</button>
+                                <button class="btn btn-main" type="submit">{% trans "Subscribe Now!" %}</button>
                                 
                             </form>
 
@@ -204,7 +215,8 @@
                 </div>
             </div> 		<!-- End row -->
         </div>   	<!-- End container -->
-    </section>   <!-- End section -->
+    </section>
+    <!-- End section -->
     
     {% comment %} <section class="section instagram-feed">
         <div class="container">
@@ -221,9 +233,6 @@
         </div>
     </section> {% endcomment %}
     
-    
-
-
 
 {% endblock content %}
 {% block footer_references %}

@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "crispy_bootstrap4",
     "social_django",
     'ckeditor',
+    'rosetta',
+    'modeltranslation',
 
 ]
 
@@ -58,6 +60,7 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "uni_form"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',  # new
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -138,6 +141,21 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
+# for multi language configuration
+LANGUAGES = [
+    ('en', 'english'),
+    ('de', 'german'),
+]
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
+ROSETTA_LANGUAGES=[
+    ('en', 'english'),
+    ('de', 'german'),
+]
 
 
 STATIC_URL = '/static/' #this is for load static in templates

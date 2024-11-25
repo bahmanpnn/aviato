@@ -1,11 +1,14 @@
-{% load poll_extras %}    
+{% load poll_extras %} 
+{% load i18n %} 
+  
     <!-- Start Top Header Bar -->
     <section class="top-header">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-xs-12 col-sm-4">
                     {% if site_settings.phone %}
-                        <div class="contact-number">
+                        <div cla
+                        ss="contact-number">
                             <i class="tf-ion-ios-telephone"></i>
                             <span>{{site_settings.phone}}</span>
                         </div>
@@ -79,14 +82,22 @@
                         </li>
                         <!-- / Search -->
     
-                        {% comment %} <!-- Languages -->
-                        <li class="commonSelect">
-                            <select class="form-control">
-                                <option>EN</option>
-                                <option>PE</option>
-                                <option>DE</option>
-                            </select>
-                        </li><!-- / Languages --> {% endcomment %}
+                        <!-- Languages -->
+                        <li>
+                            <form method="post" action="{% url 'set_language' %}" id="language-form">
+                                {% csrf_token %}
+                                <input name="next" type="hidden" value="{{ request.path }}">
+                                <select class="form-control" name="language" id="language" onchange="updateLanguage()">
+                                    {% get_available_languages as languages %}
+                                    {% for language_code, language_name in languages %}
+                                        <option value="{{ language_code }}" {% if selected_language == language_code %} selected {% endif %}>
+                                            {{ language_name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </li>
+                        <!-- / Languages -->
     
                     </ul><!-- / .nav .navbar-nav .navbar-right -->
                 </div>
