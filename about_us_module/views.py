@@ -27,8 +27,8 @@ class AboutUsView(View):
 
 
 def resume_view(request):
-    pdf_path = os.path.join(settings.STATIC_ROOT, 'resume.pdf')
-    # pdf_path = os.path.join(settings.STATICFILES_DIRS[0], 'resume.pdf')
+    # pdf_path = os.path.join(settings.STATIC_ROOT, 'resume.pdf') #production mode
+    pdf_path = os.path.join(settings.STATICFILES_DIRS[0], 'resume.pdf') # developing mode
     with open(pdf_path, "rb") as pdf_file:
         encoded_string = base64.b64encode(pdf_file.read()).decode('utf-8')
     return render(request, 'about_us_module/resume.html', {'resume':encoded_string}) 

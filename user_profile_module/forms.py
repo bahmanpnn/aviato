@@ -1,5 +1,6 @@
 from django import forms
 from account_module.models import User,UserAddressInformation
+from django.utils.translation import gettext_lazy as _
 
 
 class EditUserForm(forms.ModelForm):
@@ -8,12 +9,21 @@ class EditUserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username','first_name','last_name', 'email','phone_number','about_user','image')
+        labels = {
+            "username":_("username"),
+            "first_name":_("first name"),
+            "last_name":_("last name"),
+            "email":_("email"),
+            "phone_number":_("phone number"),
+            "about_user":_("about user"),
+            "image":_("image"),
+        }
 
 
 class ChangePasswordForm(forms.Form):
-    last_password=forms.CharField(widget=forms.PasswordInput())
-    new_password=forms.CharField(widget=forms.PasswordInput())
-    confirm_password=forms.CharField(widget=forms.PasswordInput())
+    last_password=forms.CharField(widget=forms.PasswordInput(),label=_("last password"))
+    new_password=forms.CharField(widget=forms.PasswordInput(),label=_("new password"))
+    confirm_password=forms.CharField(widget=forms.PasswordInput(),label=_("confirm password"))
     
     def clean_confirm_password(self):
 
@@ -32,6 +42,12 @@ class EditUserAddressForm(forms.ModelForm):
         model=UserAddressInformation
         # fields='__all__'
         exclude=['user']
+        labels={
+            "address":_("address"),
+            "receiver_full_name":_("receiver_full_name"),
+            "country":_("country"),
+            "phone":_("phone")
+        }
 
 
 

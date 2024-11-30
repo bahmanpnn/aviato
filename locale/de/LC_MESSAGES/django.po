@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-27 12:47+0330\n"
-"PO-Revision-Date: 2024-11-27 12:37+0000\n"
+"POT-Creation-Date: 2024-11-30 19:56+0330\n"
+"PO-Revision-Date: 2024-11-30 20:03+0000\n"
 "Last-Translator:   <bahmanpn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -20,74 +20,69 @@ msgstr ""
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
 #: .\about_us_module\templates\about_us_module\about_us.html:7
-#, fuzzy
-#| msgid "About us"
 msgid "about us"
-msgstr "About us"
+msgstr "über uns"
 
 #: .\about_us_module\templates\about_us_module\about_us.html:27
-#, fuzzy
-#| msgid "About us"
 msgid "About Our Shop"
-msgstr "About us"
+msgstr "Über unseren Shop"
 
 #: .\about_us_module\templates\about_us_module\about_us.html:30
 msgid "Download"
-msgstr "Download"
+msgstr "Herunterladen"
 
 #: .\about_us_module\templates\about_us_module\about_us.html:31
 msgid "Visit Resume "
-msgstr "Resume Sehen"
+msgstr "Besuchen Sie Lebenslauf"
 
 #: .\about_us_module\templates\about_us_module\about_us.html:54
 msgid "Team Members"
-msgstr "Team Members"
+msgstr "Teammitglieder"
 
 #: .\about_us_module\templates\about_us_module\about_us.html:79
 msgid "Video presentation"
-msgstr "Video presentation"
+msgstr "Video Präsentation"
 
 #: .\about_us_module\templates\about_us_module\about_us.html:93
 msgid "Video Presentation"
-msgstr "Video Presentation"
+msgstr "Videopräsentation"
 
 #: .\about_us_module\templates\about_us_module\about_us.html:101
 msgid "Your browser does not support the video tag."
-msgstr "Your browser does not support the video tag."
+msgstr "Ihr Browser unterstützt das Video-Tag nicht."
 
 #: .\about_us_module\templates\about_us_module\resume.html:5
 msgid "My resume"
-msgstr "Meine Resume"
+msgstr "Mein Lebenslauf"
 
 #: .\account_module\templates\account_module\forget_password.html:5
 #: .\account_module\templates\account_module\login.html:4
-#, fuzzy
-#| msgid "blog page"
 msgid "Login page"
-msgstr "Blog Seite"
+msgstr "Anmeldeseite"
 
 #: .\account_module\templates\account_module\forget_password.html:58
 #: .\account_module\templates\account_module\login.html:50
 #: .\account_module\templates\account_module\reset_password.html:28
-#, fuzzy
-#| msgid "Welcome"
 msgid "Welcome Back"
-msgstr "Wilkommen"
+msgstr "Willkommen zurück"
 
 #: .\account_module\templates\account_module\forget_password.html:61
 msgid ""
-"Please enter the email address for your account. A verification code will be "
-"sent to you. Once you have received the verification code, you will be able "
-"to choose a new password for your account."
+"Please enter the email address for your account. A verification code will be"
+" sent to you. Once you have received the verification code, you will be able"
+" to choose a new password for your account."
 msgstr ""
+"Bitte geben Sie die E-Mail-Adresse für Ihr Konto. Ein Bestätigungscode wird "
+"Ihnen geschickt. Sobald Sie den Bestätigungscode erhalten haben, werden Sie "
+"in der Lage sein, ein neues Passwort für Ihr Benutzerkonto wählen."
 
 #: .\account_module\templates\account_module\forget_password.html:70
 msgid "Request password reset"
-msgstr ""
+msgstr "Passwort zurücksetzen"
 
 #: .\account_module\templates\account_module\forget_password.html:73
 msgid "Back to log in"
-msgstr ""
+msgstr "Zurück zur Anmeldung"
 
 #: .\account_module\templates\account_module\login.html:64
 #: .\account_module\templates\account_module\register.html:73
@@ -96,69 +91,59 @@ msgid "Login"
 msgstr "Login"
 
 #: .\account_module\templates\account_module\login.html:68
-#, fuzzy
-#| msgid "Forget Password"
 msgid "Forgot your password?"
-msgstr "Forget Password"
+msgstr "Passwort vergessen?"
 
 #: .\account_module\templates\account_module\login.html:69
 msgid "Create New Account"
-msgstr ""
+msgstr "Neues Konto erstellen"
 
 #: .\account_module\templates\account_module\login.html:70
 msgid "Do you want to login with Github?"
-msgstr ""
+msgstr "Möchten Sie sich mit Github anmelden?"
 
 #: .\account_module\templates\account_module\login.html:70
 msgid "Login with github"
-msgstr ""
+msgstr "Mit GitHub anmelden"
 
 #: .\account_module\templates\account_module\register.html:4
-#, fuzzy
-#| msgid "Register"
 msgid "register page"
-msgstr "Register"
+msgstr "Registrierungsseite"
 
 #: .\account_module\templates\account_module\register.html:49
-#, fuzzy
-#| msgid "Leave Your Comment"
 msgid "Create Your Account"
-msgstr "Leave Your Comment"
+msgstr "Erstellen Sie Ihr Konto"
 
 #: .\account_module\templates\account_module\register.html:70
 msgid "Sign In"
-msgstr ""
+msgstr "Anmelden"
 
 #: .\account_module\templates\account_module\reset_password.html:5
-#, fuzzy
-#| msgid "Forget Password"
 msgid "reset password page"
-msgstr "Forget Password"
+msgstr "Seite zum Zurücksetzen des Passworts"
 
 #: .\account_module\templates\account_module\reset_password.html:30
 msgid "Please enter your new password"
-msgstr ""
+msgstr "Bitte geben Sie Ihr neues Passwort ein"
 
 #: .\account_module\templates\account_module\reset_password.html:47
-#, fuzzy
-#| msgid "Forget Password"
 msgid "reset password"
-msgstr "Forget Password"
+msgstr "Passwort zurücksetzen"
 
 #: .\blog_module\forms.py:8 .\home_module\forms.py:8
 msgid "Enter Your Email Address"
-msgstr "Deine Email Adresse Eingeben"
+msgstr "Geben Sie Ihre E-Mail-Adresse ein"
 
 #: .\blog_module\templates\blog_module\article_detail.html:6
 #: .\blog_module\templates\blog_module\articles.html:7
 msgid "blog page"
-msgstr "Blog Seite"
+msgstr "Blogseite"
 
 #: .\blog_module\templates\blog_module\article_detail.html:17
 #: .\blog_module\templates\blog_module\articles.html:17
 #: .\templates\navbar_component.html:49
 msgid "Blog"
-msgstr "Blog"
+msgstr "Der Blog"
 
 #: .\blog_module\templates\blog_module\article_detail.html:19
 #: .\blog_module\templates\blog_module\articles.html:19
@@ -166,7 +151,7 @@ msgstr "Blog"
 #: .\product_module\templates\product_module\product_detail.html:23
 #: .\templates\navbar_component.html:25
 msgid "Home"
-msgstr "Hause"
+msgstr "Heim"
 
 #: .\blog_module\templates\blog_module\article_detail.html:20
 #: .\blog_module\templates\blog_module\articles.html:20
@@ -175,118 +160,112 @@ msgstr "Blog"
 
 #: .\blog_module\templates\blog_module\article_detail.html:45
 msgid "AUTHOR"
-msgstr "AUTHOR"
+msgstr "AUTOR"
 
 #: .\blog_module\templates\blog_module\article_detail.html:71
 msgid "Comments"
-msgstr "Comments"
+msgstr "Kommentare"
 
 #: .\blog_module\templates\blog_module\article_detail.html:95
 #: .\product_module\templates\product_module\product_detail.html:180
 msgid "Reply"
-msgstr "Reply"
+msgstr "Antwort"
 
 #: .\blog_module\templates\blog_module\article_detail.html:148
 #: .\product_module\templates\product_module\product_detail.html:232
 msgid "Leave Your Comment"
-msgstr "Leave Your Comment"
+msgstr "Lassen Sie Ihren Kommentar"
 
 #: .\blog_module\templates\blog_module\article_detail.html:160
 msgid "Send"
-msgstr "Send"
+msgstr "Schicken"
 
 #: .\blog_module\templates\blog_module\article_detail.html:174
 #: .\product_module\templates\product_module\product_detail.html:258
 msgid "for commenting you must "
-msgstr "for commenting you must"
+msgstr "für das Kommentieren müssen Sie"
 
 #: .\blog_module\templates\blog_module\article_detail.html:174
 #: .\product_module\templates\product_module\product_detail.html:258
-#, fuzzy
-#| msgid "Login"
 msgid "login"
 msgstr "Login"
 
 #: .\blog_module\templates\blog_module\article_detail.html:174
 #: .\product_module\templates\product_module\product_detail.html:258
 msgid "first"
-msgstr "first"
+msgstr "Erste"
 
 #: .\blog_module\templates\blog_module\articles.html:36
 msgid "Get notified updates"
-msgstr "Get notified updates"
+msgstr "Erhalten Sie benachrichtigte Updates"
 
 #: .\blog_module\templates\blog_module\articles.html:43
 msgid "I am in"
-msgstr "I am in"
+msgstr "Ich bin dabei"
 
 #: .\blog_module\templates\blog_module\articles.html:50
-#, fuzzy
-#| msgid "Most Viewed Products"
 msgid "Most Viewed Posts"
-msgstr "Meistgesehene Produkte"
+msgstr "Meistgesehene Beiträge"
 
 #: .\blog_module\templates\blog_module\articles.html:97
 msgid "POSTED BY"
-msgstr "POSTED BY"
+msgstr "VERÖFFENTLICHT VON"
 
 #: .\blog_module\templates\blog_module\articles.html:105
 msgid "COMMENTS"
-msgstr "COMMENTS"
+msgstr "KOMMENTARE"
 
 #: .\blog_module\templates\blog_module\articles.html:111
 msgid "Continue Reading"
-msgstr "Continue Reading"
+msgstr "Weiterlesen"
 
 #: .\blog_module\templates\blog_module\articles.html:118
 #: .\product_module\templates\product_module\products.html:133
 msgid "Prev"
-msgstr "Prev"
+msgstr "Zurück"
 
 #: .\blog_module\templates\blog_module\articles.html:128
 #: .\product_module\templates\product_module\products.html:147
 msgid "Next"
-msgstr "Next"
+msgstr "Nächste"
 
 #: .\contact_module\forms.py:14
 msgid "Your Name"
-msgstr "Deine name"
+msgstr "Ihr Name"
 
 #: .\contact_module\forms.py:18
 msgid "Your Email"
-msgstr "Deine Email Adresse"
+msgstr "Ihre E-Mail"
 
 #: .\contact_module\forms.py:22
 msgid "Subject"
-msgstr "Subject"
+msgstr "Thema"
 
 #: .\contact_module\forms.py:28
 msgid "Message"
-msgstr "Message"
+msgstr "Nachricht"
 
 #: .\contact_module\forms.py:32
 msgid "please fill this field"
-msgstr "please fill this field"
+msgstr "Bitte füllen Sie dieses Feld aus"
 
 #: .\contact_module\forms.py:36
 msgid "this field cant accept more 300 characters!! "
-msgstr "this field cant accept more 300 characters!!"
+msgstr "Dieses Feld kann nicht mehr als 300 Zeichen aufnehmen!!"
 
 #: .\contact_module\templates\contact_module\contact_us.html:5
-#, fuzzy
-#| msgid "Contact us"
 msgid "contact us"
-msgstr "Contact us"
+msgstr "kontaktiere uns"
 
 #: .\contact_module\templates\contact_module\contact_us.html:44
 msgid "SUBMIT"
-msgstr "SUBMIT"
+msgstr "EINREICHEN"
 
 #: .\contact_module\templates\contact_module\contact_us.html:70
 #: .\user_profile_module\templates\user_profile_module\address.html:25
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:49
 msgid "Phone"
-msgstr "Phone"
+msgstr "Telefon"
 
 #: .\contact_module\templates\contact_module\contact_us.html:77
 msgid "Fax"
@@ -294,22 +273,20 @@ msgstr "Fax"
 
 #: .\contact_module\templates\contact_module\contact_us.html:84
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:46
-#, fuzzy
-#| msgid "Your Email"
 msgid "Email"
-msgstr "Deine Email Adresse"
+msgstr "E-Mail"
 
 #: .\contact_module\templates\contact_module\test_map.html:5
 msgid "Office Location"
-msgstr "Office Location"
+msgstr "Bürostandort"
 
 #: .\contact_module\templates\contact_module\test_map.html:12
 msgid "Our Office Location"
-msgstr "Our Office Location"
+msgstr "Unser Bürostandort"
 
 #: .\home_module\forms.py:14
 msgid "Search..."
-msgstr "suchen"
+msgstr "Suchen"
 
 #: .\home_module\templates\home_module\index.html:17
 msgid "Product Category"
@@ -332,138 +309,124 @@ msgid "Subscribe Now!"
 msgstr "Jetzt anmelden!"
 
 #: .\order_module\templates\order_module\basket.html:8
-#, fuzzy
-#| msgid "blog page"
 msgid "basket page"
-msgstr "Blog Seite"
+msgstr "Warenkorbseite"
 
 #: .\order_module\templates\order_module\checkout.html:14
 #: .\templates\header_component.html:54
 msgid "Checkout"
-msgstr "Checkout"
+msgstr "Kasse"
 
 #: .\order_module\templates\order_module\checkout.html:17
-#, fuzzy
-#| msgid "Checkout"
 msgid "checkout"
-msgstr "Checkout"
+msgstr "Kasse"
 
 #: .\order_module\templates\order_module\checkout.html:31
-#, fuzzy
-#| msgid "Profile Details"
 msgid "Billing Details"
-msgstr "Profile Details"
+msgstr "Rechnungsdetails"
 
 #: .\order_module\templates\order_module\checkout.html:35
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:43
-#, fuzzy
-#| msgid "Your Name"
 msgid "Full Name"
-msgstr "Deine name"
+msgstr "Vollständiger Name"
 
 #: .\order_module\templates\order_module\checkout.html:39
 #: .\user_profile_module\templates\user_profile_module\address.html:24
 #: .\user_profile_module\templates\user_profile_module\includes\dashboard_navbar.html:5
 msgid "Address"
-msgstr "adresse"
+msgstr "Adresse"
 
 #: .\order_module\templates\order_module\checkout.html:44
 msgid "Zip Code"
-msgstr ""
+msgstr "PLZ(Zip Code)"
 
 #: .\order_module\templates\order_module\checkout.html:48
 msgid "City"
-msgstr ""
+msgstr "Stadt"
 
 #: .\order_module\templates\order_module\checkout.html:53
 #: .\user_profile_module\templates\user_profile_module\address.html:23
 msgid "Country"
-msgstr "Country"
+msgstr "Land"
 
 #: .\order_module\templates\order_module\checkout.html:57
 msgid "Pay"
-msgstr ""
+msgstr "Zahlen"
 
 #: .\order_module\templates\order_module\checkout.html:67
 msgid "Order Summary"
-msgstr ""
+msgstr "Bestellübersicht"
 
 #: .\order_module\templates\order_module\checkout.html:85
-#, fuzzy
-#| msgid "Total"
 msgid "Subtotal"
-msgstr "totale"
+msgstr "Zwischensumme"
 
 #: .\order_module\templates\order_module\checkout.html:94
 msgid "Have a discount ? "
-msgstr ""
+msgstr "Haben Sie einen Rabatt?"
 
 #: .\order_module\templates\order_module\checkout.html:94
 msgid "enter it here"
-msgstr ""
+msgstr "Geben Sie es hier ein"
 
 #: .\order_module\templates\order_module\checkout.html:98
 msgid "Shipping"
-msgstr ""
+msgstr "Versand"
 
 #: .\order_module\templates\order_module\checkout.html:99
 msgid "Free"
-msgstr ""
+msgstr "Frei"
 
 #: .\order_module\templates\order_module\checkout.html:103
 #: .\templates\header_component.html:49
 msgid "Total"
-msgstr "totale"
+msgstr "Gesamt"
 
 #: .\order_module\templates\order_module\checkout.html:126
 msgid "Apply Coupon"
-msgstr ""
+msgstr "Gutschein anwenden"
 
 #: .\order_module\templates\order_module\confirm_checkout.html:12
 msgid "Thank you! For your payment"
-msgstr ""
+msgstr "Vielen Dank! Für Ihre Zahlung"
 
 #: .\order_module\templates\order_module\confirm_checkout.html:14
-#, fuzzy
-#| msgid "Continue Reading"
 msgid "Continue Shopping"
-msgstr "Continue Reading"
+msgstr "Weiter einkaufen"
 
 #: .\product_module\templates\product_module\includes\product_item.html:9
 msgid "Sale"
-msgstr "Sale"
+msgstr "Verkauf"
 
 #: .\product_module\templates\product_module\product_detail.html:8
 msgid "product detail page"
-msgstr "product detail seite"
+msgstr "Produktdetailseite"
 
 #: .\product_module\templates\product_module\product_detail.html:24
 #: .\templates\navbar_component.html:43
 msgid "Shop"
-msgstr "Shop"
+msgstr "Geschäft"
 
 #: .\product_module\templates\product_module\product_detail.html:25
-#, fuzzy
-#| msgid "Trendy Products"
 msgid "Single Product"
-msgstr "Trendprodukte"
+msgstr "Einzelnes Produkt"
 
 #: .\product_module\templates\product_module\product_detail.html:110
 msgid "Brand"
-msgstr "Brand"
+msgstr "Marke"
 
 #: .\product_module\templates\product_module\product_detail.html:118
 #: .\product_module\templates\product_module\products.html:37
 msgid "Categories"
-msgstr "Categories"
+msgstr "Kategorien"
 
 #: .\product_module\templates\product_module\product_detail.html:127
 msgid "Quantity"
-msgstr "Quantity"
+msgstr "Menge"
 
 #: .\product_module\templates\product_module\product_detail.html:133
 msgid "Add To Cart"
-msgstr "Add To Cart"
+msgstr "In den Warenkorb legen"
 
 #: .\product_module\templates\product_module\product_detail.html:141
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:46
@@ -472,65 +435,59 @@ msgstr "Details"
 
 #: .\product_module\templates\product_module\product_detail.html:142
 msgid "Reviews"
-msgstr "Reviews"
+msgstr "Bewertungen"
 
 #: .\product_module\templates\product_module\product_detail.html:147
 msgid "Product Description"
-msgstr "Product Description"
+msgstr "Produktbeschreibung"
 
 #: .\product_module\templates\product_module\product_detail.html:275
-#, fuzzy
-#| msgid "Trendy Products"
 msgid "Related Products"
-msgstr "Trendprodukte"
+msgstr "Verwandte Produkte"
 
 #: .\product_module\templates\product_module\products.html:8
-#, fuzzy
-#| msgid "Product Category"
 msgid "products page"
-msgstr "Produktkategorie"
+msgstr "Produkteseite"
 
 #: .\product_module\templates\product_module\products.html:20
 msgid "Sort By"
-msgstr "Sort By"
+msgstr "Sortieren nach"
 
 #: .\product_module\templates\product_module\products.html:91
 msgid "there is no product in this field!!"
-msgstr "there is no product in this field!!"
+msgstr "in diesem Feld ist kein Produkt vorhanden!!"
 
 #: .\product_module\templates\product_module\products.html:132
 msgid "ّFirst"
-msgstr "First"
+msgstr "Erste"
 
 #: .\product_module\templates\product_module\products.html:148
 msgid "Last"
-msgstr "Last"
+msgstr "Zuletzt"
 
 #: .\templates\header_component.html:41
 msgid "Cart"
-msgstr "Card"
+msgstr "Warenkorb"
 
 #: .\templates\header_component.html:53
 msgid "View Cart"
-msgstr "card sehen"
+msgstr "Warenkorb anzeigen"
 
 #: .\templates\header_component.html:60
 msgid "Your basket is currently empty."
-msgstr "Your basket is currently empty."
+msgstr "Ihr Warenkorb ist derzeit leer."
 
 #: .\templates\header_component.html:61
 msgid "Return to shop"
-msgstr "Return to shop"
+msgstr "Zurück zum Shop"
 
 #: .\templates\header_component.html:72
-#, fuzzy
-#| msgid "Search..."
 msgid "Search"
-msgstr "suchen"
+msgstr "Suchen"
 
 #: .\templates\navbar_component.html:8
 msgid "Main Menu"
-msgstr "Main Menu"
+msgstr "Hauptmenü"
 
 #: .\templates\navbar_component.html:11
 msgid "Toggle navigation"
@@ -538,27 +495,27 @@ msgstr "Toggle navigation"
 
 #: .\templates\navbar_component.html:31
 msgid "Contact us"
-msgstr "Contact us"
+msgstr "Kontaktieren Sie uns"
 
 #: .\templates\navbar_component.html:37
 msgid "About us"
-msgstr "About us"
+msgstr "Über uns"
 
 #: .\templates\navbar_component.html:57
 msgid "Logout"
-msgstr "Logout"
+msgstr "Ausloggen"
 
 #: .\templates\navbar_component.html:63
 msgid "User Profile"
-msgstr "User Profile"
+msgstr "Benutzerprofil"
 
 #: .\templates\navbar_component.html:75
 msgid "Register"
-msgstr "Register"
+msgstr "Registrieren"
 
 #: .\templates\navbar_component.html:81
 msgid "Forget Password"
-msgstr "Forget Password"
+msgstr "Passwort vergessen"
 
 #: .\templates\navbar_component.html:90
 msgid "Admin"
@@ -566,150 +523,212 @@ msgstr "Admin"
 
 #: .\templates\navbar_component.html:96
 msgid "Admin Panel"
-msgstr "admin"
+msgstr "Admin Beriech"
+
+#: .\user_profile_module\forms.py:13
+msgid "username"
+msgstr "Benutzername"
+
+#: .\user_profile_module\forms.py:14
+#| msgid "first"
+msgid "first name"
+msgstr "Vorname"
+
+#: .\user_profile_module\forms.py:15
+#| msgid "last_name"
+msgid "last name"
+msgstr "Nachname"
+
+#: .\user_profile_module\forms.py:16
+#| msgid "Email"
+msgid "email"
+msgstr "E-Mail"
+
+#: .\user_profile_module\forms.py:17
+#| msgid "phone_number"
+msgid "phone number"
+msgstr "Telefonnummer"
+
+#: .\user_profile_module\forms.py:18
+#| msgid "about us"
+msgid "about_user"
+msgstr "Über den Benutzer"
+
+#: .\user_profile_module\forms.py:18
+#| msgid "about us"
+msgid "about user"
+msgstr "über benutzer"
+
+#: .\user_profile_module\forms.py:19
+msgid "image"
+msgstr "Bild"
+
+#: .\user_profile_module\forms.py:24
+#| msgid "reset password"
+msgid "last password"
+msgstr "letztes Passwort"
+
+#: .\user_profile_module\forms.py:25
+#| msgid "reset password"
+msgid "new password"
+msgstr "Neu Passwort"
+
+#: .\user_profile_module\forms.py:26
+#| msgid "reset password"
+msgid "confirm password"
+msgstr "Passwort zurücksetzen"
+
+#: .\user_profile_module\forms.py:46
+#| msgid "Address"
+msgid "address"
+msgstr "Adresse"
+
+#: .\user_profile_module\forms.py:47
+msgid "receiver_full_name"
+msgstr "Vollständiger_Name des Empfängers"
+
+#: .\user_profile_module\forms.py:48
+#| msgid "Country"
+msgid "country"
+msgstr "Land"
+
+#: .\user_profile_module\forms.py:49
+#| msgid "Phone"
+msgid "phone"
+msgstr "Telefon"
 
 #: .\user_profile_module\templates\user_profile_module\address.html:6
 msgid "user addresses"
-msgstr "user addresses"
+msgstr "Benutzeradressen"
 
 #: .\user_profile_module\templates\user_profile_module\address.html:22
-#, fuzzy
-#| msgid "Your Name"
 msgid "Name"
-msgstr "Deine name"
+msgstr "Name"
 
 #: .\user_profile_module\templates\user_profile_module\address.html:48
 #: .\user_profile_module\templates\user_profile_module\address.html:51
 #: .\user_profile_module\templates\user_profile_module\address.html:95
 msgid "Add New Address"
-msgstr "Add New Address"
+msgstr "Neue Adresse hinzufügen"
 
 #: .\user_profile_module\templates\user_profile_module\address.html:50
 msgid "there is no address,do you want add first one?"
-msgstr "there is no address,do you want add first one?"
+msgstr "es ist keine Adresse vorhanden, möchten Sie die erste hinzufügen?"
 
 #: .\user_profile_module\templates\user_profile_module\address.html:67
 msgid "Edit Address"
-msgstr "Edit Address"
+msgstr "Adresse bearbeiten"
 
 #: .\user_profile_module\templates\user_profile_module\address.html:78
 #: .\user_profile_module\templates\user_profile_module\address.html:106
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:77
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:102
 msgid "Close"
-msgstr "Close"
+msgstr "Schließen"
 
 #: .\user_profile_module\templates\user_profile_module\address.html:79
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:78
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:103
 msgid "update"
-msgstr "update"
+msgstr "aktualisieren"
 
 #: .\user_profile_module\templates\user_profile_module\address.html:107
 msgid "Add"
-msgstr "Add"
+msgstr "Hinzufügen"
 
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:5
 msgid "user dashboard"
-msgstr "user dashboard"
+msgstr "Benutzer-Dashboard"
 
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:25
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:27
 msgid "Welcome"
-msgstr "Wilkommen"
+msgstr "Willkommen"
 
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:35
 msgid "Total Orders"
-msgstr "Total Orders"
+msgstr "Bestellungen gesamt"
 
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:42
 msgid "Order ID"
-msgstr "Order ID"
+msgstr "Bestellnummer"
 
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:43
 msgid "Date"
-msgstr "Date"
+msgstr "Datum"
 
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:44
 msgid "Items"
-msgstr "Items"
+msgstr "Artikel"
 
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:45
-#, fuzzy
-#| msgid "Total"
 msgid "Total Price"
-msgstr "totale"
+msgstr "Gesamtpreis"
 
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:56
 msgid "click"
-msgstr "click"
+msgstr "klicken"
 
 #: .\user_profile_module\templates\user_profile_module\dashboard.html:64
 msgid "You Dont Have Any Orders Yet!!"
-msgstr "You Dont Have Any Orders Yet!!"
+msgstr "Sie haben noch keine Bestellungen!!"
 
 #: .\user_profile_module\templates\user_profile_module\includes\dashboard_navbar.html:3
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "Armaturenbrett"
 
 #: .\user_profile_module\templates\user_profile_module\includes\dashboard_navbar.html:4
 msgid "Profile Details"
-msgstr "Profile Details"
+msgstr "Profildetails"
 
 #: .\user_profile_module\templates\user_profile_module\includes\dashboard_navbar.html:6
 msgid "My Favorites"
-msgstr "My Favorites"
+msgstr "Meine Favoriten"
 
 #: .\user_profile_module\templates\user_profile_module\orders.html:5
 msgid "user orders"
-msgstr "user orders"
+msgstr "Benutzeraufträge"
 
 #: .\user_profile_module\templates\user_profile_module\orders.html:16
 msgid "Order Details"
-msgstr "Order Details"
+msgstr "Bestelldetails"
 
 #: .\user_profile_module\templates\user_profile_module\orders.html:21
-#, fuzzy
-#| msgid "Product Category"
 msgid "Product Name"
-msgstr "Produktkategorie"
+msgstr "Produktname"
 
 #: .\user_profile_module\templates\user_profile_module\orders.html:22
 msgid "Count"
-msgstr "Count"
+msgstr "Zählen"
 
 #: .\user_profile_module\templates\user_profile_module\orders.html:23
 msgid "Price"
-msgstr "Price"
+msgstr "Preis"
 
 #: .\user_profile_module\templates\user_profile_module\orders.html:24
 msgid "Final Price"
-msgstr "Final Price"
+msgstr "Endpreis"
 
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:28
-#, fuzzy
-#| msgid "User Profile"
 msgid "Edit Profile"
-msgstr "User Profile"
+msgstr "Profil bearbeiten"
 
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:34
-#, fuzzy
-#| msgid "Forget Password"
 msgid "Change Password"
-msgstr "Forget Password"
+msgstr "Kennwort ändern"
 
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:51
 msgid "Date Of Join"
-msgstr "Date Of Join"
+msgstr "Beitrittsdatum"
 
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:67
 #: .\user_profile_module\templates\user_profile_module\profile_details.html:92
 msgid "Modal title"
-msgstr "Modal title"
+msgstr "Modaltitel"
 
 #: .\user_profile_module\templates\user_profile_module\user_favorites.html:5
 msgid "user favorites"
-msgstr "user favorites"
+msgstr "Benutzerfavoriten"
 
 #~ msgid "this is home page"
 #~ msgstr "das ist haue seite"

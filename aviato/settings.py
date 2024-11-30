@@ -161,6 +161,7 @@ ROSETTA_LANGUAGES=[
 STATIC_URL = '/static/' #this is for load static in templates
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] #developing mode
+# STATICFILES_DIRS = [BASE_DIR / 'static'] #developing mode
 # this is for all the directory that set in django settings and load all the static files
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static') # production mode
