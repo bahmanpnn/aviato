@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load render_partial %}
 {% load poll_extras %}
+{% load i18n %}
 
 
-{% block title %}blog page{% endblock title %}
+{% block title %}{% trans "blog page" %}{% endblock title %}
 
 {% block header_references %}{% endblock header_references %}
 
@@ -13,10 +14,10 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="content">
-						<h1 class="page-name">Blog</h1>
+						<h1 class="page-name">{% trans "Blog" %}</h1>
 						<ol class="breadcrumb">
-							<li><a href="={% url "home-page" %}">Home</a></li>
-							<li class="active">blog</li>
+							<li><a href="={% url "home-page" %}">{% trans "Home" %}</a></li>
+							<li class="active">{% trans "blog" %}</li>
 						</ol>
 					</div>
 				</div>
@@ -32,21 +33,21 @@
 						<br>
 						<br>
 						<div class="widget widget-subscription">
-							<h4 class="widget-title text-center">Get notified updates</h4>
+							<h4 class="widget-title text-center">{% trans "Get notified updates" %}</h4>
 							<form method="post" action="" novalidate>
 								{% csrf_token %}
 								<div class="form-group">
 									{{form.email}}
 									{{form.email.errors}}
 								</div>
-								<button type="submit" class="btn btn-main">I am in</button>
+								<button type="submit" class="btn btn-main">{% trans "I am in" %}</button>
 							</form>
 						</div>
 
 						<!-- Widget Most Viewd Posts -->
 						{% if most_viewed_articles %}
 							<div class="widget widget-latest-post">
-								<h4 class="widget-title">Most Viewed Posts</h4>
+								<h4 class="widget-title">{% trans "Most Viewed Posts" %}</h4>
 								{% for most_viewed_article in most_viewed_articles %}
 									<div class="media">
 										<a class="pull-left" href="{{most_viewed_article.get_absolute_url}}">
@@ -93,7 +94,7 @@
 							<i class="tf-ion-ios-calendar"></i>{{article.created_date}}
 						</li>
 						<li>
-							<i class="tf-ion-android-person"></i> POSTED BY {{article.author|capfirst}}
+							<i class="tf-ion-android-person"></i> {% trans "POSTED BY" %} {{article.author|capfirst}}
 						</li>
 						<li>
 							{% for category in article.category.all %}
@@ -101,20 +102,20 @@
 							{% endfor %}
 						</li>
 						<li>
-							<a><i class="tf-ion-chatbubbles"></i> COMMENTS({% article_comments_count article.id %})</a>
+							<a><i class="tf-ion-chatbubbles"></i> {% trans "COMMENTS" %}({% article_comments_count article.id %})</a>
 						</li>
 					</ul>
 				</div>
 				<div class="post-content">
 					<p>{{article.text}}</p>
-					<a href="{% url "article-detail" slug=article.slug %}" class="btn btn-main">Continue Reading</a>
+					<a href="{% url "article-detail" slug=article.slug %}" class="btn btn-main">{% trans "Continue Reading" %}</a>
 				</div>
 			</div>
 		{% endfor %}
 		<div class="text-center">
 			<ul class="pagination post-pagination">
 				{% if page_obj.has_previous %}
-				<li><a href="?page={{page_obj.previous_page_number}}">Prev</a></li>
+				<li><a href="?page={{page_obj.previous_page_number}}">{% trans "Prev" %}</a></li>
 				{% endif %}
 
 				{% if page_obj.has_next or page_obj.has_previous %}
@@ -124,7 +125,7 @@
 				{% endif %}
 
 				{% if page_obj.has_next %}
-					<li><a href="?page={{page_obj.next_page_number}}">Next</a></li>
+					<li><a href="?page={{page_obj.next_page_number}}">{% trans "Next" %}</a></li>
 				{% endif %}
 			</ul>
 		</div>

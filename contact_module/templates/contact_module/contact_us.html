@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}contact us{% endblock title %}
+{% block title %}{% trans "contact us" %}{% endblock title %}
 {% block header_references %}
-    <title>Office Location</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="/static/contact_module/css/contact_us_custom.css" />
@@ -29,17 +29,17 @@
                                    {% endif %}
                                 </div>
                             {% endfor %}
-{% comment %}                             
-                            <div id="mail-success" class="success">
-                                Thank you. The Mailman is on His Way :)
-                            </div>
-                            
-                            <div id="mail-fail" class="error">
-                                Sorry, don't know what happened. Try later :(
+                            {% comment %}                             
+                                <div id="mail-success" class="success">
+                                    Thank you. The Mailman is on His Way :)
+                                </div>
+                                
+                                <div id="mail-fail" class="error">
+                                    Sorry, don't know what happened. Try later :(
                             </div> {% endcomment %}
                             
                             <div id="cf-submit">
-                                <button type="submit" id="contact-submit" class="btn btn-transparent">SUBMIT</button>
+                                <button type="submit" id="contact-submit" class="btn btn-transparent">{% trans "SUBMIT" %}</button>
                                 {% comment %} <input type="submit" id="contact-submit" class="btn btn-transparent" value="Submit"> {% endcomment %}
                             </div>						
                             
@@ -63,21 +63,21 @@
                             {% if site_settings.phone %}
                             <li>
                                 <i class="tf-ion-android-phone-portrait"></i>
-                                <span>Phone: {{site_settings.phone}}</span>
+                                <span>{% trans "Phone" %}: {{site_settings.phone}}</span>
                             </li>
                             {% endif %}
                             
                             {% if site_settings.fax %}
                             <li>
                                 <i class="tf-ion-android-globe"></i>
-                                <span>Fax: {{site_settings.fax}}</span>
+                                <span>{% trans "Fax" %}: {{site_settings.fax}}</span>
                             </li>
                             {% endif %}
                             
                             {% if site_settings.email %}
                             <li>
                                 <i class="tf-ion-android-mail"></i>
-                                <span>Email: {{site_settings.email}}</span>
+                                <span>{% trans "Email" %}: {{site_settings.email}}</span>
                             </li>
                             {% endif %}
 

@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load i18n %}
 
-{% block title %}blog page{% endblock title %}
+
+{% block title %}{% trans "blog page" %}{% endblock title %}
 
 {% block header_references %}{% endblock header_references %}
 
@@ -12,10 +14,10 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="content">
-					<h1 class="page-name">Blog</h1>
+					<h1 class="page-name">{% trans "Blog" %}</h1>
 					<ol class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
-						<li class="active">blog</li>
+						<li><a href="index.html">{% trans "Home" %}</a></li>
+						<li class="active">{% trans "blog" %}</li>
 					</ol>
 				</div>
 			</div>
@@ -40,7 +42,7 @@
 							</li>
 								{% if article.author %}
 									<li>
-										<i class="tf-ion-android-person"></i> AUTHOR: {{article.author}}
+										<i class="tf-ion-android-person"></i> {% trans "AUTHOR" %}: {{article.author}}
 									</li>
 								{% endif %}
 							<li>
@@ -65,7 +67,7 @@
 				    </div> {% endcomment %}
 
 				    <div class="post-comments" id='comments_area'>
-				    	<h3 class="post-sub-heading">{{comments_count}} Comments</h3>
+				    	<h3 class="post-sub-heading">{{comments_count}} {% trans "Comments" %}</h3>
 				    	<ul class="media-list comments-list m-bot-50 clearlist">
 
 							{% for comment in comments %}
@@ -89,7 +91,7 @@
 												
 											</h4>
 											<time>{{comment.created_date |date:"Y-d-m"}}</time>
-											<a class="comment-button" href="#!" onclick="fillParentId({{comment.id}})"><i class="tf-ion-chatbubbles"></i>Reply</a>
+											<a class="comment-button" href="#!" onclick="fillParentId({{comment.id}})"><i class="tf-ion-chatbubbles"></i>{% trans "Reply" %}</a>
 										</div>
 	
 										<p>{{comment.text}}</p>
@@ -142,7 +144,7 @@
 
 					{% if request.user.is_authenticated %}
 					<div class="post-comments-form" id='comment_form'>
-				    	<h3 class="post-sub-heading text-center">Leave Your Comment</h3>
+				    	<h3 class="post-sub-heading text-center">{% trans "Leave Your Comment" %}</h3>
 				    	<form method="post" action="" id="form" role="form" >
 
 				            <div class="row">
@@ -154,7 +156,7 @@
 
 				                <!-- Send Button -->
 				                <div class="form-group col-md-12">
-									<a class="btn btn-small btn-main " onclick=SendArticleComment({{article.id}})>Send</a>
+									<a class="btn btn-small btn-main " onclick=SendArticleComment({{article.id}})>{% trans "Send" %}</a>
 				                    {% comment %} <button type="submit" class="btn btn-small btn-main ">
 				                        Send comment
 				                    </button> {% endcomment %}
@@ -167,7 +169,7 @@
 				    </div>
 					{% else %}
 					<p class="alert alert-danger">
-						for commenting you must <a href="{% url "login-page" %}">login</a> first
+						{% trans "for commenting you must " %} <a href="{% url "login-page" %}"> {% trans "login" %} </a> {% trans "first" %}
 					</p>
 					{% endif %}
 

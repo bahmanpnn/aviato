@@ -1,6 +1,8 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}user orders{% endblock title %}
+
+{% block title %}{% trans "user orders" %}{% endblock title %}
 {% block header_references %}{% endblock header_references %}
 
 {% block content %}
@@ -11,15 +13,15 @@
 					{% include "user_profile_module/includes/dashboard_navbar.html" %}
 					<div class="dashboard-wrapper user-dashboard">
 						<div class="table-responsive">
-							<h2 class="text-center">Order Details({{target_basket_details.id}})</h2>
+							<h2 class="text-center">{% trans "Order Details" %}({{target_basket_details.id}})</h2>
 							<br>
 							<table class="table">
 								<thead>
 									<tr>
-										<th class="text-center">Product Name</th>
-										<th class="text-center">Count</th>
-										<th class="text-center">Price</th>
-										<th class="text-center">Final Price</th>
+										<th class="text-center">{% trans "Product Name" %}</th>
+										<th class="text-center">{% trans "Count" %}</th>
+										<th class="text-center">{% trans "Price" %}</th>
+										<th class="text-center">{% trans "Final Price" %}</th>
 									</tr>
 								</thead>
 								<tbody>

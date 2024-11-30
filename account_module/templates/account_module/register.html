@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}register page{% endblock title %}
+{% block title %}{% trans "register page" %}{% endblock title %}
 
 {% block header_references %}
 <!-- Basic Page Needs
   ================================================== -->
   <meta charset="utf-8">
-  <title>Aviato | E-commerce template</title>
+  <title>Aviato</title>
 
   <!-- Mobile Specific Metas
   ================================================== -->
@@ -45,7 +46,7 @@
             <a class="logo" href="index.html">
               <img src="images/logo.png" alt="">
             </a>
-            <h2 class="text-center">Create Your Account</h2>
+            <h2 class="text-center">{% trans "Create Your Account" %}</h2>
             <form class="text-left clearfix" action=""  method="post" novalidate>
               {% csrf_token %}
               
@@ -66,10 +67,10 @@
                 {{form.confirm_password.errors}}
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-main text-center">Sign In</button>
+                <button type="submit" class="btn btn-main text-center">{% trans "Sign In" %}</button>
               </div>
             </form>
-            <p class="mt-20">Already hava an account ?<a href="{% url "login-page" %}"> Login</a></p>
+            <p class="mt-20">Already hava an account ?<a href="{% url "login-page" %}"> {% trans "Login" %}</a></p>
           </div>
         </div>
       </div>

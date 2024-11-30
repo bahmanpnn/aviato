@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-{% block title %}Login page{% endblock title %}
+{% load i18n %}
+
+{% block title %}{% trans "Login page" %}{% endblock title %}
 
 {% comment %} {% block header_references %}
   <!-- Basic Page Needs
@@ -44,7 +46,7 @@
             <a class="logo" href="{% url "home-page" %}">
               <img src="/static/images/logo.png" alt="">
             </a>
-            <h2 class="text-center">Welcome Back</h2>
+            <h2 class="text-center">{% trans "Welcome Back" %}</h2>
             <form class="text-left clearfix" action="" method="post" novalidate>
               {% csrf_token %}
               
@@ -58,13 +60,13 @@
               {{form.password.errors}}
               <br>
               <div class="text-center">
-                <button type="submit" class="btn btn-main text-center" >Login</button>
+                <button type="submit" class="btn btn-main text-center" >{% trans "Login" %}</button>
               </div>
             </form>
             <br>
-            <p><a href="{% url "forget-password-page" %}"> Forgot your password?</a></p>
-            <p class="mt-20">New in this site ?<a href="{% url "register-page" %}"> Create New Account</a></p>
-            <p class="mt-20">Do you want to login with Github?<a href="{% url 'social:begin' 'github' %}"> Login with github</a></p>
+            <p><a href="{% url "forget-password-page" %}"> {% trans "Forgot your password?" %}</a></p>
+            <p class="mt-20">New in this site ?<a href="{% url "register-page" %}"> {% trans "Create New Account" %}</a></p>
+            <p class="mt-20">{% trans "Do you want to login with Github?" %}<a href="{% url 'social:begin' 'github' %}"> {% trans "Login with github" %}</a></p>
           </div>
         </div>
       </div>

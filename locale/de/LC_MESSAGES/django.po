@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-25 15:13+0330\n"
-"PO-Revision-Date: 2024-11-25 13:20+0000\n"
+"POT-Creation-Date: 2024-11-27 12:47+0330\n"
+"PO-Revision-Date: 2024-11-27 12:37+0000\n"
 "Last-Translator:   <bahmanpn@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,34 +19,700 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: .\home_module\templates\home_module\index.html:7
-msgid "Title"
+#: .\about_us_module\templates\about_us_module\about_us.html:7
+#, fuzzy
+#| msgid "About us"
+msgid "about us"
+msgstr "About us"
+
+#: .\about_us_module\templates\about_us_module\about_us.html:27
+#, fuzzy
+#| msgid "About us"
+msgid "About Our Shop"
+msgstr "About us"
+
+#: .\about_us_module\templates\about_us_module\about_us.html:30
+msgid "Download"
+msgstr "Download"
+
+#: .\about_us_module\templates\about_us_module\about_us.html:31
+msgid "Visit Resume "
+msgstr "Resume Sehen"
+
+#: .\about_us_module\templates\about_us_module\about_us.html:54
+msgid "Team Members"
+msgstr "Team Members"
+
+#: .\about_us_module\templates\about_us_module\about_us.html:79
+msgid "Video presentation"
+msgstr "Video presentation"
+
+#: .\about_us_module\templates\about_us_module\about_us.html:93
+msgid "Video Presentation"
+msgstr "Video Presentation"
+
+#: .\about_us_module\templates\about_us_module\about_us.html:101
+msgid "Your browser does not support the video tag."
+msgstr "Your browser does not support the video tag."
+
+#: .\about_us_module\templates\about_us_module\resume.html:5
+msgid "My resume"
+msgstr "Meine Resume"
+
+#: .\account_module\templates\account_module\forget_password.html:5
+#: .\account_module\templates\account_module\login.html:4
+#, fuzzy
+#| msgid "blog page"
+msgid "Login page"
+msgstr "Blog Seite"
+
+#: .\account_module\templates\account_module\forget_password.html:58
+#: .\account_module\templates\account_module\login.html:50
+#: .\account_module\templates\account_module\reset_password.html:28
+#, fuzzy
+#| msgid "Welcome"
+msgid "Welcome Back"
+msgstr "Wilkommen"
+
+#: .\account_module\templates\account_module\forget_password.html:61
+msgid ""
+"Please enter the email address for your account. A verification code will be "
+"sent to you. Once you have received the verification code, you will be able "
+"to choose a new password for your account."
 msgstr ""
 
-#: .\home_module\templates\home_module\index.html:11
-msgid "this is home page"
-msgstr "das ist haue seite"
+#: .\account_module\templates\account_module\forget_password.html:70
+msgid "Request password reset"
+msgstr ""
 
-#: .\home_module\templates\home_module\index2.html:17
+#: .\account_module\templates\account_module\forget_password.html:73
+msgid "Back to log in"
+msgstr ""
+
+#: .\account_module\templates\account_module\login.html:64
+#: .\account_module\templates\account_module\register.html:73
+#: .\templates\navbar_component.html:69
+msgid "Login"
+msgstr "Login"
+
+#: .\account_module\templates\account_module\login.html:68
+#, fuzzy
+#| msgid "Forget Password"
+msgid "Forgot your password?"
+msgstr "Forget Password"
+
+#: .\account_module\templates\account_module\login.html:69
+msgid "Create New Account"
+msgstr ""
+
+#: .\account_module\templates\account_module\login.html:70
+msgid "Do you want to login with Github?"
+msgstr ""
+
+#: .\account_module\templates\account_module\login.html:70
+msgid "Login with github"
+msgstr ""
+
+#: .\account_module\templates\account_module\register.html:4
+#, fuzzy
+#| msgid "Register"
+msgid "register page"
+msgstr "Register"
+
+#: .\account_module\templates\account_module\register.html:49
+#, fuzzy
+#| msgid "Leave Your Comment"
+msgid "Create Your Account"
+msgstr "Leave Your Comment"
+
+#: .\account_module\templates\account_module\register.html:70
+msgid "Sign In"
+msgstr ""
+
+#: .\account_module\templates\account_module\reset_password.html:5
+#, fuzzy
+#| msgid "Forget Password"
+msgid "reset password page"
+msgstr "Forget Password"
+
+#: .\account_module\templates\account_module\reset_password.html:30
+msgid "Please enter your new password"
+msgstr ""
+
+#: .\account_module\templates\account_module\reset_password.html:47
+#, fuzzy
+#| msgid "Forget Password"
+msgid "reset password"
+msgstr "Forget Password"
+
+#: .\blog_module\forms.py:8 .\home_module\forms.py:8
+msgid "Enter Your Email Address"
+msgstr "Deine Email Adresse Eingeben"
+
+#: .\blog_module\templates\blog_module\article_detail.html:6
+#: .\blog_module\templates\blog_module\articles.html:7
+msgid "blog page"
+msgstr "Blog Seite"
+
+#: .\blog_module\templates\blog_module\article_detail.html:17
+#: .\blog_module\templates\blog_module\articles.html:17
+#: .\templates\navbar_component.html:49
+msgid "Blog"
+msgstr "Blog"
+
+#: .\blog_module\templates\blog_module\article_detail.html:19
+#: .\blog_module\templates\blog_module\articles.html:19
+#: .\order_module\templates\order_module\checkout.html:16
+#: .\product_module\templates\product_module\product_detail.html:23
+#: .\templates\navbar_component.html:25
+msgid "Home"
+msgstr "Hause"
+
+#: .\blog_module\templates\blog_module\article_detail.html:20
+#: .\blog_module\templates\blog_module\articles.html:20
+msgid "blog"
+msgstr "Blog"
+
+#: .\blog_module\templates\blog_module\article_detail.html:45
+msgid "AUTHOR"
+msgstr "AUTHOR"
+
+#: .\blog_module\templates\blog_module\article_detail.html:71
+msgid "Comments"
+msgstr "Comments"
+
+#: .\blog_module\templates\blog_module\article_detail.html:95
+#: .\product_module\templates\product_module\product_detail.html:180
+msgid "Reply"
+msgstr "Reply"
+
+#: .\blog_module\templates\blog_module\article_detail.html:148
+#: .\product_module\templates\product_module\product_detail.html:232
+msgid "Leave Your Comment"
+msgstr "Leave Your Comment"
+
+#: .\blog_module\templates\blog_module\article_detail.html:160
+msgid "Send"
+msgstr "Send"
+
+#: .\blog_module\templates\blog_module\article_detail.html:174
+#: .\product_module\templates\product_module\product_detail.html:258
+msgid "for commenting you must "
+msgstr "for commenting you must"
+
+#: .\blog_module\templates\blog_module\article_detail.html:174
+#: .\product_module\templates\product_module\product_detail.html:258
+#, fuzzy
+#| msgid "Login"
+msgid "login"
+msgstr "Login"
+
+#: .\blog_module\templates\blog_module\article_detail.html:174
+#: .\product_module\templates\product_module\product_detail.html:258
+msgid "first"
+msgstr "first"
+
+#: .\blog_module\templates\blog_module\articles.html:36
+msgid "Get notified updates"
+msgstr "Get notified updates"
+
+#: .\blog_module\templates\blog_module\articles.html:43
+msgid "I am in"
+msgstr "I am in"
+
+#: .\blog_module\templates\blog_module\articles.html:50
+#, fuzzy
+#| msgid "Most Viewed Products"
+msgid "Most Viewed Posts"
+msgstr "Meistgesehene Produkte"
+
+#: .\blog_module\templates\blog_module\articles.html:97
+msgid "POSTED BY"
+msgstr "POSTED BY"
+
+#: .\blog_module\templates\blog_module\articles.html:105
+msgid "COMMENTS"
+msgstr "COMMENTS"
+
+#: .\blog_module\templates\blog_module\articles.html:111
+msgid "Continue Reading"
+msgstr "Continue Reading"
+
+#: .\blog_module\templates\blog_module\articles.html:118
+#: .\product_module\templates\product_module\products.html:133
+msgid "Prev"
+msgstr "Prev"
+
+#: .\blog_module\templates\blog_module\articles.html:128
+#: .\product_module\templates\product_module\products.html:147
+msgid "Next"
+msgstr "Next"
+
+#: .\contact_module\forms.py:14
+msgid "Your Name"
+msgstr "Deine name"
+
+#: .\contact_module\forms.py:18
+msgid "Your Email"
+msgstr "Deine Email Adresse"
+
+#: .\contact_module\forms.py:22
+msgid "Subject"
+msgstr "Subject"
+
+#: .\contact_module\forms.py:28
+msgid "Message"
+msgstr "Message"
+
+#: .\contact_module\forms.py:32
+msgid "please fill this field"
+msgstr "please fill this field"
+
+#: .\contact_module\forms.py:36
+msgid "this field cant accept more 300 characters!! "
+msgstr "this field cant accept more 300 characters!!"
+
+#: .\contact_module\templates\contact_module\contact_us.html:5
+#, fuzzy
+#| msgid "Contact us"
+msgid "contact us"
+msgstr "Contact us"
+
+#: .\contact_module\templates\contact_module\contact_us.html:44
+msgid "SUBMIT"
+msgstr "SUBMIT"
+
+#: .\contact_module\templates\contact_module\contact_us.html:70
+#: .\user_profile_module\templates\user_profile_module\address.html:25
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:49
+msgid "Phone"
+msgstr "Phone"
+
+#: .\contact_module\templates\contact_module\contact_us.html:77
+msgid "Fax"
+msgstr "Fax"
+
+#: .\contact_module\templates\contact_module\contact_us.html:84
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:46
+#, fuzzy
+#| msgid "Your Email"
+msgid "Email"
+msgstr "Deine Email Adresse"
+
+#: .\contact_module\templates\contact_module\test_map.html:5
+msgid "Office Location"
+msgstr "Office Location"
+
+#: .\contact_module\templates\contact_module\test_map.html:12
+msgid "Our Office Location"
+msgstr "Our Office Location"
+
+#: .\home_module\forms.py:14
+msgid "Search..."
+msgstr "suchen"
+
+#: .\home_module\templates\home_module\index.html:17
 msgid "Product Category"
 msgstr "Produktkategorie"
 
-#: .\home_module\templates\home_module\index2.html:82
+#: .\home_module\templates\home_module\index.html:82
 msgid "Trendy Products"
 msgstr "Trendprodukte"
 
-#: .\home_module\templates\home_module\index2.html:131
+#: .\home_module\templates\home_module\index.html:100
 msgid "Most Viewed Products"
 msgstr "Meistgesehene Produkte"
 
-#: .\home_module\templates\home_module\index2.html:183
+#: .\home_module\templates\home_module\index.html:122
 msgid "SUBSCRIBE TO NEWSLETTER"
 msgstr "NEWSLETTER ABONNIEREN"
 
-#: .\home_module\templates\home_module\index2.html:196
+#: .\home_module\templates\home_module\index.html:135
 msgid "Subscribe Now!"
 msgstr "Jetzt anmelden!"
 
-#: .\home_module\views.py:28
-msgid "hello world!!"
-msgstr "hallo welt"
+#: .\order_module\templates\order_module\basket.html:8
+#, fuzzy
+#| msgid "blog page"
+msgid "basket page"
+msgstr "Blog Seite"
+
+#: .\order_module\templates\order_module\checkout.html:14
+#: .\templates\header_component.html:54
+msgid "Checkout"
+msgstr "Checkout"
+
+#: .\order_module\templates\order_module\checkout.html:17
+#, fuzzy
+#| msgid "Checkout"
+msgid "checkout"
+msgstr "Checkout"
+
+#: .\order_module\templates\order_module\checkout.html:31
+#, fuzzy
+#| msgid "Profile Details"
+msgid "Billing Details"
+msgstr "Profile Details"
+
+#: .\order_module\templates\order_module\checkout.html:35
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:43
+#, fuzzy
+#| msgid "Your Name"
+msgid "Full Name"
+msgstr "Deine name"
+
+#: .\order_module\templates\order_module\checkout.html:39
+#: .\user_profile_module\templates\user_profile_module\address.html:24
+#: .\user_profile_module\templates\user_profile_module\includes\dashboard_navbar.html:5
+msgid "Address"
+msgstr "adresse"
+
+#: .\order_module\templates\order_module\checkout.html:44
+msgid "Zip Code"
+msgstr ""
+
+#: .\order_module\templates\order_module\checkout.html:48
+msgid "City"
+msgstr ""
+
+#: .\order_module\templates\order_module\checkout.html:53
+#: .\user_profile_module\templates\user_profile_module\address.html:23
+msgid "Country"
+msgstr "Country"
+
+#: .\order_module\templates\order_module\checkout.html:57
+msgid "Pay"
+msgstr ""
+
+#: .\order_module\templates\order_module\checkout.html:67
+msgid "Order Summary"
+msgstr ""
+
+#: .\order_module\templates\order_module\checkout.html:85
+#, fuzzy
+#| msgid "Total"
+msgid "Subtotal"
+msgstr "totale"
+
+#: .\order_module\templates\order_module\checkout.html:94
+msgid "Have a discount ? "
+msgstr ""
+
+#: .\order_module\templates\order_module\checkout.html:94
+msgid "enter it here"
+msgstr ""
+
+#: .\order_module\templates\order_module\checkout.html:98
+msgid "Shipping"
+msgstr ""
+
+#: .\order_module\templates\order_module\checkout.html:99
+msgid "Free"
+msgstr ""
+
+#: .\order_module\templates\order_module\checkout.html:103
+#: .\templates\header_component.html:49
+msgid "Total"
+msgstr "totale"
+
+#: .\order_module\templates\order_module\checkout.html:126
+msgid "Apply Coupon"
+msgstr ""
+
+#: .\order_module\templates\order_module\confirm_checkout.html:12
+msgid "Thank you! For your payment"
+msgstr ""
+
+#: .\order_module\templates\order_module\confirm_checkout.html:14
+#, fuzzy
+#| msgid "Continue Reading"
+msgid "Continue Shopping"
+msgstr "Continue Reading"
+
+#: .\product_module\templates\product_module\includes\product_item.html:9
+msgid "Sale"
+msgstr "Sale"
+
+#: .\product_module\templates\product_module\product_detail.html:8
+msgid "product detail page"
+msgstr "product detail seite"
+
+#: .\product_module\templates\product_module\product_detail.html:24
+#: .\templates\navbar_component.html:43
+msgid "Shop"
+msgstr "Shop"
+
+#: .\product_module\templates\product_module\product_detail.html:25
+#, fuzzy
+#| msgid "Trendy Products"
+msgid "Single Product"
+msgstr "Trendprodukte"
+
+#: .\product_module\templates\product_module\product_detail.html:110
+msgid "Brand"
+msgstr "Brand"
+
+#: .\product_module\templates\product_module\product_detail.html:118
+#: .\product_module\templates\product_module\products.html:37
+msgid "Categories"
+msgstr "Categories"
+
+#: .\product_module\templates\product_module\product_detail.html:127
+msgid "Quantity"
+msgstr "Quantity"
+
+#: .\product_module\templates\product_module\product_detail.html:133
+msgid "Add To Cart"
+msgstr "Add To Cart"
+
+#: .\product_module\templates\product_module\product_detail.html:141
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:46
+msgid "Details"
+msgstr "Details"
+
+#: .\product_module\templates\product_module\product_detail.html:142
+msgid "Reviews"
+msgstr "Reviews"
+
+#: .\product_module\templates\product_module\product_detail.html:147
+msgid "Product Description"
+msgstr "Product Description"
+
+#: .\product_module\templates\product_module\product_detail.html:275
+#, fuzzy
+#| msgid "Trendy Products"
+msgid "Related Products"
+msgstr "Trendprodukte"
+
+#: .\product_module\templates\product_module\products.html:8
+#, fuzzy
+#| msgid "Product Category"
+msgid "products page"
+msgstr "Produktkategorie"
+
+#: .\product_module\templates\product_module\products.html:20
+msgid "Sort By"
+msgstr "Sort By"
+
+#: .\product_module\templates\product_module\products.html:91
+msgid "there is no product in this field!!"
+msgstr "there is no product in this field!!"
+
+#: .\product_module\templates\product_module\products.html:132
+msgid "ّFirst"
+msgstr "First"
+
+#: .\product_module\templates\product_module\products.html:148
+msgid "Last"
+msgstr "Last"
+
+#: .\templates\header_component.html:41
+msgid "Cart"
+msgstr "Card"
+
+#: .\templates\header_component.html:53
+msgid "View Cart"
+msgstr "card sehen"
+
+#: .\templates\header_component.html:60
+msgid "Your basket is currently empty."
+msgstr "Your basket is currently empty."
+
+#: .\templates\header_component.html:61
+msgid "Return to shop"
+msgstr "Return to shop"
+
+#: .\templates\header_component.html:72
+#, fuzzy
+#| msgid "Search..."
+msgid "Search"
+msgstr "suchen"
+
+#: .\templates\navbar_component.html:8
+msgid "Main Menu"
+msgstr "Main Menu"
+
+#: .\templates\navbar_component.html:11
+msgid "Toggle navigation"
+msgstr "Toggle navigation"
+
+#: .\templates\navbar_component.html:31
+msgid "Contact us"
+msgstr "Contact us"
+
+#: .\templates\navbar_component.html:37
+msgid "About us"
+msgstr "About us"
+
+#: .\templates\navbar_component.html:57
+msgid "Logout"
+msgstr "Logout"
+
+#: .\templates\navbar_component.html:63
+msgid "User Profile"
+msgstr "User Profile"
+
+#: .\templates\navbar_component.html:75
+msgid "Register"
+msgstr "Register"
+
+#: .\templates\navbar_component.html:81
+msgid "Forget Password"
+msgstr "Forget Password"
+
+#: .\templates\navbar_component.html:90
+msgid "Admin"
+msgstr "Admin"
+
+#: .\templates\navbar_component.html:96
+msgid "Admin Panel"
+msgstr "admin"
+
+#: .\user_profile_module\templates\user_profile_module\address.html:6
+msgid "user addresses"
+msgstr "user addresses"
+
+#: .\user_profile_module\templates\user_profile_module\address.html:22
+#, fuzzy
+#| msgid "Your Name"
+msgid "Name"
+msgstr "Deine name"
+
+#: .\user_profile_module\templates\user_profile_module\address.html:48
+#: .\user_profile_module\templates\user_profile_module\address.html:51
+#: .\user_profile_module\templates\user_profile_module\address.html:95
+msgid "Add New Address"
+msgstr "Add New Address"
+
+#: .\user_profile_module\templates\user_profile_module\address.html:50
+msgid "there is no address,do you want add first one?"
+msgstr "there is no address,do you want add first one?"
+
+#: .\user_profile_module\templates\user_profile_module\address.html:67
+msgid "Edit Address"
+msgstr "Edit Address"
+
+#: .\user_profile_module\templates\user_profile_module\address.html:78
+#: .\user_profile_module\templates\user_profile_module\address.html:106
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:77
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:102
+msgid "Close"
+msgstr "Close"
+
+#: .\user_profile_module\templates\user_profile_module\address.html:79
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:78
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:103
+msgid "update"
+msgstr "update"
+
+#: .\user_profile_module\templates\user_profile_module\address.html:107
+msgid "Add"
+msgstr "Add"
+
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:5
+msgid "user dashboard"
+msgstr "user dashboard"
+
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:25
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:27
+msgid "Welcome"
+msgstr "Wilkommen"
+
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:35
+msgid "Total Orders"
+msgstr "Total Orders"
+
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:42
+msgid "Order ID"
+msgstr "Order ID"
+
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:43
+msgid "Date"
+msgstr "Date"
+
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:44
+msgid "Items"
+msgstr "Items"
+
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:45
+#, fuzzy
+#| msgid "Total"
+msgid "Total Price"
+msgstr "totale"
+
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:56
+msgid "click"
+msgstr "click"
+
+#: .\user_profile_module\templates\user_profile_module\dashboard.html:64
+msgid "You Dont Have Any Orders Yet!!"
+msgstr "You Dont Have Any Orders Yet!!"
+
+#: .\user_profile_module\templates\user_profile_module\includes\dashboard_navbar.html:3
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: .\user_profile_module\templates\user_profile_module\includes\dashboard_navbar.html:4
+msgid "Profile Details"
+msgstr "Profile Details"
+
+#: .\user_profile_module\templates\user_profile_module\includes\dashboard_navbar.html:6
+msgid "My Favorites"
+msgstr "My Favorites"
+
+#: .\user_profile_module\templates\user_profile_module\orders.html:5
+msgid "user orders"
+msgstr "user orders"
+
+#: .\user_profile_module\templates\user_profile_module\orders.html:16
+msgid "Order Details"
+msgstr "Order Details"
+
+#: .\user_profile_module\templates\user_profile_module\orders.html:21
+#, fuzzy
+#| msgid "Product Category"
+msgid "Product Name"
+msgstr "Produktkategorie"
+
+#: .\user_profile_module\templates\user_profile_module\orders.html:22
+msgid "Count"
+msgstr "Count"
+
+#: .\user_profile_module\templates\user_profile_module\orders.html:23
+msgid "Price"
+msgstr "Price"
+
+#: .\user_profile_module\templates\user_profile_module\orders.html:24
+msgid "Final Price"
+msgstr "Final Price"
+
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:28
+#, fuzzy
+#| msgid "User Profile"
+msgid "Edit Profile"
+msgstr "User Profile"
+
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:34
+#, fuzzy
+#| msgid "Forget Password"
+msgid "Change Password"
+msgstr "Forget Password"
+
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:51
+msgid "Date Of Join"
+msgstr "Date Of Join"
+
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:67
+#: .\user_profile_module\templates\user_profile_module\profile_details.html:92
+msgid "Modal title"
+msgstr "Modal title"
+
+#: .\user_profile_module\templates\user_profile_module\user_favorites.html:5
+msgid "user favorites"
+msgstr "user favorites"
+
+#~ msgid "this is home page"
+#~ msgstr "das ist haue seite"
+
+#~ msgid "hello world!!"
+#~ msgstr "hallo welt"

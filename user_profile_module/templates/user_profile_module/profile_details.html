@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
 {% block title %}user{% endblock title %}
 {% comment %} {% block header_references %}
@@ -23,13 +24,13 @@
                 {% endif %}
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-transparent mt-20" data-toggle="modal" data-target="#exampleModal">
-                  Edit Profile
+                  {% trans "Edit Profile" %}
                 </button>
                 <!-- End Button trigger modal -->
                  <br>
                 <!-- Change Password Button trigger modal -->
                 <button type="button" class="btn btn-transparent mt-20" data-toggle="modal" data-target="#changePasswordModal">
-                  Change Password
+                  {% trans "Change Password" %}
                 </button>
                 <!-- End Change Password Button trigger modal -->
               </div>
@@ -37,15 +38,15 @@
                 <ul class="user-profile-list">
                   {% if request.user.get_full_name %}
                   {% comment %} {% if request.user.first_name and  request.user.last_name %} {% endcomment %}
-                    <li><span>Full Name:</span>{{request.user.first_name|capfirst}} {{request.user.last_name|capfirst}}</li>
+                    <li><span>{% trans "Full Name" %}:</span>{{request.user.first_name|capfirst}} {{request.user.last_name|capfirst}}</li>
                   {% endif %}
                   {% if request.user.email %}
-                    <li><span>Email:</span>{{request.user.email}}</li>
+                    <li><span>{% trans "Email" %}:</span>{{request.user.email}}</li>
                   {% endif %}
                   {% if request.user.phone_number %}
-                    <li><span>Phone:</span>{{request.user.phone_number}}</li>
+                    <li><span>{% trans "Phone" %}:</span>{{request.user.phone_number}}</li>
                   {% endif %}
-                  <li><span>Date Of Join:</span>{{request.user.date_joined|date:'Y-m-d'}}</li>
+                  <li><span>{% trans "Date Of Join" %}:</span>{{request.user.date_joined|date:'Y-m-d'}}</li>
                 </ul>
               </div>
             </div>
@@ -61,7 +62,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{% trans "Modal title" %}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -71,8 +72,8 @@
           {% csrf_token %}
           {{ form | crispy}}
           <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
-            <button type="submit" class="btn btn-dark">update</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">{% trans "Close" %}</button>
+            <button type="submit" class="btn btn-dark">{% trans "update" %}</button>
           </div>
         </form>
       </div>
@@ -86,7 +87,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="changePasswordModal">Modal title</h5>
+        <h5 class="modal-title" id="changePasswordModal">{% trans "Modal title" %}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -96,8 +97,8 @@
           {% csrf_token %}
           {{ change_password_form | crispy}}
           <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
-            <button type="submit" class="btn btn-dark">update</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">{% trans "Close" %}</button>
+            <button type="submit" class="btn btn-dark">{% trans "update" %}</button>
           </div>
         </form>
       </div>

@@ -1,13 +1,14 @@
+{% load i18n %}   
    <!-- Navbar -->
 
    <section class="menu">
     <nav class="navbar navigation">
         <div class="container">
             <div class="navbar-header">
-                <h2 class="menu-title">Main Menu</h2>
+                <h2 class="menu-title">{% trans "Main Menu" %}</h2>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only">{% trans "Toggle navigation" %}</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -21,31 +22,31 @@
 
                     <!-- Home -->
                     <li class="dropdown">
-                        <a href="{% url "home-page" %}">Home</a>
+                        <a href="{% url "home-page" %}">{% trans "Home" %}</a>
                     </li>
                     <!-- / Home -->
 
                     <!-- Contact us -->
                     <li class="dropdown ">
-                        <a href="{% url "contact-us" %}">Contact us</a>
+                        <a href="{% url "contact-us" %}">{% trans "Contact us" %}</a>
                     </li>
                     <!-- / Contact us -->
                     
                     <!-- About us -->
                     <li class="dropdown ">
-                        <a href="{% url "about-us" %}">About us</a>
+                        <a href="{% url "about-us" %}">{% trans "About us" %}</a>
                     </li>
                     <!-- / About us -->
 
                     <!-- Shop -->
                     <li class="dropdown ">
-                        <a href="{% url "products" %}">Shop</a>
+                        <a href="{% url "products" %}">{% trans "Shop" %}</a>
                     </li>
                     <!-- / Shop-->
 
                     <!-- Blog -->
                     <li class="dropdown ">
-                        <a href="{% url "articles" %}">Blog</a>
+                        <a href="{% url "articles" %}">{% trans "Blog" %}</a>
                     </li>
                     <!-- / Blog-->
 
@@ -53,31 +54,31 @@
                     {% if request.user.is_authenticated %}
                         <!-- Logout -->
                         <li class="dropdown ">
-                            <a href="{% url "logout" %}">Logout</a>
+                            <a href="{% url "logout" %}">{% trans "Logout" %}</a>
                         </li>
                         <!-- / Logout-->
 
                         <!-- User Profile -->
                         <li class="dropdown ">
-                            <a href="{% url "user-profile" %}">User Profile</a>
+                            <a href="{% url "user-profile" %}">{% trans "User Profile" %}</a>
                         </li>
                         <!-- / User Profile-->
                     {% else %}
                         <!-- Login -->
                         <li class="dropdown ">
-                            <a href="{% url "login-page" %}">Login</a>
+                            <a href="{% url "login-page" %}">{% trans "Login" %}</a>
                         </li>
                         <!-- / Login-->
     
                         <!-- Sign In -->
                         <li class="dropdown ">
-                            <a href="{% url "register-page" %}">Register</a>
+                            <a href="{% url "register-page" %}">{% trans "Register" %}</a>
                         </li>
                         <!-- / Sign In-->
     
                         <!-- Forget Password -->
                         <li class="dropdown ">
-                            <a href="{% url "forget-password-page" %}">Forget Password</a>
+                            <a href="{% url "forget-password-page" %}">{% trans "Forget Password" %}</a>
                         </li>
                         <!-- / Forget Password-->
                     {% endif %}
@@ -86,13 +87,13 @@
                     {% if request.user.is_superuser %}
                     <!-- Admin -->
                     <li class="dropdown ">
-                        <a href="/admin">Admin</a>
+                        <a href="/admin">{% trans "Admin" %}</a>
                     </li>
                     <!-- / Admin-->
 
                     <!-- Custom Admin -->
                         <li class="dropdown ">
-                            <a href="{% url "admin-dashboard" %}">Admin Panel</a>
+                            <a href="{% url "admin-dashboard" %}">{% trans "Admin Panel" %}</a>
                         </li>
                     <!-- / Custom Admin-->
                     {% endif %}

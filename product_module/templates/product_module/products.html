@@ -2,9 +2,10 @@
 {% load static %}
 {% load thumbnail %}
 {% load poll_extras %}
+{% load i18n %}
 
 
-{% block title %}products page{% endblock title %}
+{% block title %}{% trans "products page" %}{% endblock title %}
 
 
 {% block content %}
@@ -16,7 +17,7 @@
 					<!--sorting -->
 					{% if sorting_options %}
 						<div class="widget">
-								<h4 class="widget-title">Sort By</h4>
+								<h4 class="widget-title">{%trans "Sort By"%}</h4>
 								<form method="get" action="" id='filter-form'>
 									<select class="form-control" name="sort" id="sort" onchange="updateSorting()">
 										{% for sorting in sorting_options %}
@@ -33,7 +34,7 @@
 					<!--category -->
 						{% if categories %}
 							<div class="widget product-category">
-								<h4 class="widget-title">Categories</h4>
+								<h4 class="widget-title">{%trans "Categories"%}</h4>
 								{% for category in categories %}
 									{% if category.productcategory_set.all %}
 										<div class="panel-group commonAccordion" id="accordion" role="tablist" aria-multiselectable="true">
@@ -87,7 +88,7 @@
 								{% endfor %}
 							</div>
 						{% else %}
-							<h4 class="alert alert-info text-center">there is no product in this field!!<h4>
+							<h4 class="alert alert-info text-center">{%trans "there is no product in this field!!"%}<h4>
 						{% endif %}
 							<!-- Modal -->
 							<!-- this part is for when you return from another page to product page show this slide like advertisement  -->
@@ -127,8 +128,8 @@
 						<ul class="pagination post-pagination">
 	
 						{% if products.has_previous %}
-							<li><a href="?page=1&sort={{ selected_sort }}&category={{ selected_category }}">ّFirst</a></li>
-							<li><a href="?page={{ products.previous_page_number }}&sort={{ selected_sort }}&category={{ selected_category }}">Prev</a></li>
+							<li><a href="?page=1&sort={{ selected_sort }}&category={{ selected_category }}">{% trans "ّFirst" %}</a></li>
+							<li><a href="?page={{ products.previous_page_number }}&sort={{ selected_sort }}&category={{ selected_category }}">{% trans "Prev" %}</a></li>
 						{% endif %}
 
 						{% if products.has_previous or products.has_next %}
@@ -142,8 +143,8 @@
 						{% endif %}
 
 						{% if products.has_next %}
-							<li><a href="?page={{ products.next_page_number }}&sort={{ selected_sort }}&category={{ selected_category }}">Next</a></li>
-							<li><a href="?page={{ products.paginator.num_pages }}&sort={{ selected_sort }}&category={{ selected_category }}">Last</a></li>
+							<li><a href="?page={{ products.next_page_number }}&sort={{ selected_sort }}&category={{ selected_category }}">{% trans "Next" %}</a></li>
+							<li><a href="?page={{ products.paginator.num_pages }}&sort={{ selected_sort }}&category={{ selected_category }}">{% trans "Last" %}</a></li>
 						{% endif %}
 						</ul>
 					</div>

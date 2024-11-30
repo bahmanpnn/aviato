@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load thumbnail %}
+{% load i18n %}
 	
 {% block header_references %}{% endblock header_references %}
 
@@ -10,10 +11,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="content">
-                        <h1 class="page-name">Checkout</h1>
+                        <h1 class="page-name">{% trans "Checkout" %}</h1>
                         <ol class="breadcrumb">
-                            <li><a href="index.html">Home</a></li>
-                            <li class="active">checkout</li>
+                            <li><a href="index.html">{% trans "Home" %}</a></li>
+                            <li class="active">{% trans "checkout" %}</li>
                         </ol>
                     </div>
                 </div>
@@ -27,33 +28,33 @@
                 <div class="row">
                     <div class="col-md-8">
                         <div class="block billing-details">
-                            <h4 class="widget-title">Billing Details</h4>
+                            <h4 class="widget-title">{% trans "Billing Details" %}</h4>
                             <form class="checkout-form" action="{% url "send-request" %}" method="post">
                                 {% csrf_token %}
                                 <div class="form-group">
-                                    <label for="full_name">Full Name</label>
+                                    <label for="full_name">{% trans "Full Name" %}</label>
                                     <input type="text" class="form-control" id="full_name" name="full_name" placeholder="">
                                 </div>
                                 <div class="form-group">
-                                    <label for="user_address">Address</label>
+                                    <label for="user_address">{% trans "Address" %}</label>
                                     <input type="text" class="form-control" id="user_address" name="user_address" placeholder="">
                                 </div>
                                 <div class="checkout-country-code clearfix">
                                 <div class="form-group">
-                                    <label for="user_post_code">Zip Code</label>
+                                    <label for="user_post_code">{% trans "Zip Code" %}</label>
                                     <input type="text" class="form-control" id="user_post_code" name="zipcode" value="">
                                 </div>
                                 <div class="form-group" >
-                                    <label for="user_city">City</label>
+                                    <label for="user_city">{% trans "City" %}</label>
                                     <input type="text" class="form-control" id="user_city" name="city" value="">
                                 </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="user_country">Country</label>
+                                    <label for="user_country">{% trans "Country" %}</label>
                                     <input type="text" class="form-control" id="user_country" name="country" placeholder="">
                                 </div>
                                 <div class='col-md-12'>
-                                    <button type="submit" class="btn btn-main mt-20 col-md-4 col-md-offset-4 offset-4">Pay</button>
+                                    <button type="submit" class="btn btn-main mt-20 col-md-4 col-md-offset-4 offset-4">{% trans "Pay" %}</button>
                                 </div>
                                 {% comment %} <a href="confirmation.html" class="btn btn-main mt-20">Pay</a> {% endcomment %}
                             </form>
@@ -62,7 +63,7 @@
                     <div class="col-md-4">
                         <div class="product-checkout-details">
                             <div class="block">
-                                <h4 class="widget-title">Order Summary</h4>
+                                <h4 class="widget-title">{% trans "Order Summary" %}</h4>
                                 {% for item in basket.order_detail.all %}
                                     <div class="media product-card">
                                         <a class="pull-left" href="product-single.html">
@@ -80,7 +81,7 @@
                                             </h4>
                                             <p class="price">{{item.count}} x ${{item.product.price}}</p>
                                             <p>
-                                                <span>Subtotal:</span>
+                                                <span>{% trans "Subtotal" %}:</span>
                                                 <span class="price">${{item.get_total_price}}</span>
                                             </p>
                                             {% comment %} <span class="remove" >Remove</span> {% endcomment %}
@@ -88,16 +89,16 @@
                                     </div>
                                 {% endfor %}
                                 <div class="discount-code">
-                                    <p>Have a discount ? <a data-toggle="modal" data-target="#coupon-modal" href="#!">enter it here</a></p>
+                                    <p>{% trans "Have a discount ? " %}<a data-toggle="modal" data-target="#coupon-modal" href="#!">{% trans "enter it here" %}</a></p>
                                 </div>
                                 <ul class="summary-prices">
                                 <li>
-                                    <span>Shipping:</span>
-                                    <span>Free</span>
+                                    <span>{% trans "Shipping" %}:</span>
+                                    <span>{% trans "Free" %}</span>
                                 </li>
                                 </ul>
                                 <div class="summary-total">
-                                <span>Total</span>
+                                <span>{% trans "Total" %}</span>
                                 <span>${{basket.get_total_amount}}</span>
                                 </div>
                                 <div class="verified-icon">
@@ -120,7 +121,7 @@
                     <div class="form-group">
                         <input class="form-control" name='code' type="text" placeholder="Enter Coupon Code">
                     </div>
-                    <button type="submit" class="btn btn-main col-md-offset-4">Apply Coupon</button>
+                    <button type="submit" class="btn btn-main col-md-offset-4">{% trans "Apply Coupon" %}</button>
                 </form>
             </div>
             </div>

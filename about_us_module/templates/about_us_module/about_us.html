@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load static %}
 {% load thumbnail %}
+{% load i18n %}
 
 
-{% block title %}about us{% endblock title %}
+{% block title %}{% trans "about us" %}{% endblock title %}
 {% block header_references %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Presentation</title>
     {% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> {% endcomment %}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -22,11 +22,11 @@
                     <img class="img-responsive" src="/static/images/about/about.jpg">
                 </div>
                 <div class="col-md-6">
-                    <h2 class="mt-40">About Our Shop</h2>
+                    <h2 class="mt-40">{% trans "About Our Shop" %}</h2>
                     <p>{{site_settings.about_us|safe}}</p>
                     
-                    <a href="{% static "resume.pdf" %}" class="btn btn-main mt-20" download> Download </a>
-                    <a href="{% url "resume" %}" class="btn btn-main mt-20">Visit Resume </a>
+                    <a href="{% static "resume.pdf" %}" class="btn btn-main mt-20" download> {% trans "Download" %} </a>
+                    <a href="{% url "resume" %}" class="btn btn-main mt-20">{% trans "Visit Resume " %}</a>
                     
                 </div>
             </div>
@@ -49,7 +49,7 @@
         <section class="team-members ">
             <div class="container">
                 <div class="row">
-                    <div class="title"><h2>Team Members</h2></div>
+                    <div class="title"><h2>{% trans "Team Members"%}</h2></div>
                 </div>
                 <div class="row">
                     {% for team_member in team_members %}
@@ -74,7 +74,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Video presentation</h2>
+                    <h2>{% trans "Video presentation"%}</h2>
                     <a style="text-decoration: none;" class="play-icon" href="" data-toggle="modal" data-target="#videoModal">
                         <i class="tf-ion-ios-play"></i>
                     </a>
@@ -88,7 +88,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="videoModalLabel">Video Presentation</h5>
+                    <h5 class="modal-title" id="videoModalLabel">{% trans "Video Presentation"%}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -96,7 +96,7 @@
                 <div class="modal-body">
                     <video controls style="width: 100%;">
                         <source src="{% static '/Feed.mp4' %}" type="video/mp4">
-                        Your browser does not support the video tag.
+                        {% trans "Your browser does not support the video tag."%}
                     </video>
                 </div>
             </div>

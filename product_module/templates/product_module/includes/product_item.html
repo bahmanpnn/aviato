@@ -1,12 +1,12 @@
 {% load poll_extras %}
 {% load thumbnail %}
-
+{% load i18n %}
 
 <div class="col-md-{{col_size}}">
     <div class="product-item">
         <div class="product-thumb">
             {% if product.discount %}
-                <span class="bage">Sale</span>
+                <span class="bage">{% trans "Sale" %}</span>
             {% endif %}
             {% thumbnail product.image "260x315" crop='center' quality=95 as im%}
                 <img class="img-responsive" src="{{im.url}}" alt="product-img" />

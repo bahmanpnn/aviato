@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% comment %} {% block title %}Office Location{% endblock title %} {% endcomment %}
 {% block header_references %}
-    <title>Office Location</title>
+    <title>{% trans "Office Location" %}</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="/static/contact_module/css/contact_us_custom.css" />
 {% endblock header_references %}
 
 {% block content %}
-    <h1>Our Office Location</h1>
+    <h1>{% trans "Our Office Location" %}</h1>
     <div id="map2"></div>
 {% endblock content %}
 

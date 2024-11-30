@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 
-{% block title %}user addresses{% endblock title %}
+
+{% block title %}{% trans "user addresses" %}{% endblock title %}
 {% block header_references %}{% endblock header_references %}
 
 {% block content %}
@@ -17,10 +19,10 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th class="text-center">Name</th>
-                      <th class="text-center">Country</th>
-                      <th class="text-center">Address</th>
-                      <th class="col-md-2 col-sm-3 text-center">Phone</th>
+                      <th class="text-center">{% trans "Name" %}</th>
+                      <th class="text-center">{% trans "Country" %}</th>
+                      <th class="text-center">{% trans "Address" %}</th>
+                      <th class="col-md-2 col-sm-3 text-center">{% trans "Phone" %}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -43,10 +45,10 @@
                   </tbody>
                 </table>
               </div>
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalNewAddress">Add New Address</button>
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalNewAddress">{% trans "Add New Address" %}</button>
               {% else %}
-              <p class="text-center">there is no address,do you want add first one?</p>
-              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalNewAddress">Add New Address</button>
+              <p class="text-center">{% trans "there is no address,do you want add first one?" %}</p>
+              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalNewAddress">{% trans "Add New Address" %}</button>
               {% endif %}
             </div>
           </div>
@@ -62,7 +64,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h3 class="modal-title text-center" id="exampleModalLabel_{{forloop.counter}}">Edit Address</h3>
+              <h3 class="modal-title text-center" id="exampleModalLabel_{{forloop.counter}}">{% trans "Edit Address"  %}</h3>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -73,8 +75,8 @@
                 {{ form | crispy}}
                 <input type="hidden" name="id_address_counter" value="{{forloop.counter}}">
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
-                  <button type="submit" class="btn btn-dark">update</button>
+                  <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">{% trans "Close"  %}</button>
+                  <button type="submit" class="btn btn-dark">{% trans "update"  %}</button>
                 </div>
               </form>
             </div>
@@ -90,7 +92,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title text-center" id="exampleModalNewAddress">Add New Address</h3>
+        <h3 class="modal-title text-center" id="exampleModalNewAddress">{% trans "Add New Address"  %}</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -101,8 +103,8 @@
           {{ new_address_form | crispy}}
           <input type="hidden" name="id_add_new_address" value="1">
           <div class="modal-footer">
-            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">Close</button>
-            <button type="submit" class="btn btn-dark">Add</button>
+            <button type="button" class="btn btn-light" data-dismiss="modal" aria-label="Close">{% trans "Close"  %}</button>
+            <button type="submit" class="btn btn-dark">{% trans "Add"  %}</button>
           </div>
         </form>
       </div>

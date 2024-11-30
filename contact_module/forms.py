@@ -1,5 +1,6 @@
 from django import forms
 from .models import ContactUs
+from django.utils.translation import gettext_lazy as _
 
 
 class ContactUsModelForm(forms.ModelForm):
@@ -10,36 +11,37 @@ class ContactUsModelForm(forms.ModelForm):
         widgets={
             'full_name':forms.TextInput(attrs={
                 'class':'form-control',
-                'placeholder':'Your Name'
+                'placeholder':_('Your Name')
             }),
             'email':forms.TextInput(attrs={
                 'class':'form-control',
-                'placeholder':'Your Email'
+                'placeholder':_('Your Email')
             }),
             'subject':forms.TextInput(attrs={
                 'class':'form-control',
-                'placeholder':'Subject'
+                'placeholder':_('Subject')
             }),
             'message':forms.Textarea(attrs={
                 'class':'form-control',
                 'rows':6,
                 'id':'message',
-                'placeholder':'Message'
+                'placeholder':_('Message')
             })
         }
 
+        message=_('please fill this field')
         error_messages={
             'full_name':{
-                'required':'please fill this field',
-                'max_length':'this field cant accept more 300 characters!! '
+                'required':message,
+                'max_length':_('this field cant accept more 300 characters!! ')
             },
             'email':{
-                'required':'please fill this field',
+                'required':message,
             },
             'subject':{
-                'required':'please fill this field',
+                'required':message,
             },
             'message':{
-                'required':'please fill this field',
+                'required':message,
             },
         }

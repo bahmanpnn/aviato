@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load poll_extras %}
+{% load i18n %}
 
-{% block title %}user dashboard{% endblock title %}
+{% block title %}{% trans "user dashboard" %}{% endblock title %}
 {% block header_references %}{% endblock header_references %}
 
 {% block content %}
@@ -21,9 +22,9 @@
 							</div>
 							<div class="media-body">
 								{% if request.user.first_name and request.user.last_name %}
-								<h2 class="media-heading">Welcome {{request.user.first_name|capfirst}} {{request.user.last_name|capfirst}}</h2>
+								<h2 class="media-heading">{% trans "Welcome" %} {{request.user.first_name|capfirst}} {{request.user.last_name|capfirst}}</h2>
 								{% else %}
-									<h2 class="media-heading">Welcome {{request.user.username}}</h2>
+									<h2 class="media-heading">{% trans "Welcome" %} {{request.user.username}}</h2>
 								{% endif %}
 								{% if request.user.about_user %}
 									<p>{{request.user.about_user}}</p>
@@ -31,18 +32,18 @@
 							</div>
 						</div>
 						<div class="total-order mt-20">
-							<h2 class="text-center">Total Orders</h2>
+							<h2 class="text-center">{% trans "Total Orders" %}</h2>
 							<hr>
 							{% if user_orders %}
 							<div class="table-responsive">
 								<table class="table">
 									<thead>
 										<tr>
-											<th class="text-center">Order ID</th>
-											<th class="text-center">Date</th>
-											<th class="text-center">Items</th>
-											<th class="text-center">Total Price</th>
-											<th class="text-center">Details</th>
+											<th class="text-center">{% trans "Order ID" %}</th>
+											<th class="text-center">{% trans "Date" %}</th>
+											<th class="text-center">{% trans "Items" %}</th>
+											<th class="text-center">{% trans "Total Price" %}</th>
+											<th class="text-center">{% trans "Details" %}</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -52,7 +53,7 @@
 												<td class="text-center">{{user_order.payment_date|date:"DATE_FORMAT"}} | {{user_order.payment_date|time:"TIME_FORMAT"}}</td>
 												<td class="text-center">{{user_order.items}}</td>
 												<td class="text-center">$ {{user_order.get_total_amount|three_digits}}</td>
-												<td class="text-center"><a href="{% url "order-list" basket_id=user_order.id %}" class="btn btn-default">click</a></td>
+												<td class="text-center"><a href="{% url "order-list" basket_id=user_order.id %}" class="btn btn-default">{% trans "click" %}</a></td>
 											
 											</tr>
 										{% endfor %}
@@ -60,7 +61,7 @@
 								</table>
 							</div>
 							{% else %}
-								<p class="text-center">You Dont Have Any Orders Yet!!</p>
+								<p class="text-center">{% trans "You Dont Have Any Orders Yet!!" %}</p>
 							{% endif %}
 						</div>
 					</div>

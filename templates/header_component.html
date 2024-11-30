@@ -18,7 +18,6 @@
                     <!-- Site Logo -->
                     <div class="logo text-center">
                         <a href="index.html">
-                            <!-- replace logo here -->
                             <svg width="135px" height="29px" viewBox="0 0 155 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink">
                                 <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40"
@@ -34,69 +33,69 @@
                     </div>
                 </div>
                 <div class="col-md-4 col-xs-12 col-sm-4">
-                    <!-- Cart -->
                     <ul class="top-menu text-right list-inline">
-                        {% if request.user.is_authenticated %}
-                            <li class="dropdown cart-nav dropdown-slide">
-                                <a href="{% url "order-basket" %}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="tf-ion-android-cart"></i>Cart
-                                </a>
-                                <div class="dropdown-menu cart-dropdown">
-                                    {% if user_basket.order_detail.all %}
-                                        {% for detail in user_basket.order_detail.all %}
-                                            {% include "order_module/includes/cart.html" %}
-                                        {% endfor %}
-                                        <div class="cart-summary">
-                                            <span>Total</span>
-                                            <span class="total-price">{{user_basket.get_total_amount|three_digits}}$</span>
-                                        </div>
-                                        <ul class="text-center cart-buttons">
-                                            <li><a href="{% url "order-basket" %}" class="btn btn-small">View Cart</a></li>
-                                            <li><a href="checkout.html" class="btn btn-small btn-solid-border">Checkout</a></li>
-                                        </ul>
-                                    {% else %}
-                                            
-                                        <div class="block text-center">
-                                            <i class="tf-ion-ios-cart-outline"></i>
-                                                <h2 class="text-center">Your basket is currently empty.</h2>
-                                                <a href="{% url "products" %}" class="btn btn-main mt-20">Return to shop</a>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </li>
+                        <!-- Cart -->
+                            {% if request.user.is_authenticated %}
+                                <li class="dropdown cart-nav dropdown-slide">
+                                    <a href="{% url "order-basket" %}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">
+                                        <i class="tf-ion-android-cart"></i>{% trans "Cart" %}
+                                    </a>
+                                    <div class="dropdown-menu cart-dropdown">
+                                        {% if user_basket.order_detail.all %}
+                                            {% for detail in user_basket.order_detail.all %}
+                                                {% include "order_module/includes/cart.html" %}
+                                            {% endfor %}
+                                            <div class="cart-summary">
+                                                <span>{% trans "Total" %}</span>
+                                                <span class="total-price">{{user_basket.get_total_amount|three_digits}}$</span>
+                                            </div>
+                                            <ul class="text-center cart-buttons">
+                                                <li><a href="{% url "order-basket" %}" class="btn btn-small">{% trans "View Cart" %}</a></li>
+                                                <li><a href="checkout.html" class="btn btn-small btn-solid-border">{% trans "Checkout" %}</a></li>
+                                            </ul>
+                                        {% else %}
+                                                
+                                            <div class="block text-center">
+                                                <i class="tf-ion-ios-cart-outline"></i>
+                                                    <h2 class="text-center">{% trans "Your basket is currently empty." %}</h2>
+                                                    <a href="{% url "products" %}" class="btn btn-main mt-20">{% trans "Return to shop" %}</a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </li>
+                            {% endif %}
                         <!-- / Cart -->
-                        {% endif %}
     
                         <!-- Search -->
-                        <li class="dropdown search dropdown-slide">
-                            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
-                                    class="tf-ion-ios-search-strong"></i> Search</a>
-                            <ul class="dropdown-menu search-dropdown">
-                                <li>
-                                    <form method="get" action="{% url "products" %}" novalidate>
-                                        {{search_form.search_field}}
-                                        {% comment %} <input type="search" class="form-control" placeholder="Search..."> {% endcomment %}
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
+                            <li class="dropdown search dropdown-slide">
+                                <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+                                        class="tf-ion-ios-search-strong"></i> {% trans "Search" %}</a>
+                                <ul class="dropdown-menu search-dropdown">
+                                    <li>
+                                        <form method="get" action="{% url "products" %}" novalidate>
+                                            {{search_form.search_field}}
+                                            {% comment %} <input type="search" class="form-control" placeholder="Search..."> {% endcomment %}
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
                         <!-- / Search -->
     
                         <!-- Languages -->
-                        <li>
-                            <form method="post" action="{% url 'set_language' %}" id="language-form">
-                                {% csrf_token %}
-                                <input name="next" type="hidden" value="{{ request.path }}">
-                                <select class="form-control" name="language" id="language" onchange="updateLanguage()">
-                                    {% get_available_languages as languages %}
-                                    {% for language_code, language_name in languages %}
-                                        <option value="{{ language_code }}" {% if selected_language == language_code %} selected {% endif %}>
-                                            {{ language_name }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </form>
-                        </li>
+                            <li>
+                                <form method="post" action="{% url 'set_language' %}" id="language-form">
+                                    {% csrf_token %}
+                                    <input name="next" type="hidden" value="{{ request.path }}">
+                                    <select class="form-control" name="language" id="language" onchange="updateLanguage()">
+                                        {% get_available_languages as languages %}
+                                        {% for language_code, language_name in languages %}
+                                            <option value="{{ language_code }}" {% if selected_language == language_code %} selected {% endif %}>
+                                                {{ language_name }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
+                            </li>
                         <!-- / Languages -->
     
                     </ul><!-- / .nav .navbar-nav .navbar-right -->
