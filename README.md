@@ -2,7 +2,7 @@
 A multi language e-commerce shop that made with django
 ## ABOUT AVIATO
 This is my last e-commerce project that i tried to do all the things i know about MVT of django.
-This project is complete just i need to work on custom admin panel module for it.if you dont want it you can remove that module from your project because its not complete.
+This project is complete just i need to work on custom admin panel module for it.if you dont want it you can remove that module(admin_panel_module) from your project because its not complete.
 so it has almost all the things you need like gateway payment,basket,blog,a little advance filtering products(sorting+category),...                        
 if you want to visit that, you can check my project on [pythonanywhere.com](https://bahmanpournazari.pythonanywhere.com/)
 
